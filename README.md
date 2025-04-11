@@ -1,9 +1,5 @@
 # dfir-installer
 
-*Note: Compared to Analysis-Laptop-Base-Setup Repo, this is lightweight*
-
-*Note2: WSL install configs are currently not supported and disabled by default*
-
 ## What is the Purpose of this Repository?
 
 Install every tool and every needed software for your DFIR workstation. This includes everything after installing Windows (and update) Post-Process steps recommended by me 
