@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Column>
+	<Title>(4625) Logon Type | Account Name | Failure Information | Logon Source</Title>
+	<EventIDs>4625</EventIDs>
+	<Value>{Logon Type} | {Account For Which Logon Failed\Account Name} | {Failure Information\Failure Reason} | {Network Information\Workstation Name} ({Network Information\Source Network Address})</Value>
+</Column>

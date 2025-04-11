@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Column>
+	<Title>(4778) Account Name | Session Name | Client Name | Client Address</Title>
+	<EventIDs>4778</EventIDs>
+	<Value>{Subject\Account Name} | {Session\Session Name} | {Additional Information\Client Name} | {Additional Information\Client Address}</Value>
+</Column>

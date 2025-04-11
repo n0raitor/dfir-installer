@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UserData>
+	<CustomColumns>
+		<Col0>
+			<Title>(4624) Logon Type | Logon Account| Logon ID | Logon Source</Title>
+			<EventIDs>4624</EventIDs>
+			<Value>{Logon Information\Logon Type} | {New Logon\Account Name} | {New Logon\Logon ID} | {Network Information\Workstation Name} ({Network Information\Source Network Address})</Value>
+		</Col0>
+		<Col1>
+			<Title>(4776) Logon Account | Source Workstation</Title>
+			<EventIDs>4776</EventIDs>
+			<Value>{Logon Account} | {Source Workstation}</Value>
+		</Col1>
+		<Col2>
+			<Title>(4762) Account Name</Title>
+			<EventIDs>4672</EventIDs>
+			<Value>{Subject\Account Name}</Value>
+		</Col2>
+		<Col3>
+			<Title>(5140) Account Name | Source | Share name | Share path</Title>
+			<EventIDs>5140</EventIDs>
+			<Value>{Subject\Account Name} | {Network Information\Source Address} | {Share Information\Share Name} | {Share Information\Share Path}</Value>
+		</Col3>
+		<Col4>
+			<Title>(4648) Old Account| New Account| Target | Network Address</Title>
+			<EventIDs>4648</EventIDs>
+			<Value>{Subject\Account Name} | {Account Whose Credentials Were Used\Account Name} | {Target Server\Target Server Name} | {Network Information\Network Address}</Value>
+		</Col4>
+	</CustomColumns>
+</UserData>

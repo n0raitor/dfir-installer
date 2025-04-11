@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Column>
+	<Title>User name</Title>
+	<EventIDs>4624,4625</EventIDs>
+	<Value>{PARAM[7]}\{PARAM[6]}</Value>
+</Column>
