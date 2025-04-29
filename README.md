@@ -128,7 +128,7 @@ Other Update features will get added in the future :)
 
 ## Other Tools in this Repo (Tools folder)
 **GUI Config Builder**
-dfir-installer-selector.exe
+dfir-installer-selector.exe (https://github.com/n0raitor/dfir-installer-selector)
 
 **Scripts/**
 Some Scripts that could be used to install WSL supported Tools in Ubuntu LTS 22.04.
