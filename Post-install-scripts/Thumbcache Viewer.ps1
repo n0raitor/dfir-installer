@@ -5,12 +5,18 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
     New-Item -Path "C:\DFIR\_Tools\Artifact Tools" -ItemType Directory
 }
 
-# Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Thumbcache Viewer") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Thumbcache Viewer" -Force
+$sourceLnk = "C:\Users\NormanSchmidt\AppData\Local\Microsoft\WinGet\Links\Thumbcache Viewer.lnk"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.lnk"
+
+if (Test-Path -Path "C:\Users\NormanSchmidt\AppData\Local\Microsoft\WinGet\Links") {
+    if (Test-Path -Path $sourceLnk) {
+        # Copy the .lnk file if it exists
+        Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    } else {
+        Write-Host "Shortcut not found: $sourceLnk"
+    }
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Thumbcache Viewer"
+    Write-Host "WinGet packages path does not exist."
 }
 
 # Create symlink

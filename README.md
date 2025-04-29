@@ -62,6 +62,10 @@ Download the latest Release of this Repository
 
 Run the *dfir-install.ps1* in **Admin Powershell Console** as shown below.
 
+**NOTE:** For Installation Popups, always use C:\DFIR\<ToolName> where ToolName is the Name in the Terminal After `Installing: ToolName`
+
+This ensures the right shortcut location!
+
 **Configs**
 
 The Configs are in the "Configs" folder of the root repository. The installer will identify every .conf file during runtime as a valid argument for the *-config* command.

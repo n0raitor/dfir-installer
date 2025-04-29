@@ -131,7 +131,6 @@ function Install-Program-From-Exe {
         Write-Error "An error occurred while installing $ProgramName : $_"
     }
 }
-
 function Download-And-Extract {
     param (
         [string]$url,         # URL to download from
@@ -299,7 +298,7 @@ function init-setup {
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_DFIR" -Target "C:\DFIR"
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-bin" -Target "C:\ProgramData\chocolatey\bin"
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_winget-packages" -Target "C:\Users\norman\AppData\Local\Microsoft\WinGet\Packages"
+    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_winget-packages" -Target "C:\Users\NormanSchmidt\AppData\Local\Microsoft\WinGet\Links"
     
     # Create the flag file indicating setup has run
     New-Item -Path "C:\DFIR\DFIR-Installer.flag" -ItemType File -Force
