@@ -296,9 +296,10 @@ function init-setup {
     #New-Item -Path "c:\DFIR" -Name "_GitHub" -ItemType "directory"
     New-Item -ItemType SymbolicLink -Path "C:\Users\$Usern\Desktop\Tools" -Target "C:\DFIR\_Tools"
     #New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_GitHub" -Target "C:\DFIR\_GitHub"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\DFIR" -Target "C:\DFIR"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\choco-bin" -Target "C:\ProgramData\chocolatey\bin"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\choco-lib" -Target "C:\ProgramData\chocolatey\lib"
+    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_DFIR" -Target "C:\DFIR"
+    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-bin" -Target "C:\ProgramData\chocolatey\bin"
+    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
+    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_winget-packages" -Target "C:\Users\norman\AppData\Local\Microsoft\WinGet\Packages"
     
     # Create the flag file indicating setup has run
     New-Item -Path "C:\DFIR\DFIR-Installer.flag" -ItemType File -Force
