@@ -4,13 +4,15 @@
 if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
     New-Item -Path "C:\DFIR\_Tools\Artifact Tools" -ItemType Directory
 }
-
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\HxD") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\HxD.lnk" -ItemType SymbolicLink -Target "C:\DFIR\HxD" -Force
+$sourceLnk = "C:\Program Files\HxD\HxD.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\HxD.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\HxD"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

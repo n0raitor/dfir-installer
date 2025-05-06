@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\System Utilities")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\CrystalDiskInfo") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\System Utilities\CrystalDiskInfo.lnk" -ItemType SymbolicLink -Target "C:\DFIR\CrystalDiskInfo" -Force
+$sourceLnk = "C:\Program Files\CrystalDiskInfo\DiskInfo64.exe"
+$destinationLnk = "C:\DFIR\_Tools\System Utilities\CrystalDiskInfo.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\CrystalDiskInfo"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

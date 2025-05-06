@@ -5,10 +5,10 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
     New-Item -Path "C:\DFIR\_Tools\Artifact Tools" -ItemType Directory
 }
 
-$sourceLnk = "C:\Users\NormanSchmidt\AppData\Local\Microsoft\WinGet\Links\Thumbcache Viewer.lnk"
+$sourceLnk = "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links\Thumbcache Viewer.lnk"
 $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.lnk"
 
-if (Test-Path -Path "C:\Users\NormanSchmidt\AppData\Local\Microsoft\WinGet\Links") {
+if (Test-Path -Path "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links") {
     if (Test-Path -Path $sourceLnk) {
         # Copy the .lnk file if it exists
         Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force

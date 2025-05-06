@@ -6,11 +6,15 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Offensive")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\BurpSuite-Community") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Offensive\BurpSuite-Community.lnk" -ItemType SymbolicLink -Target "C:\DFIR\BurpSuite-Community" -Force
+# Check if the tool directory exists
+$sourceLnk = "C:\Program Files\BurpSuiteCommunity\BurpSuiteCommunity.exe"
+$destinationLnk = "C:\DFIR\_Tools\Offensive\BurpSuiteCommunity.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\BurpSuite-Community"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
