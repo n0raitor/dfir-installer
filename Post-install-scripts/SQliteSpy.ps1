@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Other")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\SQliteSpy") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Other\SQliteSpy.lnk" -ItemType SymbolicLink -Target "C:\DFIR\SQliteSpy" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\SQLiteSpy.exe"
+$destinationLnk = "C:\DFIR\_Tools\Other\SQLiteSpy.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\SQliteSpy"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

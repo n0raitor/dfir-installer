@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Network")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Fakenet") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Network\Fakenet.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Fakenet" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\FakeNet.exe"
+$destinationLnk = "C:\DFIR\_Tools\Network\FakeNet.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Fakenet"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

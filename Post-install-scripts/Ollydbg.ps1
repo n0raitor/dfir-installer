@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Debugger")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Ollydbg") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Debugger\Ollydbg.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Ollydbg" -Force
+$sourceLnk = "C:\Program Files (x86)\OllyDbg\OLLYDBG.exe"
+$destinationLnk = "C:\DFIR\_Tools\Debugger\OLLYDBG.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Ollydbg"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

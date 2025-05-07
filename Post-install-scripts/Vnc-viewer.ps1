@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Other")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Vnc-viewer") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Other\Vnc-viewer.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Vnc-viewer" -Force
+$sourceLnk = "C:\Program Files\RealVNC\VNC Viewer\vncviewer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Other\vncviewer.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Vnc-viewer"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Browser Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\BrowsingHistoryView") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Browser Tools\BrowsingHistoryView.lnk" -ItemType SymbolicLink -Target "C:\DFIR\BrowsingHistoryView" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\BrowsingHistoryView.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artif\BrowsingHistoryView.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\BrowsingHistoryView"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

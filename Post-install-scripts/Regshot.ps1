@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Registry Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Regshot") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Registry Tools\Regshot.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Regshot" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\Regshot-x64-ANSI.exe"
+$destinationLnk = "C:\DFIR\_Tools\Registry Tools\Regshot-x64-ANSI.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Regshot"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

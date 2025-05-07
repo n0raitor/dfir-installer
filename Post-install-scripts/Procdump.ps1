@@ -4,13 +4,15 @@
 if (!(Test-Path -Path "C:\DFIR\_Tools\Debugger")) {
     New-Item -Path "C:\DFIR\_Tools\Debugger" -ItemType Directory
 }
-
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Procdump") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Debugger\Procdump.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Procdump" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\procdump.exe"
+$destinationLnk = "C:\DFIR\_Tools\Debugger\procdump.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Procdump"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

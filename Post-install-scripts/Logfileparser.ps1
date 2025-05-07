@@ -6,11 +6,15 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\NTFS Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Logfileparser") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\NTFS Tools\Logfileparser.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Logfileparser" -Force
+# Check if the tool directory exists
+$sourceLnk = "C:\ProgramData\chocolatey\bin\LogFileParser.exe"
+$destinationLnk = "C:\DFIR\_Tools\NTFS Tools\LogFileParser.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Logfileparser"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

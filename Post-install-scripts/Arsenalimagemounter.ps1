@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Acquisition Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Arsenalimagemounter") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Acquisition Tools\Arsenalimagemounter.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Arsenalimagemounter" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\ArsenalImageMounter.exe"
+$destinationLnk = "C:\DFIR\_Tools\Acquisition Tools\ArsenalImageMounter.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Arsenalimagemounter"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

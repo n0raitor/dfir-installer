@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Email Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Mailviewer") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Email Tools\Mailviewer.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Mailviewer" -Force
+$sourceLnk = "C:\Program Files\CoolUtils\CoolUtils Mail Viewer\MailViewer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Email Tools\MailViewer.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Mailviewer"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

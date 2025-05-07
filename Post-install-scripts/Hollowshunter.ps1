@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\IOC Scanner")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Hollowshunter") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\IOC Scanner\Hollowshunter.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Hollowshunter" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\hollows_hunter.exe"
+$destinationLnk = "C:\DFIR\_Tools\IOC Scanner\hollows_hunter.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Hollowshunter"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

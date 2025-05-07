@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Dcode") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Dcode.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Dcode" -Force
+$sourceLnk = "C:\Program Files (x86)\Digital Detective\DCode v5\DCode.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\DCode.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Dcode"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

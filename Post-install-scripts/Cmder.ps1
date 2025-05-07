@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Terminal")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Cmder") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Terminal\Cmder.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Cmder" -Force
+$sourceLnk = "C:\tools\Cmder\Cmder.exe"
+$destinationLnk = "C:\DFIR\_Tools\Terminal\Cmder.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Cmder"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

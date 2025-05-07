@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Network")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Vt-cli") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Network\Vt-cli.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Vt-cli" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\vt.exe"
+$destinationLnk = "C:\DFIR\_Tools\Network\VirusTotalCLI.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Vt-cli"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

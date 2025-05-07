@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Malware Analysis")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Pesieve") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Malware Analysis\Pesieve.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Pesieve" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\pe-sieve.exe"
+$destinationLnk = "C:\DFIR\_Tools\Malware Analysis\pe-sieve.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Pesieve"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

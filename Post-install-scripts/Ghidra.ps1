@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\SRE")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Ghidra") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\SRE\Ghidra.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Ghidra" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\lib\ghidra\tools\ghidra_11.3.2_PUBLIC\ghidraRun.bat"
+$destinationLnk = "C:\DFIR\_Tools\SRE\Ghidra.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Ghidra"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Pestudio") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Pestudio.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Pestudio" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\pestudio.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\pestudio.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Pestudio"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

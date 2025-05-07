@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\IOC Scanner")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Capa") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\IOC Scanner\Capa.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Capa" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\capa.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artif\capa.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Capa"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Bulk-extractor") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Bulk-extractor.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Bulk-extractor" -Force
+$sourceLnk = "C:\Program Files (x86)\Bulk Extractor 1.5.5\64-bit\BEViewerLauncher.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\Bulk Extractor GUI.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Bulk-extractor"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

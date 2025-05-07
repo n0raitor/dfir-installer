@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Photorec") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Photorec.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Photorec" -Force
+$sourceLnk = "C:\ProgramData\chocolatey\bin\photorec_win.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\photorec_win.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Photorec"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

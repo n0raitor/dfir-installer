@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\System Utilities")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Processhacker") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\System Utilities\Processhacker.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Processhacker" -Force
+$sourceLnk = "C:\Program Files\Process Hacker 2\ProcessHacker.exe"
+$destinationLnk = "C:\DFIR\_Tools\System Utilities\ProcessHacker.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Processhacker"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
