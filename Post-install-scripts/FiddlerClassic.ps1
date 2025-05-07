@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Network")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\FiddlerClassic") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Network\FiddlerClassic.lnk" -ItemType SymbolicLink -Target "C:\DFIR\FiddlerClassic" -Force
+$sourceLnk = "C:\Users\N0\AppData\Local\Programs\Fiddler\Fiddler.exe"
+$destinationLnk = "C:\DFIR\_Tools\Network\Fiddler.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\FiddlerClassic"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

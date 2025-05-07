@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Debugger")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\WinDbg") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Debugger\WinDbg.lnk" -ItemType SymbolicLink -Target "C:\DFIR\WinDbg" -Force
+$sourceLnk = "C:\Users\N0\AppData\Local\Microsoft\WindowsApps\Microsoft.WinDbg_8wekyb3d8bbwe\WinDbgX.exe"
+$destinationLnk = "C:\DFIR\_Tools\Debugger\WinDbgX.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\WinDbg"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

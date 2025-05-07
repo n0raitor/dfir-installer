@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Inteligence")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Maltego") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Inteligence\Maltego.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Maltego" -Force
+$sourceLnk = "C:\Program Files (x86)\Paterva\Maltego\v4.9.2\bin\maltego.exe"
+$destinationLnk = "C:\DFIR\_Tools\Inteligence\Maltego.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Maltego"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink

@@ -18,7 +18,7 @@ if (Test-Path -Path "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links") {
 OR:
 
 # Check if the tool directory exists
-$sourceLnk = ".exe"
+$sourceLnk = "\"
 $destinationLnk = "C:\DFIR\_Tools\Artif\010Editor.lnk"
 
 if (Test-Path -Path $sourceLnk) {

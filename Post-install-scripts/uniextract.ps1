@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\SRE")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\uniextract") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\SRE\uniextract.lnk" -ItemType SymbolicLink -Target "C:\DFIR\uniextract" -Force
+$sourceLnk = "C:\Program Files (x86)\Universal Extractor\UniExtract.exe"
+$destinationLnk = "C:\DFIR\_Tools\SRE\UniExtract.lnk"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the .lnk file if it exists
+    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\uniextract"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
