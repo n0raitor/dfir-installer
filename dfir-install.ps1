@@ -298,8 +298,7 @@ function init-setup {
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_DFIR" -Target "C:\DFIR"
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-bin" -Target "C:\ProgramData\chocolatey\bin"
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_winget-packages" -Target "C:\Users\NormanSchmidt\AppData\Local\Microsoft\WinGet\Links"
-    
+       
     # Create the flag file indicating setup has run
     New-Item -Path "C:\DFIR\DFIR-Installer.flag" -ItemType File -Force
 
@@ -351,6 +350,20 @@ function post-processing {
         $destinationPath = Join-Path -Path $targetFolder -ChildPath $file.Name
         Move-Item -Path $file.FullName -Destination $destinationPath -Force
         Write-Host "Datei verschoben: $($file.Name)"
+    }
+
+    $targetPath = "C:\Users\$Usern\AppData\Local\Microsoft\WinGet\Links"
+    $linkPath = "C:\DFIR\_Tools\_winget-packages"
+
+    if (Test-Path -Path $targetPath) {
+        if (-not (Test-Path -Path $linkPath)) {
+            New-Item -ItemType SymbolicLink -Path $linkPath -Target $targetPath
+            Write-Host "Symbolic link created."
+        } else {
+            Write-Host "Link path already exists: $linkPath"
+        }
+    } else {
+        Write-Host "Target path does not exist: $targetPath"
     }
 
 
