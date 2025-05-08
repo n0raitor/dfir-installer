@@ -148,7 +148,7 @@ function Download-And-Extract {
     $fileName = [System.IO.Path]::GetFileName($url)
     $filePath = Join-Path -Path $destination -ChildPath $fileName
     Write-Host "Downloading file from $url to $filePath..."
-    Invoke-WebRequest -Uri $url -OutFile $filePath
+    Start-BitsTransfer -Source $url -Destination $filePath
 
     # Extract the file if it's a ZIP or 7z file
     if ($fileName.EndsWith(".zip")) {
