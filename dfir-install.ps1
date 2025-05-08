@@ -153,7 +153,7 @@ function Download-And-Extract {
     # Extract the file if it's a ZIP or 7z file
     if ($fileName.EndsWith(".zip")) {
         Write-Host "Extracting ZIP file..."
-        Expand-Archive -LiteralPath  $filePath -DestinationPath $destination -Force
+        & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
         #Delete Archive
         Remove-Item $filePath -Force
     } elseif ($fileName.EndsWith(".7z")) {
