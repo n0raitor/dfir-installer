@@ -148,7 +148,12 @@ function Download-And-Extract {
     $fileName = [System.IO.Path]::GetFileName($url)
     $filePath = Join-Path -Path $destination -ChildPath $fileName
     Write-Host "Downloading file from $url to $filePath..."
-    Start-BitsTransfer -Source $url -Destination $filePath
+    $validNames = @("KAPE.zip", "NirSoft-Everything.zip", "ArtiFast.zip", "VMware-workstation-full-17.6.1-24319023.exe", "binaryninja_free_win64.exe", "metasploitframework-latest.msi")
+	if ($validNames -contains $fileName) {
+		Start-BitsTransfer -Source $url -Destination $filePath
+	} else {
+		Invoke-WebRequest -Uri $url -OutFile $filePath -UseBasicParsing
+	}
 
     # Extract the file if it's a ZIP or 7z file
     if ($fileName.EndsWith(".zip")) {
@@ -627,6 +632,10 @@ function Main {
     # 7z installer  ###############
     ###############################
     install-winget "7zip.7zip"
+
+    # Install needed Requirements
+    winget install  Microsoft.DotNet.DesktopRuntime.9
+    winget install Microsoft.DotNet.SDK.9
 
     ###############################
     # INSTALLATION ###############
