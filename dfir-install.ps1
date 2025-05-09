@@ -636,6 +636,8 @@ function Main {
     # Install needed Requirements
     winget install  Microsoft.DotNet.DesktopRuntime.9
     winget install Microsoft.DotNet.SDK.9
+    winget install Microsoft.VisualStudio.2022.BuildTools
+    winget install Microsoft.VisualStudio.2022.Community
 
     ###############################
     # INSTALLATION ###############
