@@ -10,8 +10,14 @@ $sourceLnk = "C:\ProgramData\chocolatey\bin\ArsenalImageMounter.exe"
 $destinationLnk = "C:\DFIR\_Tools\Acquisition Tools\ArsenalImageMounter.lnk"
 
 if (Test-Path -Path $sourceLnk) {
-    # Copy the .lnk file if it exists
-    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    $WshShell = New-Object -ComObject WScript.Shell
+    $shortcut = $WshShell.CreateShortcut($shortcutPath)
+    $shortcut.TargetPath = $exePath
+    $shortcut.WorkingDirectory = Split-Path $exePath
+    $shortcut.WindowStyle = 1
+    $shortcut.Description = ""
+    $shortcut.Save()
+    Write-Host "Shortcut created at: $shortcutPath"
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
