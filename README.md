@@ -93,13 +93,13 @@ Pipeline Folder: Future planed configs
 **Run the Script with the config name (without .conf) as this:**
 
 ```ps1
-."C:\Program Files\PowerShell\7\pwsh.exe" .\dfir-install.ps1 -config <CONFIG-NAME>
+& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config <CONFIG-NAME>
 ```
 
 For Debugging info use *-Debug*:
 
 ```ps1
-."C:\Program Files\PowerShell\7\pwsh.exe" .\dfir-install.ps1 -config CONFIG-NAME -Debug
+& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config CONFIG-NAME -Debug
 ```
 
 **Post Installation Steps**
