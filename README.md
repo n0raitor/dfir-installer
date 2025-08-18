@@ -323,7 +323,7 @@ MemProcFS
 Merlin
 Metasploit Framework
 MFCMAPI
-MFT Browser
+MFTBrowser
 MicroBurst
 Mimikatz
 MSGWalker
