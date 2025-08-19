@@ -164,7 +164,11 @@ function Download-And-Extract {
     } elseif ($fileName.EndsWith(".7z")) {
         Write-Host "Extracting 7z file..."
         # Assuming 7zip is installed and its path is available in the system's PATH environment variable
-        & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
+        if ($filePath -match "merlin") {
+            & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -pmerlin -y
+        } else {
+            & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
+        }
         #Delete Archive
         Remove-Item $filePath -Force
     } elseif ($fileName.EndsWith(".tgz") -or $fileName.EndsWith(".tar.gz")) {
