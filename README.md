@@ -266,7 +266,7 @@ google-fs-recover
 Hashcat
 HashMyFiles
 HashSuite
-Hasleo Data Recovery
+HasleoDataRecovery
 Hasleo-Backup-Suite
 Hayabusa
 Hexinator
@@ -313,7 +313,7 @@ Mailviewer
 Maltego
 Malware-Analysis-Scripts
 malware-jail
-Mandiant IOCe
+Mandiant_IOCe
 MarkText
 MemoryBaseliner
 MemoryDumperx64

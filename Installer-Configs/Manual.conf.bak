@@ -2,12 +2,12 @@ VMware Workstation | .\Binaries\VMware-workstation-full-17.6.1-24319023.exe
 DeepSound | .\Binaries\DeepSoundSetup.msi
 Event Log Explorer | .\Binaries\EventLogExplorer_setup.exe
 Event Log Explorer_Standard | .\Binaries\EventLogExplorer_setup_standard.exe
-Hasleo Data Recovery | .\Binaries\Hasleo Data Recovery.exe
+HasleoDataRecovery | .\Binaries\HasleoDataRecovery.exe
 Event Log Explorer_Forensic | .\Binaries\elex_fe_setup.exe
 Free Kernel OST Viewer | .\Binaries\freekernelostviewer.exe
 Free Kernel PST Viewer | .\Binaries\freekernelpstviewer.exe
 DotNet Framework 3.5 | .\Binaries\dotNetFx35setup.exe
-Mandiant IOCe | .\Binaries\Mandiant IOCe.msi
+Mandiant_IOCe | .\Binaries\Mandiant_IOCe.msi
 ReCsvEdit | .\Binaries\ReCsvEdit_Installer_0.98.5.exe
 Redline | .\Binaries\Redline-2.0.msi
 VC Redistributable x64 | .\Binaries\vc_redist.x64.exe
