@@ -7,7 +7,7 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Browser Tools")) {
 
 # Check if the tool directory exists
 $sourceLnk = "C:\ProgramData\chocolatey\bin\BrowsingHistoryView.exe"
-$destinationLnk = "C:\DFIR\_Tools\Artif\BrowsingHistoryView.exe"
+$destinationLnk = "C:\DFIR\_Tools\Browser Tools\BrowsingHistoryView.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists

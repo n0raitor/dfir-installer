@@ -7,7 +7,7 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\IOC Scanner")) {
 
 # Check if the tool directory exists
 $sourceLnk = "C:\ProgramData\chocolatey\bin\capa.exe"
-$destinationLnk = "C:\DFIR\_Tools\Artif\capa.exe"
+$destinationLnk = "C:\DFIR\_Tools\IOC Scanner\capa.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
