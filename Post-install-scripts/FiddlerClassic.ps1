@@ -1,4 +1,7 @@
 # PowerShell PostProcess script for FiddlerClassic of Category C:\DFIR\_Tools\Network
+param(
+    [string]$Usern
+)
 
 # Check if the category path exists, if not, create it
 if (!(Test-Path -Path "C:\DFIR\_Tools\Network")) {
@@ -6,7 +9,7 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Network")) {
 }
 
 # Check if the tool directory exists
-$sourceLnk = "C:\Users\N0\AppData\Local\Programs\Fiddler\Fiddler.exe"
+$sourceLnk = "C:\Users\$Usern\AppData\Local\Programs\Fiddler\Fiddler.exe"
 $destinationLnk = "C:\DFIR\_Tools\Network\Fiddler.exe"
 
 if (Test-Path -Path $sourceLnk) {

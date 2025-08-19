@@ -1,4 +1,7 @@
 # PowerShell PostProcess script for WinDbg of Category C:\DFIR\_Tools\Debugger
+param(
+    [string]$Usern
+)
 
 # Check if the category path exists, if not, create it
 if (!(Test-Path -Path "C:\DFIR\_Tools\Debugger")) {
@@ -6,7 +9,7 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Debugger")) {
 }
 
 # Check if the tool directory exists
-$sourceLnk = "C:\Users\N0\AppData\Local\Microsoft\WindowsApps\Microsoft.WinDbg_8wekyb3d8bbwe\WinDbgX.exe"
+$sourceLnk = "C:\Users\$Usern\AppData\Local\Microsoft\WindowsApps\Microsoft.WinDbg_8wekyb3d8bbwe\WinDbgX.exe"
 $destinationLnk = "C:\DFIR\_Tools\Debugger\WinDbgX.exe"
 
 if (Test-Path -Path $sourceLnk) {

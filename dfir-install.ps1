@@ -707,7 +707,7 @@ function Main {
         if (Test-Path $postInstallScriptPath) {
             Write-Host "Running post-install script for $toolName..."
             try {
-                & $postInstallScriptPath
+                & $postInstallScriptPath $Usern
             } catch {
                 Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
             }

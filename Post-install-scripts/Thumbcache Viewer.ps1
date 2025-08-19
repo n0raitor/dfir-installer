@@ -1,14 +1,17 @@
 # PowerShell PostProcess script for Thumbcache Viewer of Category C:\DFIR\_Tools\Artifact Tools
+param(
+    [string]$Usern
+)
 
 # Check if the category path exists, if not, create it
 if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
     New-Item -Path "C:\DFIR\_Tools\Artifact Tools" -ItemType Directory
 }
 
-$sourceLnk = "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links\Thumbcache Viewer.exe"
+$sourceLnk = "C:\Users\$Usern\AppData\Local\Microsoft\WinGet\Links\Thumbcache Viewer.exe"
 $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.exe"
 
-if (Test-Path -Path "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links") {
+if (Test-Path -Path "C:\Users\$Usern\AppData\Local\Microsoft\WinGet\Links") {
     if (Test-Path -Path $sourceLnk) {
         # Copy the  file if it exists
         New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
