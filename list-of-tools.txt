@@ -115,8 +115,8 @@ google-fs-recover
 Hashcat
 HashMyFiles
 HashSuite
-HasleoDataRecovery
 Hasleo-Backup-Suite
+HasleoDataRecovery
 Hayabusa
 Hexinator
 Highlighter
@@ -137,12 +137,12 @@ InstalledDriversList
 InstalledPackagesView
 IrfanView
 iTopEasyDesktop
-JavaDecompilerGUI
 java-deobfuscator
+JavaDecompilerGUI
 JDownloader
 JoakimSchichtTools
-KaliLinux
 kali-windows-binaries
+KaliLinux
 Kansa
 KANSA-PP
 KAPE
@@ -238,9 +238,9 @@ PSDecode
 PSTWalker
 PyCharmCommunityEdition
 pyinstxtractor
+Python-Launcher
 Python3.11
 Python3.12.9
-Python-Launcher
 qBittorrent
 qFlipper
 Quickhash-GUI
@@ -278,8 +278,8 @@ SoundVolumeView
 SpaceSniffer
 SpyStudio
 Sqlcmd
-Sqlitebrowser
 sqlite-dissect
+Sqlitebrowser
 SQliteSpy
 SQLRecon
 srum-dump
@@ -293,9 +293,9 @@ TcpLogView
 Telnet
 Temurin
 Testdisk
-TimeApp
 Thumbcache Viewer
 Thumbs Viewer
+TimeApp
 Tor-browser
 TotalRegistry
 TurnedOnTimesView
