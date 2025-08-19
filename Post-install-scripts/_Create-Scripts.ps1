@@ -31,13 +31,13 @@ if (!(Test-Path -Path "$CategoryPath")) {
 # Check if the tool directory exists
 if (Test-Path -Path "$toolDir") {
     # Create symlink if tool directory exists
-    New-Item -Path "$categoryPath\$toolName.lnk" -ItemType SymbolicLink -Target "$toolDir" -Force
+    New-Item -Path "$categoryPath\$toolName" -ItemType SymbolicLink -Target "$toolDir" -Force
 } else {
     Write-Host "Tool directory does not exist: $toolDir"
 }
 
 # Create symlink
-#New-Item -Path "$categoryPath\$toolName.lnk" -ItemType SymbolicLink -Target "C:\DFIR\$toolName\$toolName.exe" -Force
+#New-Item -Path "$categoryPath\$toolName.exe" -ItemType SymbolicLink -Target "C:\DFIR\$toolName\$toolName.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\$categoryName"

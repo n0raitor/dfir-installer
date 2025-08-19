@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\SRE")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\Kernel Mode Driver Loader") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\SRE\Kernel Mode Driver Loader.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Kernel Mode Driver Loader" -Force
+    New-Item -Path "C:\DFIR\_Tools\SRE\Kernel Mode Driver Loader" -ItemType SymbolicLink -Target "C:\DFIR\Kernel Mode Driver Loader" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\Kernel Mode Driver Loader"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\SRE\Kernel Mode Driver Loader.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Kernel Mode Driver Loader\Kernel Mode Driver Loader.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\SRE\Kernel Mode Driver Loader" -ItemType SymbolicLink -Target "C:\DFIR\Kernel Mode Driver Loader\Kernel Mode Driver Loader.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\SRE"

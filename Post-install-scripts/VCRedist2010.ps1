@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Frameworks")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\VCRedist2010") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Frameworks\VCRedist2010.lnk" -ItemType SymbolicLink -Target "C:\DFIR\VCRedist2010" -Force
+    New-Item -Path "C:\DFIR\_Tools\Frameworks\VCRedist2010" -ItemType SymbolicLink -Target "C:\DFIR\VCRedist2010" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\VCRedist2010"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Frameworks\VCRedist2010.lnk" -ItemType SymbolicLink -Target "C:\DFIR\VCRedist2010\VCRedist2010.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Frameworks\VCRedist2010" -ItemType SymbolicLink -Target "C:\DFIR\VCRedist2010\VCRedist2010.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Frameworks"

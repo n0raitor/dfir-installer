@@ -14,7 +14,7 @@ if (Test-Path -Path "C:\DFIR\MFTBrowser") {
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\MFTBrowser.lnk" -ItemType SymbolicLink -Target "C:\DFIR\MFTBrowser\MFTBrowser.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\MFTBrowser" -ItemType SymbolicLink -Target "C:\DFIR\MFTBrowser\MFTBrowser.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Artifact Tools"

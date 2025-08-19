@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\SRE")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\pkg-unpacker") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\SRE\pkg-unpacker.lnk" -ItemType SymbolicLink -Target "C:\DFIR\pkg-unpacker" -Force
+    New-Item -Path "C:\DFIR\_Tools\SRE\pkg-unpacker" -ItemType SymbolicLink -Target "C:\DFIR\pkg-unpacker" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\pkg-unpacker"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\SRE\pkg-unpacker.lnk" -ItemType SymbolicLink -Target "C:\DFIR\pkg-unpacker\pkg-unpacker.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\SRE\pkg-unpacker" -ItemType SymbolicLink -Target "C:\DFIR\pkg-unpacker\pkg-unpacker.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\SRE"

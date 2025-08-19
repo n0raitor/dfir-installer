@@ -374,7 +374,7 @@ function post-processing {
 
     # ### Create Powershell Admin Prompt LNK
     # # Define the directory and shortcut name
-    # $ShortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("Desktop"), "PowerShell Admin Prompt.lnk")
+    # $ShortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("Desktop"), "PowerShell Admin Prompt")
     # # Create a new WScript.Shell COM object
     # $WScriptShell = New-Object -ComObject WScript.Shell
     # # Create a shortcut object
@@ -489,7 +489,7 @@ function install-copy {
     Copy-Item -Path $Path_To_Portable -Destination $Copy_Path -Recurse
     #& "$_" | Out-Null
     $LNK_IN = $INSTALL_DIRECTORY + $Name_of_LNK + "\" + $Path_To_EXE
-    $LNK_OUT = $LNK_FOLDER + $Name_of_LNK      # + ".lnk"
+    $LNK_OUT = $LNK_FOLDER + $Name_of_LNK      # + ""
     New-Item -ItemType SymbolicLink -Path $LNK_OUT -Target $LNK_IN
     Write-Host "INSTALLED"
 }

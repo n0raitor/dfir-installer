@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Offensive")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\sliver") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Offensive\sliver.lnk" -ItemType SymbolicLink -Target "C:\DFIR\sliver" -Force
+    New-Item -Path "C:\DFIR\_Tools\Offensive\sliver" -ItemType SymbolicLink -Target "C:\DFIR\sliver" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\sliver"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Offensive\sliver.lnk" -ItemType SymbolicLink -Target "C:\DFIR\sliver\sliver.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Offensive\sliver" -ItemType SymbolicLink -Target "C:\DFIR\sliver\sliver.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Offensive"

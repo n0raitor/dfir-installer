@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Debugger")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\edb-debugger") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Debugger\edb-debugger.lnk" -ItemType SymbolicLink -Target "C:\DFIR\edb-debugger" -Force
+    New-Item -Path "C:\DFIR\_Tools\Debugger\edb-debugger" -ItemType SymbolicLink -Target "C:\DFIR\edb-debugger" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\edb-debugger"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Debugger\edb-debugger.lnk" -ItemType SymbolicLink -Target "C:\DFIR\edb-debugger\edb-debugger.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Debugger\edb-debugger" -ItemType SymbolicLink -Target "C:\DFIR\edb-debugger\edb-debugger.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Debugger"

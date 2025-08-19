@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Event Log Tools")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\Event Log Explorer_Standard") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Event Log Tools\Event Log Explorer_Standard.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Event Log Explorer_Standard" -Force
+    New-Item -Path "C:\DFIR\_Tools\Event Log Tools\Event Log Explorer_Standard" -ItemType SymbolicLink -Target "C:\DFIR\Event Log Explorer_Standard" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\Event Log Explorer_Standard"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Event Log Tools\Event Log Explorer_Standard.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Event Log Explorer_Standard\Event Log Explorer_Standard.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Event Log Tools\Event Log Explorer_Standard" -ItemType SymbolicLink -Target "C:\DFIR\Event Log Explorer_Standard\Event Log Explorer_Standard.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Event Log Tools"

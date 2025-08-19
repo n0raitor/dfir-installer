@@ -7,17 +7,17 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Editors")) {
 
 # Check if the tool directory exists
 $sourceLnk = "C:\Users\N0\AppData\Local\Programs\MarkText\MarkText.exe"
-$destinationLnk = "C:\DFIR\_Tools\Editors\MarkText.lnk"
+$destinationLnk = "C:\DFIR\_Tools\Editors\MarkText.exe"
 
 if (Test-Path -Path $sourceLnk) {
-    # Copy the .lnk file if it exists
-    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Editors\MarkText.lnk" -ItemType SymbolicLink -Target "C:\DFIR\MarkText\MarkText.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Editors\MarkText" -ItemType SymbolicLink -Target "C:\DFIR\MarkText\MarkText.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Editors"

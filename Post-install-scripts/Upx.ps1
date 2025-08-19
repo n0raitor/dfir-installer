@@ -7,17 +7,17 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\SRE")) {
 
 # Check if the tool directory exists
 $sourceLnk = "C:\ProgramData\chocolatey\bin\upx.exe"
-$destinationLnk = "C:\DFIR\_Tools\SRE\upx.lnk"
+$destinationLnk = "C:\DFIR\_Tools\SRE\upx.exe"
 
 if (Test-Path -Path $sourceLnk) {
-    # Copy the .lnk file if it exists
-    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\SRE\Upx.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Upx\Upx.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\SRE\Upx" -ItemType SymbolicLink -Target "C:\DFIR\Upx\Upx.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\SRE"

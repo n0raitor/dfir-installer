@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Other")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\apilogger") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Other\apilogger.lnk" -ItemType SymbolicLink -Target "C:\DFIR\apilogger" -Force
+    New-Item -Path "C:\DFIR\_Tools\Other\apilogger" -ItemType SymbolicLink -Target "C:\DFIR\apilogger" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\apilogger"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Other\apilogger.lnk" -ItemType SymbolicLink -Target "C:\DFIR\apilogger\apilogger.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Other\apilogger" -ItemType SymbolicLink -Target "C:\DFIR\apilogger\apilogger.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Other"

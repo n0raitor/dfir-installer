@@ -5,13 +5,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
     New-Item -Path "C:\DFIR\_Tools\Artifact Tools" -ItemType Directory
 }
 
-$sourceLnk = "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links\Thumbcache Viewer.lnk"
-$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.lnk"
+$sourceLnk = "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links\Thumbcache Viewer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.exe"
 
 if (Test-Path -Path "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links") {
     if (Test-Path -Path $sourceLnk) {
-        # Copy the .lnk file if it exists
-        Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+        # Copy the  file if it exists
+        New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
     } else {
         Write-Host "Shortcut not found: $sourceLnk"
     }
@@ -20,7 +20,7 @@ if (Test-Path -Path "C:\Users\N0\AppData\Local\Microsoft\WinGet\Links") {
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Thumbcache Viewer\Thumbcache Viewer.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer" -ItemType SymbolicLink -Target "C:\DFIR\Thumbcache Viewer\Thumbcache Viewer.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Artifact Tools"

@@ -8,17 +8,17 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Offensive")) {
 # Check if the tool directory exists
 # Check if the tool directory exists
 $sourceLnk = "C:\Program Files\BurpSuiteCommunity\BurpSuiteCommunity.exe"
-$destinationLnk = "C:\DFIR\_Tools\Offensive\BurpSuiteCommunity.lnk"
+$destinationLnk = "C:\DFIR\_Tools\Offensive\BurpSuiteCommunity.exe"
 
 if (Test-Path -Path $sourceLnk) {
-    # Copy the .lnk file if it exists
-    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Offensive\BurpSuite-Community.lnk" -ItemType SymbolicLink -Target "C:\DFIR\BurpSuite-Community\BurpSuite-Community.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Offensive\BurpSuite-Community" -ItemType SymbolicLink -Target "C:\DFIR\BurpSuite-Community\BurpSuite-Community.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Offensive"

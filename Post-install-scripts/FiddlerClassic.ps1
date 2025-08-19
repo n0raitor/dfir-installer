@@ -7,17 +7,17 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Network")) {
 
 # Check if the tool directory exists
 $sourceLnk = "C:\Users\N0\AppData\Local\Programs\Fiddler\Fiddler.exe"
-$destinationLnk = "C:\DFIR\_Tools\Network\Fiddler.lnk"
+$destinationLnk = "C:\DFIR\_Tools\Network\Fiddler.exe"
 
 if (Test-Path -Path $sourceLnk) {
-    # Copy the .lnk file if it exists
-    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Network\FiddlerClassic.lnk" -ItemType SymbolicLink -Target "C:\DFIR\FiddlerClassic\FiddlerClassic.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Network\FiddlerClassic" -ItemType SymbolicLink -Target "C:\DFIR\FiddlerClassic\FiddlerClassic.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Network"

@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\System Utilities")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\HashMyFiles") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\System Utilities\HashMyFiles.lnk" -ItemType SymbolicLink -Target "C:\DFIR\HashMyFiles" -Force
+    New-Item -Path "C:\DFIR\_Tools\System Utilities\HashMyFiles" -ItemType SymbolicLink -Target "C:\DFIR\HashMyFiles" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\HashMyFiles"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\System Utilities\HashMyFiles.lnk" -ItemType SymbolicLink -Target "C:\DFIR\HashMyFiles\HashMyFiles.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\System Utilities\HashMyFiles" -ItemType SymbolicLink -Target "C:\DFIR\HashMyFiles\HashMyFiles.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\System Utilities"
