@@ -14,7 +14,7 @@ if (Test-Path -Path "C:\DFIR\HasleoDataRecovery") {
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Carving\HasleoDataRecovery" -ItemType SymbolicLink -Target "C:\DFIR\HasleoDataRecovery\HasleoDataRecovery.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Carving\HasleoDataRecovery.exe" -ItemType SymbolicLink -Target "C:\DFIR\HasleoDataRecovery\HasleoDataRecovery.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Carving"
