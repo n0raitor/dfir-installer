@@ -13,6 +13,9 @@ if (Test-Path -Path "C:\DFIR\Mandiant_IOCe") {
     Write-Host "Tool directory does not exist: C:\DFIR\Mandiant_IOCe"
 }
 
+Write-Host "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+Write-Host "IMPORTANT: Please run the Mandiant IOCe Installer tool from \C:\DFIR\_tmp\Mandiant_IOCe due to it is not possible to spawn it automatically."
+Write-Host "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\IOC Scanner\Mandiant_IOCe" -ItemType SymbolicLink -Target "C:\DFIR\Mandiant_IOCe\Mandiant_IOCe.exe" -Force
 
