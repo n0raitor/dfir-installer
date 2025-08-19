@@ -205,6 +205,7 @@ function Download-And-Extract {
             }      
         } else {
             #Write-Host "The file to run '$runFile' does not exist in the extracted folder."
+            Write-Host "Running $runFilePath..."
             & $runFilePath
         }
     }
