@@ -15,6 +15,7 @@ Appx-Analysis
 Arsenalimagemounter
 ArtiFast
 AutoIt-Extractor
+AutoIt-Extractor32bit
 Autopsy
 Autopsy-Addons
 Autorunner
@@ -272,7 +273,8 @@ SilkETW
 SimpleProgramDebugger
 Skyperious
 Sleuthkit
-sliver
+sliver-client
+sliver-server
 sort-PhotorecRecoveredFiles
 SoundVolumeView
 SpaceSniffer
@@ -312,6 +314,7 @@ vb_decompiler_lite
 VC Redistributable x64
 VCLibsDesktop14
 VCRedist2010
+VCRedist201032bit
 VCRedist2015x64
 VCRedist2015x86
 Veeam-backup-and-replication-iso
@@ -339,6 +342,7 @@ WindowsTerminal
 windump
 WinEDB
 winpmem
+WinPMemPortable
 WinSCP
 WinSearchDBAnalyzer
 Wireshark
