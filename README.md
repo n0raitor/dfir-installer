@@ -173,7 +173,6 @@ Autopsy
 Autopsy-Addons
 Autorunner
 balbuzard
-balenaEtcher
 Binary Ninja
 BlobRunner
 BloodHound
