@@ -7,17 +7,17 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Network")) {
 
 # Check if the tool directory exists
 $sourceLnk = "C:\ProgramData\chocolatey\bin\FakeNet.exe"
-$destinationLnk = "C:\DFIR\_Tools\Network\FakeNet.lnk"
+$destinationLnk = "C:\DFIR\_Tools\Network\FakeNet.exe"
 
 if (Test-Path -Path $sourceLnk) {
-    # Copy the .lnk file if it exists
-    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Network\Fakenet.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Fakenet\Fakenet.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Network\Fakenet" -ItemType SymbolicLink -Target "C:\DFIR\Fakenet\Fakenet.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Network"

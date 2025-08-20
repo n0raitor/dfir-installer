@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Malware Analysis")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\AnalyzePDF") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Malware Analysis\AnalyzePDF.lnk" -ItemType SymbolicLink -Target "C:\DFIR\AnalyzePDF" -Force
+    New-Item -Path "C:\DFIR\_Tools\Malware Analysis\AnalyzePDF" -ItemType SymbolicLink -Target "C:\DFIR\AnalyzePDF" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\AnalyzePDF"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Malware Analysis\AnalyzePDF.lnk" -ItemType SymbolicLink -Target "C:\DFIR\AnalyzePDF\AnalyzePDF.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Malware Analysis\AnalyzePDF" -ItemType SymbolicLink -Target "C:\DFIR\AnalyzePDF\AnalyzePDF.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Malware Analysis"

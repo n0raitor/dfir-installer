@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\DEP")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\NirSoft Volumouse") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Volumouse.lnk" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Volumouse" -Force
+    New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Volumouse" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Volumouse" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\NirSoft Volumouse"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Volumouse.lnk" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Volumouse\NirSoft Volumouse.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Volumouse" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Volumouse\NirSoft Volumouse.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\DEP"

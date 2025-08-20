@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Utilities")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\Dokany") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Utilities\Dokany.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Dokany" -Force
+    New-Item -Path "C:\DFIR\_Tools\Utilities\Dokany" -ItemType SymbolicLink -Target "C:\DFIR\Dokany" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\Dokany"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Utilities\Dokany.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Dokany\Dokany.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Utilities\Dokany" -ItemType SymbolicLink -Target "C:\DFIR\Dokany\Dokany.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Utilities"

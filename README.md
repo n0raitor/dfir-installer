@@ -93,13 +93,13 @@ Pipeline Folder: Future planed configs
 **Run the Script with the config name (without .conf) as this:**
 
 ```ps1
-."C:\Program Files\PowerShell\7\pwsh.exe" .\dfir-install.ps1 -config <CONFIG-NAME>
+& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config <CONFIG-NAME>
 ```
 
 For Debugging info use *-Debug*:
 
 ```ps1
-."C:\Program Files\PowerShell\7\pwsh.exe" .\dfir-install.ps1 -config CONFIG-NAME -Debug
+& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config CONFIG-NAME -Debug
 ```
 
 **Post Installation Steps**
@@ -173,7 +173,6 @@ Autopsy
 Autopsy-Addons
 Autorunner
 balbuzard
-balenaEtcher
 Binary Ninja
 BlobRunner
 BloodHound
@@ -267,7 +266,7 @@ google-fs-recover
 Hashcat
 HashMyFiles
 HashSuite
-Hasleo Data Recovery
+HasleoDataRecovery
 Hasleo-Backup-Suite
 Hayabusa
 Hexinator
@@ -314,7 +313,7 @@ Mailviewer
 Maltego
 Malware-Analysis-Scripts
 malware-jail
-Mandiant IOCe
+Mandiant_IOCe
 MarkText
 MemoryBaseliner
 MemoryDumperx64
@@ -323,7 +322,7 @@ MemProcFS
 Merlin
 Metasploit Framework
 MFCMAPI
-MFT Browser
+MFTBrowser
 MicroBurst
 Mimikatz
 MSGWalker

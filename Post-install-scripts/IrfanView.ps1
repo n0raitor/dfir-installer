@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\IrfanView") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\IrfanView.lnk" -ItemType SymbolicLink -Target "C:\DFIR\IrfanView" -Force
+    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\IrfanView" -ItemType SymbolicLink -Target "C:\DFIR\IrfanView" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\IrfanView"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\IrfanView.lnk" -ItemType SymbolicLink -Target "C:\DFIR\IrfanView\IrfanView.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\IrfanView" -ItemType SymbolicLink -Target "C:\DFIR\IrfanView\IrfanView.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Artifact Tools"

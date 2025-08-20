@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\Autorunner") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Autorunner.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Autorunner" -Force
+    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Autorunner" -ItemType SymbolicLink -Target "C:\DFIR\Autorunner" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\Autorunner"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Autorunner.lnk" -ItemType SymbolicLink -Target "C:\DFIR\Autorunner\Autorunner.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Autorunner" -ItemType SymbolicLink -Target "C:\DFIR\Autorunner\Autorunner.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Artifact Tools"

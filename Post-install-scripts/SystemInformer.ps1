@@ -7,17 +7,17 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Other")) {
 
 # Check if the tool directory exists
 $sourceLnk = "C:\Program Files\SystemInformer\SystemInformer.exe"
-$destinationLnk = "C:\DFIR\_Tools\Other\SystemInformer.lnk"
+$destinationLnk = "C:\DFIR\_Tools\Other\SystemInformer.exe"
 
 if (Test-Path -Path $sourceLnk) {
-    # Copy the .lnk file if it exists
-    Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Other\SystemInformer.lnk" -ItemType SymbolicLink -Target "C:\DFIR\SystemInformer\SystemInformer.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Other\SystemInformer" -ItemType SymbolicLink -Target "C:\DFIR\SystemInformer\SystemInformer.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Other"

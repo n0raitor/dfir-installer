@@ -164,7 +164,11 @@ function Download-And-Extract {
     } elseif ($fileName.EndsWith(".7z")) {
         Write-Host "Extracting 7z file..."
         # Assuming 7zip is installed and its path is available in the system's PATH environment variable
-        & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
+        if ($filePath -match "merlin") {
+            & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -pmerlin -y
+        } else {
+            & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
+        }
         #Delete Archive
         Remove-Item $filePath -Force
     } elseif ($fileName.EndsWith(".tgz") -or $fileName.EndsWith(".tar.gz")) {
@@ -201,6 +205,7 @@ function Download-And-Extract {
             }      
         } else {
             #Write-Host "The file to run '$runFile' does not exist in the extracted folder."
+            Write-Host "Running $runFilePath..."
             & $runFilePath
         }
     }
@@ -374,7 +379,7 @@ function post-processing {
 
     # ### Create Powershell Admin Prompt LNK
     # # Define the directory and shortcut name
-    # $ShortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("Desktop"), "PowerShell Admin Prompt.lnk")
+    # $ShortcutPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath("Desktop"), "PowerShell Admin Prompt")
     # # Create a new WScript.Shell COM object
     # $WScriptShell = New-Object -ComObject WScript.Shell
     # # Create a shortcut object
@@ -489,7 +494,7 @@ function install-copy {
     Copy-Item -Path $Path_To_Portable -Destination $Copy_Path -Recurse
     #& "$_" | Out-Null
     $LNK_IN = $INSTALL_DIRECTORY + $Name_of_LNK + "\" + $Path_To_EXE
-    $LNK_OUT = $LNK_FOLDER + $Name_of_LNK      # + ".lnk"
+    $LNK_OUT = $LNK_FOLDER + $Name_of_LNK      # + ""
     New-Item -ItemType SymbolicLink -Path $LNK_OUT -Target $LNK_IN
     Write-Host "INSTALLED"
 }
@@ -634,10 +639,9 @@ function Main {
     install-winget "7zip.7zip"
 
     # Install needed Requirements
-    winget install  Microsoft.DotNet.DesktopRuntime.9
+    winget install Microsoft.DotNet.DesktopRuntime.9
     winget install Microsoft.DotNet.SDK.9
     winget install Microsoft.VisualStudio.2022.BuildTools
-    winget install Microsoft.VisualStudio.2022.Community
 
     ###############################
     # INSTALLATION ###############
@@ -703,7 +707,7 @@ function Main {
         if (Test-Path $postInstallScriptPath) {
             Write-Host "Running post-install script for $toolName..."
             try {
-                & $postInstallScriptPath
+                & $postInstallScriptPath $Usern
             } catch {
                 Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
             }

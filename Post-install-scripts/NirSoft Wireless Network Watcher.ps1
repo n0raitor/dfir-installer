@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\DEP")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\NirSoft Wireless Network Watcher") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Wireless Network Watcher.lnk" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Wireless Network Watcher" -Force
+    New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Wireless Network Watcher" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Wireless Network Watcher" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\NirSoft Wireless Network Watcher"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Wireless Network Watcher.lnk" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Wireless Network Watcher\NirSoft Wireless Network Watcher.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\DEP\NirSoft Wireless Network Watcher" -ItemType SymbolicLink -Target "C:\DFIR\NirSoft Wireless Network Watcher\NirSoft Wireless Network Watcher.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\DEP"

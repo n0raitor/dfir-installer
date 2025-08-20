@@ -8,13 +8,13 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Email Tools")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\MFCMAPI") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Email Tools\MFCMAPI.lnk" -ItemType SymbolicLink -Target "C:\DFIR\MFCMAPI" -Force
+    New-Item -Path "C:\DFIR\_Tools\Email Tools\MFCMAPI" -ItemType SymbolicLink -Target "C:\DFIR\MFCMAPI" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\MFCMAPI"
 }
 
 # Create symlink
-#New-Item -Path "C:\DFIR\_Tools\Email Tools\MFCMAPI.lnk" -ItemType SymbolicLink -Target "C:\DFIR\MFCMAPI\MFCMAPI.exe" -Force
+#New-Item -Path "C:\DFIR\_Tools\Email Tools\MFCMAPI" -ItemType SymbolicLink -Target "C:\DFIR\MFCMAPI\MFCMAPI.exe" -Force
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Email Tools"

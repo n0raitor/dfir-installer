@@ -50,7 +50,6 @@ ChocolateyGUI
 WindowsSDK10
 VCRedist2015x64
 Runtime6
-VCRedist2010
 VCRedist2015x86
 MarkText
 ExifTool
@@ -133,7 +132,6 @@ Upx
 Vnc-viewer
 Winscp
 Httrack
-balenaEtcher
 GeoIpUpdate
 CyberChef
 Get-ZimmermanTools
@@ -176,11 +174,11 @@ OffVis
 VMware Workstation
 DeepSound
 Event Log Explorer
-Hasleo Data Recovery
+HasleoDataRecovery
 Free Kernel OST Viewer
 Free Kernel PST Viewer
 DotNet Framework 3.5
-Mandiant IOCe
+Mandiant_IOCe
 ReCsvEdit
 Redline
 VC Redistributable x64
@@ -201,7 +199,6 @@ KAPE
 de4dot
 dex2jar
 apilogger
-AutoIt-Extractor
 AutoIt-Extractor
 balbuzard
 bytehist
@@ -236,7 +233,6 @@ MicroBurst
 Mimikatz
 OneNoteAnalyzer
 pkg-unpacker
-sliver
 sliver
 SQLRecon
 Stracciatella
