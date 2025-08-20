@@ -434,7 +434,7 @@ function copy-documents {
         }
     }
 }
-function update-zimmermann {
+function update-zimmermann-deprecated {
     $packageName =  "Zimmermann Update"
     # Simulated process
     $filePath = "C:\DFIR\Get-ZimmermanTools\Get-ZimmermanTools.ps1"
@@ -737,7 +737,7 @@ function Main {
     # Aufruf der Funktion und Ergebnis speichern
     $shouldUpdate = AskForUpdate $config
 
-    update-zimmermann
+    #update-zimmermann DEPRECTATED and transfered to Post-Installation Fixes
 
     # Weiterer Code, um das Update basierend auf $shouldUpdate durchzuführen
     if ($shouldUpdate) {

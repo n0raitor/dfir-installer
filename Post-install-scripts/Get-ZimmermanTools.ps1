@@ -13,6 +13,18 @@ if (Test-Path -Path "C:\DFIR\Get-ZimmermanTools") {
     Write-Host "Tool directory does not exist: C:\DFIR\Get-ZimmermanTools"
 }
 
+$packageName =  "Get-Zimmerman Tools"
+# Simulated process
+$filePath = "C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1"
+
+    # Überprüfen, ob die Datei existiert
+    if (Test-Path $filePath) {
+        # Datei existiert, daher ausführen
+        Write-Host "$filePath existiert. Skript wird ausgeführt..."
+        . $filePath
+        Move-Item -Path ".\net6" -Destination "C:\DFIR\Zimmerman\" -Force
+    }
+
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\Collections\Get-ZimmermanTools" -ItemType SymbolicLink -Target "C:\DFIR\Get-ZimmermanTools\Get-ZimmermanTools.exe" -Force
 
