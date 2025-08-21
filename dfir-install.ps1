@@ -577,7 +577,7 @@ function install-github {
         Write-Debug "url: $url, destination: $destination, runFile: $runFile"
         # Call Download-And-Extract with the parameters
         Download-And-Extract -url $url -destination $destination -runFile $runFile
-        Write-Host "$destination""
+        Write-Host "$destination"
     } else {
         Write-Debug "Invalid line in config file: $line"
     }
