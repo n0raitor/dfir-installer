@@ -465,10 +465,10 @@ function install-winget {
     } else {
         Invoke-Expression "$wingetCommand" *>> $LOGFILE2
     }
-    if (Get-Command $toolName -ErrorAction SilentlyContinue) {
+    if (Get-Command $command -ErrorAction SilentlyContinue) {
         Write-Host " [OK]"
     } else {
-        Write-Host "$toolName is NOT found"
+        Write-Host "$command is NOT found"
     }
     
     #winget install --id $command --silent --accept-package-agreements
