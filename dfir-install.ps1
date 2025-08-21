@@ -810,6 +810,8 @@ function Main {
         }
     }
 
+    Write-Host ""
+    Write-Host "Manual Install Tools:"
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
         $percentComplete = ($counter / $totalLines) * 100
@@ -820,12 +822,12 @@ function Main {
         Write-Debug "Commandlinevar: $commandLine"
         Write-Debug "Filenamevar: $filename"
         # Start a new job for each manual installation
-        Write-Host "Installing $filename" -NoNewline
+        Write-Host "- Installing $filename" -NoNewline
         install-manual $commandLine $filename
         $counter++
         Write-Host " [OK]"
     }
-
+    Write-Host ""
     Write-Host "Manual Install Post Install Scripts:"
     foreach ($toolName in $manualInstallToolName) {
         Write-Host "- $toolName" -NoNewline
