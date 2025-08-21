@@ -465,7 +465,10 @@ function install-winget {
     } else {
         Invoke-Expression "$wingetCommand" *>> $LOGFILE2
     }
-    if ($LASTEXITCODE -eq 0) {
+
+    $installed = winget list --id $packageId | Select-String $packageId
+
+    if ($installed) {
         Write-Host " [OK]"
     } else {
         Write-Host "$command is NOT found"
