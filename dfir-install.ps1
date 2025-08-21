@@ -666,7 +666,7 @@ function Main {
     ###############################
     # 7z installer  ###############
     ###############################
-    install-winget "7zip.7zip"
+    install-winget "7zip.7zip" "7-Zip"
 
     ###############################
     # INSTALLATION ###############
