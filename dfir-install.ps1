@@ -95,7 +95,7 @@ function Install-Program-From-Msi {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Debug "[OK] Installer Spawned..."
+        Write-Host " [Installer Spawned]" -NoNewline
         #Start-Sleep -Seconds 30
         $process.WaitForExit()
 
@@ -126,7 +126,7 @@ function Install-Program-From-Exe {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Debug " [Installer Spawned]" -NoNewline
+        Write-Host " [Installer Spawned]" -NoNewline
         $process.WaitForExit()
         # Start-Sleep -Seconds 30
     }
@@ -828,7 +828,7 @@ function Main {
 
     Write-Host "Manual Install Post Install Scripts:"
     foreach ($toolName in $manualInstallToolName) {
-        Write-Host "- $toolName"
+        Write-Host "- $toolName" -NoNewline
         $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
             #Write-Host "Post-Install-Script: $postInstallScriptPath"
             if (Test-Path $postInstallScriptPath) {
