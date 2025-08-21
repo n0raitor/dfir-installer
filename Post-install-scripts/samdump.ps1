@@ -13,6 +13,7 @@ if (Test-Path -Path "C:\DFIR\samdump") {
     Write-Host "Tool directory does not exist: C:\DFIR\samdump"
 }
 
+Write-Host "Please Compile samdump using Developer Command Prompt for VS 20XX by cd to the samdump directory and run the following command: msbuild samdump.sln /p:Configuration=Release"
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\Offensive\samdump" -ItemType SymbolicLink -Target "C:\DFIR\samdump\samdump.exe" -Force
 
