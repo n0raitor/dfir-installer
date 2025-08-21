@@ -741,7 +741,7 @@ function Main {
         if ($installerConfig.Name -ne "Manual.conf") {
             $counter++
             $percentComplete = ($counter / $totalLines) * 100
-            Write-Progress -PercentComplete $percentComplete -Status "Installing Tool [$counter/$totalLines]" -Activity ""
+            Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing Tool"
         }
 
         if ($toolFoundFiles.Count -eq 1) {
@@ -804,14 +804,14 @@ function Main {
     foreach ($commandLine in $manualInstallCommands) {
         $counter++
         $percentComplete = ($counter / $totalLines) * 100
-        Write-Progress -PercentComplete $percentComplete -Status "Installing Tool [$counter/$totalLines]" -Activity ""
+        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing..."
    
         Write-Host "Installing Manual $commandLine"
         # Start a new job for each manual installation
         install-manual $commandLine
     }
 
-    Write-Progress -PercentComplete 100 -Status "Fertig!" -Activity "Verarbeitung abgeschlossen"
+    Write-Progress -PercentComplete 100 -Status "[$totalLines/$totalLines]" -Activity "Done"
     Read-Host -Prompt "Press [Enter] if every installer windows that were spawned were closed (Installed)"
 
     post-processing $Usern
