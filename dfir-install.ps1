@@ -465,7 +465,7 @@ function install-winget {
     } else {
         Invoke-Expression "$wingetCommand" *>> $LOGFILE2
     }
-    if (Get-Command $command -ErrorAction SilentlyContinue) {
+    if ($LASTEXITCODE -eq 0) {
         Write-Host " [OK]"
     } else {
         Write-Host "$command is NOT found"
