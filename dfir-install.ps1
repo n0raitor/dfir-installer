@@ -491,7 +491,7 @@ function install-choco {
     }
 
     # Check if package installed by querying choco list
-    $installed = choco list --local-only --exact $command | Select-String "$command"
+    $installed = choco list --exact $command | Select-String "$command"
     Write-Host "$installed"
     if ($installed) {
         Write-Host " [OK]"
