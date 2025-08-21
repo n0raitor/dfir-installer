@@ -6,11 +6,11 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Structured Storage Viewer") {
+if (Test-Path -Path "C:\DFIR\StructuredStorageViewer") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\Structured Storage Viewer" -ItemType SymbolicLink -Target "C:\DFIR\Structured Storage Viewer" -Force
+    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\StructuredStorageViewer" -ItemType SymbolicLink -Target "C:\DFIR\StructuredStorageViewer" -Force
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\Structured Storage Viewer"
+    Write-Host "Tool directory does not exist: C:\DFIR\StructuredStorageViewer"
 }
 
 # Create symlink
