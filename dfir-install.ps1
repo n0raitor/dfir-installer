@@ -814,7 +814,7 @@ function Main {
     foreach ($commandLine in $manualInstallCommands) {
         Write-Host "Installing $commandLine" -NoNewline
         $percentComplete = ($counter / $totalLines) * 100
-        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing..."
+        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing"
    
         Write-Debug "Installing Manual $commandLine"
         $filename = [System.IO.Path]::GetFileName($commandLine)
