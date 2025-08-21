@@ -559,7 +559,6 @@ function install-manual {
         [string]$command,
         [string]$toolname
     )
-    Write-Host "Installing $toolname" -NoNewline
    <#  Write-Host "Manuelle Installation mit Befehl: $command"
     if ($command.EndsWith(".msi"))
     {   
@@ -581,7 +580,6 @@ function install-manual {
     Write-Debug "url: $url, destination: $TEMP_DIRECTORY, runFile: $binary"
     # Call Download-And-Extract with the parameters
     Download-And-Extract -url $url -destination $TEMP_DIRECTORY -runFile $binary
-    Write-Host " [OK]" -NoNewline
 }
 function install-github {
     param (
@@ -747,7 +745,7 @@ function Main {
 
         # Fortschrittsanzeige aktualisieren
         $percentComplete = ($counter / $totalLines) * 100
-        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing Tool"
+        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installed Tools"
 
         if ($toolFoundFiles.Count -eq 1) {
             # Führe die entsprechende Installationsfunktion aus
@@ -765,6 +763,7 @@ function Main {
                 # Füge den Befehl zur manuellen Installation hinzu
                 Write-Host "Installing $toolName [SKIPPING FOR MANUAL INSTALL LATER]"
                 $manualInstallCommands += $commandLine
+                $manualInstallToolName += $toolName
             } elseif ($installerConfig.Name -eq "Github.conf") {
                 install-github $commandLine $toolName
             }
@@ -774,33 +773,35 @@ function Main {
             Write-Error "Mehr als eine Übereinstimmung für Tool '$toolName' gefunden. Bitte überprüfen Sie die Konfigurationsdateien."
         }
 
-        # Überprüfen und Ausführen eines Skripts im Ordner "$pp_script_folder"
-        $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
-        #Write-Host "Post-Install-Script: $postInstallScriptPath"
-        if (Test-Path $postInstallScriptPath) {
-            Write-Host " [Post-Install-Script:" -NoNewline
-            if ($PSDebugPreference -eq 'Continue') {
-                Write-Debug "Running post-install script for $toolName..."
-                try {
-                    & $postInstallScriptPath $Usern
-                } catch {
-                    Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
+        if ($installerConfig.Name -ne "Manual.conf") {
+            # Überprüfen und Ausführen eines Skripts im Ordner "$pp_script_folder"
+            $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
+            #Write-Host "Post-Install-Script: $postInstallScriptPath"
+            if (Test-Path $postInstallScriptPath) {
+                Write-Host " [Post-Install-Script:" -NoNewline
+                if ($PSDebugPreference -eq 'Continue') {
+                    Write-Debug "Running post-install script for $toolName..."
+                    try {
+                        & $postInstallScriptPath $Usern
+                    } catch {
+                        Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
+                    }
+                } else {
+                    try {
+                        & $postInstallScriptPath $Usern *>> $LOGFILE2
+                        Write-Host " OK]"
+                    } catch {
+                        Write-Host " FAILED]"
+                    }
                 }
             } else {
-                try {
-                    & $postInstallScriptPath $Usern *>> $LOGFILE2
-                    Write-Host " OK]"
-                } catch {
-                    Write-Host " FAILED]"
+                if ($PSDebugPreference -eq 'Continue') {
+                    Write-Debug "No post-install script found for $toolName."
+                } else {
+                    Write-Host " SKIPPED/N.A.]"
                 }
+                Write-Host ""
             }
-        } else {
-            if ($PSDebugPreference -eq 'Continue') {
-                Write-Debug "No post-install script found for $toolName."
-            } else {
-                Write-Host " SKIPPED/N.A.]"
-            }
-            Write-Host ""
         }
         # Fortschrittsanzeige aktualisieren
         #Write-Host ""
@@ -811,7 +812,7 @@ function Main {
 
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
-        
+        Write-Host "Installing $commandLine" -NoNewline
         $percentComplete = ($counter / $totalLines) * 100
         Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing..."
    
@@ -820,6 +821,39 @@ function Main {
         # Start a new job for each manual installation
         install-manual $commandLine $filename
         $counter++
+        Write-Host " [OK]"
+    }
+
+    Write-Host "Manual Install Post Install Scripts:"
+    foreach ($toolName in $manualInstallToolName) {
+        Write-Host "- $toolName"
+        $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
+            #Write-Host "Post-Install-Script: $postInstallScriptPath"
+            if (Test-Path $postInstallScriptPath) {
+                Write-Host " [Post-Install-Script:" -NoNewline
+                if ($PSDebugPreference -eq 'Continue') {
+                    Write-Debug "Running post-install script for $toolName..."
+                    try {
+                        & $postInstallScriptPath $Usern
+                    } catch {
+                        Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
+                    }
+                } else {
+                    try {
+                        & $postInstallScriptPath $Usern *>> $LOGFILE2
+                        Write-Host " OK]"
+                    } catch {
+                        Write-Host " FAILED]"
+                    }
+                }
+            } else {
+                if ($PSDebugPreference -eq 'Continue') {
+                    Write-Debug "No post-install script found for $toolName."
+                } else {
+                    Write-Host " SKIPPED/N.A.]"
+                }
+                Write-Host ""
+            }
     }
 
     Write-Progress -PercentComplete 100 -Status "[$totalLines/$totalLines]" -Activity "Done"
