@@ -6,9 +6,9 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Collections")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\Get-ZimmermanTools") {
+if (Test-Path -Path "C:\DFIR\_Tools\_DFIR\Zimmerman\net9") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Collections\Get-ZimmermanTools" -ItemType SymbolicLink -Target "C:\DFIR\Get-ZimmermanTools" -Force
+    New-Item -Path "C:\DFIR\_Tools\Collections\Zimmerman" -ItemType SymbolicLink -Target "C:\DFIR\_Tools\_DFIR\Zimmerman\net9" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\Get-ZimmermanTools"
 }
@@ -24,6 +24,87 @@ $filePath = "C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1"
         . $filePath
         Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
     }
+
+# Check if the tool directory exists
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\TimelineExplorer\TimelineExplorer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\TimelineExplorer.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
+
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\ShellBagsExplorer\ShellBagsExplorer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\ShellBagsExplorer.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
+
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\SDBExplorer\SDBExplorer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\SDBExplorer.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
+
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\RegistryExplorer\RegistryExplorer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\RegistryExplorer.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
+
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\MFTExplorer\MFTExplorer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\MFTExplorer.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
+
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\JumpListExplorer\JumpListExplorer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\JumpListExplorer.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
+
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\iisGeolocate\iisGeolocate.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\iisGeolocate.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
+
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\EZViewer\EZViewer.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\EZViewer.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk"
+}
 
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\Collections\Get-ZimmermanTools" -ItemType SymbolicLink -Target "C:\DFIR\Get-ZimmermanTools\Get-ZimmermanTools.exe" -Force
