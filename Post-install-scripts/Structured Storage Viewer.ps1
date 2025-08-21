@@ -6,11 +6,14 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 }
 
 # Check if the tool directory exists
-if (Test-Path -Path "C:\DFIR\StructuredStorageViewer") {
-    # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\_Tools\Artifact Tools\StructuredStorageViewer" -ItemType SymbolicLink -Target "C:\DFIR\StructuredStorageViewer" -Force
+$sourceLnk = "C:\DFIR\_Tools\_DFIR\StructuredStorageViewer\SSView.exe"
+$destinationLnk = "C:\DFIR\_Tools\Artifact Tools\SSView.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "Tool directory does not exist: C:\DFIR\StructuredStorageViewer"
+    Write-Host "EXE not found: $sourceLnk"
 }
 
 # Create symlink
