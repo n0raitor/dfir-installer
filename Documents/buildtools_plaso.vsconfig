@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "components": [
+    "Microsoft.VisualStudio.Component.Roslyn.Compiler",
+    "Microsoft.Component.MSBuild",
+    "Microsoft.VisualStudio.Component.CoreBuildTools",
+    "Microsoft.VisualStudio.Workload.MSBuildTools",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.VC.Redist.14.Latest",
+    "Microsoft.VisualStudio.Component.VC.CMake.Project",
+    "Microsoft.Net.Component.4.8.SDK",
+    "Microsoft.Net.Component.4.7.2.TargetingPack",
+    "Microsoft.VisualStudio.Component.VC.CLI.Support",
+    "Microsoft.VisualStudio.Component.Windows11SDK.22621",
+    "Microsoft.Net.Component.4.6.1.TargetingPack",
+    "Microsoft.VisualStudio.Component.VC.Modules.ARM64",
+    "Microsoft.VisualStudio.Component.VC.Redist.MSM",
+    "Microsoft.VisualStudio.Component.VC.14.29.16.11.x86.x64",
+    "Microsoft.VisualStudio.Component.VC.14.38.17.8.ARM",
+    "Microsoft.VisualStudio.Component.VC.14.38.17.8.x86.x64",
+    "Microsoft.VisualStudio.Component.VC.14.38.17.8.x86.x64.Spectre",
+    "Microsoft.VisualStudio.Component.VC.14.42.17.12.CLI.Support",
+    "Microsoft.VisualStudio.Component.VC.14.44.17.14.ARM",
+    "Microsoft.VisualStudio.Component.VC.14.44.17.14.x86.x64"
+  ],
+  "extensions": []
+}
