@@ -127,15 +127,15 @@ Other Update features will get added in the future :)
 
 **Manual Install**
 
-* Optional Folder
+* Documents/DFIR-Installer-Optional/
 * https://hex-rays.com/ida-free
 
 ## Other Tools in this Repo (Tools folder)
 **GUI Config Builder**
 dfir-installer-selector.exe (https://github.com/n0raitor/dfir-installer-selector)
 
-**Scripts/**
-Some Scripts that could be used to install WSL supported Tools in Ubuntu LTS 22.04.
+**Additional non installer Scripts and Instructions/**
+In Your *Documents* folder */DFIR-Installer-Optional/InstallationSteps*: Some Scripts that could be used to install WSL supported Tools in Ubuntu LTS 22.04 or 20.04 (See Prefix, if no prefix -> distro does not matter). Feel free to use the .md files to see some additional tool installation tipps/instructions
 
 ## Contribute to this Project
 I am happy if you have recommendations or requests to this project.
