@@ -489,9 +489,9 @@ function install-winget {
     $installed = winget list --id $command | Select-String $command
 
     if ($installed) {
-        Write-Host " [OK]"
+        Write-Host " [OK]" -NoNewline
     } else {
-        Write-Host " [FAILED]"
+        Write-Host " [FAILED]" -NoNewline
     }
     
     #winget install --id $command --silent --accept-package-agreements
@@ -516,9 +516,9 @@ function install-choco {
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
     if ($installed) {
-        Write-Host " [OK]"
+        Write-Host " [OK]" -NoNewline
     } else {
-        Write-Host " [FAILED]"
+        Write-Host " [FAILED]" -NoNewline
     }
 
     # Füge hier den Choco Installationsbefehl ein
@@ -553,7 +553,7 @@ function install-manual {
         [string]$command,
         [string]$toolname
     )
-
+    Write-Host "Installing $toolname" -NoNewline
    <#  Write-Host "Manuelle Installation mit Befehl: $command"
     if ($command.EndsWith(".msi"))
     {   
@@ -575,6 +575,7 @@ function install-manual {
     Write-Debug "url: $url, destination: $TEMP_DIRECTORY, runFile: $binary"
     # Call Download-And-Extract with the parameters
     Download-And-Extract -url $url -destination $TEMP_DIRECTORY -runFile $binary
+    Write-Host " [OK]" -NoNewline
 }
 function install-github {
     param (
@@ -605,13 +606,13 @@ function install-github {
         if (Test-Path $destination -PathType Container) {
             $files = Get-ChildItem -Path $destination -ErrorAction SilentlyContinue
             if ($files.Count -gt 0) {
-                Write-Host " [OK]"
+                Write-Host " [OK]" -NoNewline
             } else {
-                Write-Host " [FAILED]"
+                Write-Host " [FAILED]" -NoNewline
                 Write-Debug "Folder exists, but no files found"
             }
         } else {
-            Write-Host " [FAILED]"
+            Write-Host " [FAILED]" -NoNewline
             Write-Debug "Folder does not exist"
         }
 
@@ -773,7 +774,7 @@ function Main {
         $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
         #Write-Host "Post-Install-Script: $postInstallScriptPath"
         if (Test-Path $postInstallScriptPath) {
-            Write-Host "-- Post-Install-Script:" -NoNewline
+            Write-Host " [Post-Install-Script:" -NoNewline
             if ($PSDebugPreference -eq 'Continue') {
                 Write-Debug "Running post-install script for $toolName..."
                 try {
@@ -784,17 +785,18 @@ function Main {
             } else {
                 try {
                     & $postInstallScriptPath $Usern *>> $LOGFILE2
-                    Write-Host " [OK]"
+                    Write-Host " OK]"
                 } catch {
-                    Write-Host " [FAILED]"
+                    Write-Host " FAILED]"
                 }
             }
         } else {
             if ($PSDebugPreference -eq 'Continue') {
                 Write-Debug "No post-install script found for $toolName."
             } else {
-                Write-Host "[SKIPPED/N.A.]"
+                Write-Host " SKIPPED/N.A.]"
             }
+            Write-Host ""
         }
         # Fortschrittsanzeige aktualisieren
         #Write-Host ""
@@ -806,9 +808,10 @@ function Main {
         $percentComplete = ($counter / $totalLines) * 100
         Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing..."
    
-        Write-Host "Installing Manual $commandLine"
+        Write-Debug "Installing Manual $commandLine"
+        $filename = [System.IO.Path]::GetFileName($commandLine)
         # Start a new job for each manual installation
-        install-manual $commandLine
+        install-manual $commandLine $filename
     }
 
     Write-Progress -PercentComplete 100 -Status "[$totalLines/$totalLines]" -Activity "Done"
