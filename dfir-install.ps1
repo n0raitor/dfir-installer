@@ -480,6 +480,8 @@ function install-choco {
         [string]$command,
         [string]$toolname
     )
+    Write-Host "Installing $toolname" -NoNewline
+
     # Run choco install, logging output to $LOGFILE2 if not debugging
     if ($PSDebugPreference -eq 'Continue') {
         Write-Debug "Führe aus: choco install $command -y --ignore-checksums"
@@ -489,7 +491,7 @@ function install-choco {
     }
 
     # Check if package installed by querying choco list
-    $installed = choco list --local-only --exact $command | Select-String "^$command"
+    $installed = choco list --local-only --exact $command | Select-String "$command"
 
     if ($installed) {
         Write-Host " [OK]"
