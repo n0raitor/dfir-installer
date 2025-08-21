@@ -812,13 +812,13 @@ function Main {
 
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
-        Write-Host "Installing $commandLine" -NoNewline
         $percentComplete = ($counter / $totalLines) * 100
         Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing"
    
         Write-Debug "Installing Manual $commandLine"
         $filename = [System.IO.Path]::GetFileName($commandLine)
         # Start a new job for each manual installation
+        Write-Host "Installing $filename" -NoNewline
         install-manual $commandLine $filename
         $counter++
         Write-Host " [OK]"
