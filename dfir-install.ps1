@@ -579,8 +579,8 @@ function install-github {
         Download-And-Extract -url $url -destination $destination -runFile $runFile
         #Write-Host "$destination"
 
-        if (Test-Path $folderPath -PathType Container) {
-            $files = Get-ChildItem -Path $folderPath -File -ErrorAction SilentlyContinue
+        if (Test-Path $destination -PathType Container) {
+            $files = Get-ChildItem -Path $destination -File -ErrorAction SilentlyContinue
             if ($files.Count -gt 0) {
                 Write-Host " [OK]"
             } else {
