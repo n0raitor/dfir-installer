@@ -466,7 +466,7 @@ function install-winget {
         Invoke-Expression "$wingetCommand" *>> $LOGFILE2
     }
 
-    $installed = winget list --id $packageId | Select-String $packageId
+    $installed = winget list --id $command | Select-String $command
 
     if ($installed) {
         Write-Host " [OK]"
