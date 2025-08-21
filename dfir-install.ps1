@@ -603,7 +603,7 @@ function install-github {
         #Write-Host "$destination"
 
         if (Test-Path $destination -PathType Container) {
-            $files = Get-ChildItem -Path $destination -File -ErrorAction SilentlyContinue
+            $files = Get-ChildItem -Path $destination -ErrorAction SilentlyContinue
             if ($files.Count -gt 0) {
                 Write-Host " [OK]"
             } else {
@@ -727,9 +727,7 @@ function Main {
     foreach ($line in $configLines) {
         # Berechne den Fortschritt
         
-        $percentComplete = ($counter / $totalLines) * 100
-        Write-Progress -PercentComplete $percentComplete -Status "Verarbeite Zeile $counter von $totalLines" -Activity "Installing Tools"
-
+        
         $toolName = $line.Trim()
         if ([string]::IsNullOrEmpty($toolName)) {
             continue
@@ -742,6 +740,8 @@ function Main {
 
         if ($installerConfig.Name -ne "Manual.conf") {
             $counter++
+            $percentComplete = ($counter / $totalLines) * 100
+            Write-Progress -PercentComplete $percentComplete -Status "Installing Tool [$counter/$totalLines]" -Activity ""
         }
 
         if ($toolFoundFiles.Count -eq 1) {
@@ -773,26 +773,42 @@ function Main {
         $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
         #Write-Host "Post-Install-Script: $postInstallScriptPath"
         if (Test-Path $postInstallScriptPath) {
-            Write-Host "Running post-install script for $toolName..."
-            try {
-                & $postInstallScriptPath $Usern
-            } catch {
-                Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
+            Write-Host "-- Post-Install-Script:" -NoNewline
+            if ($PSDebugPreference -eq 'Continue') {
+                Write-Debug "Running post-install script for $toolName..."
+                try {
+                    & $postInstallScriptPath $Usern
+                } catch {
+                    Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
+                }
+            } else {
+                try {
+                    & $postInstallScriptPath $Usern *>> $LOGFILE2
+                    Write-Host " [OK]"
+                } catch {
+                    Write-Host " [FAILED]"
+                }
             }
         } else {
-            Write-Host "No post-install script found for $toolName."
+            if ($PSDebugPreference -eq 'Continue') {
+                Write-Debug "No post-install script found for $toolName."
+            } else {
+                Write-Host "[SKIPPED/N.A.]"
+            }
         }
-
         # Fortschrittsanzeige aktualisieren
-        Write-Host ""
+        #Write-Host ""
     }
 
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
+        $counter++
+        $percentComplete = ($counter / $totalLines) * 100
+        Write-Progress -PercentComplete $percentComplete -Status "Installing Tool [$counter/$totalLines]" -Activity ""
+   
         Write-Host "Installing Manual $commandLine"
         # Start a new job for each manual installation
         install-manual $commandLine
-        $counter++
     }
 
     Write-Progress -PercentComplete 100 -Status "Fertig!" -Activity "Verarbeitung abgeschlossen"
