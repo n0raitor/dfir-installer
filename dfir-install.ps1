@@ -144,7 +144,13 @@ function Download-And-Extract {
     # Create the destination folder if it doesn't exist
     Write-Debug "$url -> $destination -> $runFile"
     if (-not (Test-Path -Path $destination)) {
-        New-Item -Path $destination -ItemType Directory
+        if ($PSDebugPreference -eq 'Continue') {
+            New-Item -Path $destination -ItemType Directory
+            Write-Debug "Creating destination directory: $destination"
+        } else {
+            New-Item -Path $destination -ItemType Directory *>> $LOGFILE2
+        }
+        
     }
 
     # Download the file
