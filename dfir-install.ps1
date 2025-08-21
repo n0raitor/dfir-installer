@@ -595,14 +595,17 @@ function Main {
     $currentDateTime = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
     # Define log file path with current date and time
     $logFilePath = "C:\Users\$Usern\Desktop\DFIR-Install-LogFile_$currentDateTime.txt"
-    $logFilePath2 = "C:\Users\$Usern\Desktop\DFIR-Install-LogFileOpt_$currentDateTime.txt"
+
+    #DEPRECATED $logFilePath2 = "C:\Users\$Usern\Desktop\DFIR-Install-LogFileOpt_$currentDateTime.txt"
+
     # Start logging
     Start-Transcript -Path $logFilePath
     ### Use this For Logging Output of CMDs
     #| Tee-Object -FilePath $logFilePath -Append
     # Message to be displayed on screen
+    Write-Host ""
     Write-Debug "Detailed Logging in file $logFilePath."
-
+    Write-Host ""
     ###############################
     # INITIAL SETUP ###############
     ###############################
