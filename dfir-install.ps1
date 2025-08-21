@@ -451,7 +451,11 @@ function install-winget {
     param (
         [string]$command
     )
-    Write-Host "Winget installieren mit Befehl: $command"
+    if ($command -match '--id\s+(\S+)') {
+        $tool = $matches[1]
+        Write-Host "Extrahiertes Tool: $tool"
+    }
+    Write-Host "Installing $tool" -NoNewline
 
     $wingetCommand = "winget install --id $command --silent --accept-package-agreements"
 
@@ -460,8 +464,8 @@ function install-winget {
         Invoke-Expression $wingetCommand
     } else {
         Invoke-Expression "$wingetCommand" *>> $LOGFILE2
-        Write-Host "DONE"
     }
+    Write-Host "Ok"
     #winget install --id $command --silent --accept-package-agreements
     # --ignore-security-hash (If the hash is not correct)
     # Füge hier den Winget Installationsbefehl ein
