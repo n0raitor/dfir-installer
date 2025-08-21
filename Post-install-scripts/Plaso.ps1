@@ -13,6 +13,8 @@ if (Test-Path -Path "C:\DFIR\Plaso") {
     Write-Host "Tool directory does not exist: C:\DFIR\Plaso"
 }
 
+winget install Microsoft.VisualStudio.2022.BuildTools
+
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\Post-Processing\Plaso" -ItemType SymbolicLink -Target "C:\DFIR\Plaso\Plaso.exe" -Force
 

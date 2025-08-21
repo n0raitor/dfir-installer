@@ -115,4 +115,7 @@ if (Test-Path -Path $sourceLnk) {
 
 # File moving command will be inserted here
 # Move-Item -Path C:\DFIR\ -Destination "C:\DFIR\Tools\Collections"
-
+Write-Host "Install DotNet Dependencies for Zimmerman GUI Tools"
+winget install Microsoft.DotNet.DesktopRuntime.9
+winget install Microsoft.DotNet.SDK.9
+Write-Host "Zimmerman Tool Dependencies Installed"
