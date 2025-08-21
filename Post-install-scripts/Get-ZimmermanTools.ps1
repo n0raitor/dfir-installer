@@ -22,7 +22,7 @@ $filePath = "C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1"
         # Datei existiert, daher ausführen
         Write-Host "$filePath existiert. Skript wird ausgeführt..."
         . $filePath
-        Move-Item -Path ".\net6" -Destination "C:\DFIR\Zimmerman\" -Force
+        Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
     }
 
 # Create symlink
