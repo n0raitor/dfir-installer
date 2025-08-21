@@ -5,6 +5,10 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Collections")) {
     New-Item -Path "C:\DFIR\_Tools\Collections" -ItemType Directory
 }
 
+if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
+    New-Item -Path "C:\DFIR\_Tools\Artifact Tools" -ItemType Directory
+}
+
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\_Tools\_DFIR\Zimmerman\net9") {
     # Create symlink if tool directory exists
