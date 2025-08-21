@@ -492,7 +492,6 @@ function install-choco {
 
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
-    Write-Host "$installed"
     if ($installed) {
         Write-Host " [OK]"
     } else {
@@ -559,7 +558,9 @@ function install-github {
         [string]$command,
         [string]$toolname
     )
-    Write-Host "Github Installation mit Befehl: $command"
+    Write-Host "Installing $toolname" -NoNewline
+
+    Write-Debug "Github Installation mit Befehl: $command"
     # Split the line by space to get URL, Destination, and optional runFile
     $parts = $command -split '\s+'
     $packageName = $parts[0]
@@ -576,6 +577,7 @@ function install-github {
         Write-Debug "url: $url, destination: $destination, runFile: $runFile"
         # Call Download-And-Extract with the parameters
         Download-And-Extract -url $url -destination $destination -runFile $runFile
+        Write-Host "$destination""
     } else {
         Write-Debug "Invalid line in config file: $line"
     }
@@ -719,7 +721,7 @@ function Main {
                 install-copy $commandLine $toolName
             } elseif ($installerConfig.Name -eq "Manual.conf") {
                 # Füge den Befehl zur manuellen Installation hinzu
-                Write-Host "Scipping Tool $toolName for Manual Installation"
+                Write-Host "Installing $toolName [SKIPPING FOR MANUAL INSTALL LATER]"
                 $manualInstallCommands += $commandLine
             } elseif ($installerConfig.Name -eq "Github.conf") {
                 install-github $commandLine $toolName
