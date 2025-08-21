@@ -577,7 +577,21 @@ function install-github {
         Write-Debug "url: $url, destination: $destination, runFile: $runFile"
         # Call Download-And-Extract with the parameters
         Download-And-Extract -url $url -destination $destination -runFile $runFile
-        Write-Host "$destination"
+        #Write-Host "$destination"
+
+        if (Test-Path $folderPath -PathType Container) {
+            $files = Get-ChildItem -Path $folderPath -File -ErrorAction SilentlyContinue
+            if ($files.Count -gt 0) {
+                Write-Host " [OK]"
+            } else {
+                Write-Host " [FAILED]"
+                Write-Debug "Folder exists, but no files found"
+            }
+        } else {
+            Write-Host " [FAILED]"
+            Write-Debug "Folder does not exist"
+        }
+
     } else {
         Write-Debug "Invalid line in config file: $line"
     }
