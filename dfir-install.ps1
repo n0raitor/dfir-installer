@@ -816,9 +816,9 @@ function Main {
         Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing"
    
         Write-Debug "Installing Manual $commandLine"
-        $filename = [System.IO.Path]::GetFileName($commandLine)
-        Write-Host "Commandlinevar: $commandLine"
-        Write-Host "Filenamevar: $filename"
+        $filename = ($commandLine -split '\s+')[-1]
+        Write-Debug "Commandlinevar: $commandLine"
+        Write-Debug "Filenamevar: $filename"
         # Start a new job for each manual installation
         Write-Host "Installing $filename" -NoNewline
         install-manual $commandLine $filename
