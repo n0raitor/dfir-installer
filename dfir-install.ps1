@@ -661,7 +661,7 @@ function Main {
     # Gehe jede Zeile durch, um den Tool-Namen zu finden
     foreach ($line in $configLines) {
         # Berechne den Fortschritt
-        $counter++
+        
         $percentComplete = ($counter / $totalLines) * 100
         Write-Progress -PercentComplete $percentComplete -Status "Verarbeite Zeile $counter von $totalLines" -Activity "Installing Tools"
 
@@ -715,6 +715,9 @@ function Main {
             Write-Host "No post-install script found for $toolName."
         }
 
+        if ($installerConfig.Name -ne "Manual.conf") {
+            $counter++
+        }
         # Fortschrittsanzeige aktualisieren
         Write-Host ""
     }
@@ -724,6 +727,7 @@ function Main {
         Write-Host "Installing Manual $commandLine"
         # Start a new job for each manual installation
         install-manual $commandLine
+        $counter++
     }
 
     Write-Progress -PercentComplete 100 -Status "Fertig!" -Activity "Verarbeitung abgeschlossen"
