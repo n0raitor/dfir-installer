@@ -455,7 +455,7 @@ function install-winget {
         $tool = $matches[1]
         Write-Host "Extrahiertes Tool: $tool"
     }
-    Write-Host "Installing $tool" -NoNewline
+    Write-Host "Installing $command" -NoNewline
 
     $wingetCommand = "winget install --id $command --silent --accept-package-agreements"
 
