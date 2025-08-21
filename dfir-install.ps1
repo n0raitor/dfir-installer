@@ -449,13 +449,10 @@ function post-install-fixes {
 }
 function install-winget {
     param (
-        [string]$command
+        [string]$command,
+        [string]$toolname
     )
-    if ($command -match '--id\s+(\S+)') {
-        $tool = $matches[1]
-        Write-Host "Extrahiertes Tool: $tool"
-    }
-    Write-Host "Installing $command" -NoNewline
+    Write-Host "Installing $toolname" -NoNewline
 
     $wingetCommand = "winget install --id $command --silent --accept-package-agreements"
 
@@ -471,7 +468,7 @@ function install-winget {
     if ($installed) {
         Write-Host " [OK]"
     } else {
-        Write-Host "$command is NOT found"
+        Write-Host " [FAILED]"
     }
     
     #winget install --id $command --silent --accept-package-agreements
@@ -480,15 +477,32 @@ function install-winget {
 }
 function install-choco {
     param (
-        [string]$command
+        [string]$command,
+        [string]$toolname
     )
-    Write-Host "Choco installieren mit Befehl: $command"
-    choco install $command -y --ignore-checksums
+    # Run choco install, logging output to $LOGFILE2 if not debugging
+    if ($PSDebugPreference -eq 'Continue') {
+        Write-Debug "Führe aus: choco install $command -y --ignore-checksums"
+        choco install $command -y --ignore-checksums
+    } else {
+        choco install $command -y --ignore-checksums *>> $LOGFILE2
+    }
+
+    # Check if package installed by querying choco list
+    $installed = choco list --local-only --exact $command | Select-String "^$command"
+
+    if ($installed) {
+        Write-Host " [OK]"
+    } else {
+        Write-Host " [FAILED]"
+    }
+
     # Füge hier den Choco Installationsbefehl ein
 }
 function install-copy {
     param (
-        [string]$command
+        [string]$command,
+        [string]$toolname
     )
     Write-Host "Datei kopieren mit Befehl: $command"
     
@@ -512,7 +526,8 @@ function install-copy {
 }
 function install-manual {
     param (
-        [string]$command
+        [string]$command,
+        [string]$toolname
     )
 
    <#  Write-Host "Manuelle Installation mit Befehl: $command"
@@ -539,7 +554,8 @@ function install-manual {
 }
 function install-github {
     param (
-        [string]$command
+        [string]$command,
+        [string]$toolname
     )
     Write-Host "Github Installation mit Befehl: $command"
     # Split the line by space to get URL, Destination, and optional runFile
@@ -661,7 +677,8 @@ function Main {
 
     # Gesamtanzahl der Zeilen
     $totalLines = $configLines.Count
-    Write-Host "$totalLines Tools werden installiert."
+    Write-Host "##################################################"
+    Write-Host "$totalLines Tools will get installed:"
     # Initialisiere den Zähler
     $counter = 0
 
@@ -686,21 +703,20 @@ function Main {
             # Führe die entsprechende Installationsfunktion aus
             $installerConfig = $toolFoundFiles[0]
             $commandLine = (Select-String -Path $installerConfig.FullName -Pattern "^$toolName\s*\|" | ForEach-Object { $_.Line.Trim() }).Split("|")[1].Trim()
-            Write-Host "Installing $toolName"
-            Write-Debug "with command: $commandLine"
+            Write-Debug "Installing $toolName with command: $commandLine"
             # Je nach Installer-Konfiguration rufe die passende Funktion auf
             if ($installerConfig.Name -eq "Winget.conf") {
-                install-winget $commandLine
+                install-winget $commandLine $toolName
             } elseif ($installerConfig.Name -eq "Choco.conf") {
-                install-choco $commandLine
+                install-choco $commandLine $toolName
             } elseif ($installerConfig.Name -eq "Copy.conf") {
-                install-copy $commandLine
+                install-copy $commandLine $toolName
             } elseif ($installerConfig.Name -eq "Manual.conf") {
                 # Füge den Befehl zur manuellen Installation hinzu
                 Write-Host "Scipping Tool $toolName for Manual Installation"
                 $manualInstallCommands += $commandLine
             } elseif ($installerConfig.Name -eq "Github.conf") {
-                install-github $commandLine
+                install-github $commandLine $toolName
             }
         } elseif ($toolFoundFiles.Count -eq 0) {
             Write-Error "Kein Tool namens '$toolName' in den Installer-Konfigurationsdateien gefunden."
