@@ -465,7 +465,12 @@ function install-winget {
     } else {
         Invoke-Expression "$wingetCommand" *>> $LOGFILE2
     }
-    Write-Host "Ok"
+    if (Get-Command $toolName -ErrorAction SilentlyContinue) {
+        Write-Host " [OK]"
+    } else {
+        Write-Host "$toolName is NOT found"
+    }
+    
     #winget install --id $command --silent --accept-package-agreements
     # --ignore-security-hash (If the hash is not correct)
     # Füge hier den Winget Installationsbefehl ein
