@@ -570,11 +570,12 @@ function path-var-config-import {
 }
 
 function Main {
+    Write-Host ""
     Write-Host "Welcome to the DFIR-Installer"
 
     # Test if Configuration file exists
     if (-Not (Test-Path $configFile)) {
-        Write-Error "Configuration File: $configFile not found"
+        Write-Error "Configuration File: $configFile not found. Please check if your config file is in the Configs folder."
         exit
     }
 
@@ -754,6 +755,16 @@ function Main {
 }
 
 # Aufruf der Main-Methode am Ende des Skripts
+Write-Host @"
+____________ ___________     _____          _        _ _           
+|  _  \  ___|_   _| ___ \   |_   _|        | |      | | |          
+| | | | |_    | | | |_/ /_____| | _ __  ___| |_ __ _| | | ___ _ __ 
+| | | |  _|   | | |    /______| || '_ \/ __| __/ _` | | |/ _ \ '__|
+| |/ /| |    _| |_| |\ \     _| || | | \__ \ || (_| | | |  __/ |   
+|___/ \_|    \___/\_| \_|    \___/_| |_|___/\__\__,_|_|_|\___|_|   
+                                                                   
+"@
+
 Main
 
 
