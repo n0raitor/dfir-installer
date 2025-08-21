@@ -739,11 +739,9 @@ function Main {
             (Select-String -Path $_.FullName -Pattern "^$toolName\s*\|" -Quiet)
         }
 
-        if ($installerConfig.Name -ne "Manual.conf") {
-            $counter++
-            $percentComplete = ($counter / $totalLines) * 100
-            Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing Tool"
-        }
+        # Fortschrittsanzeige aktualisieren
+        $percentComplete = ($counter / $totalLines) * 100
+        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing Tool"
 
         if ($toolFoundFiles.Count -eq 1) {
             # Führe die entsprechende Installationsfunktion aus
@@ -800,11 +798,14 @@ function Main {
         }
         # Fortschrittsanzeige aktualisieren
         #Write-Host ""
+        if ($installerConfig.Name -ne "Manual.conf") {
+            $counter++
+        }
     }
 
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
-        $counter++
+        
         $percentComplete = ($counter / $totalLines) * 100
         Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing..."
    
@@ -812,6 +813,7 @@ function Main {
         $filename = [System.IO.Path]::GetFileName($commandLine)
         # Start a new job for each manual installation
         install-manual $commandLine $filename
+        $counter++
     }
 
     Write-Progress -PercentComplete 100 -Status "[$totalLines/$totalLines]" -Activity "Done"
