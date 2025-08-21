@@ -817,6 +817,8 @@ function Main {
    
         Write-Debug "Installing Manual $commandLine"
         $filename = [System.IO.Path]::GetFileName($commandLine)
+        Write-Host "Commandlinevar: $commandLine"
+        Write-Host "Filenamevar: $filename"
         # Start a new job for each manual installation
         Write-Host "Installing $filename" -NoNewline
         install-manual $commandLine $filename
