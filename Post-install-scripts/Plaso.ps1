@@ -15,7 +15,7 @@ if (Test-Path -Path "C:\DFIR\Plaso") {
 
 winget install Microsoft.VisualStudio.2022.BuildTools
 
-echo "Install Instruction in your Documents folder in /DFIR-Installer-Optional/InstallationSteps"
+Write-Host "Install Instruction in your Documents folder in /DFIR-Installer-Optional/InstallationSteps"
 
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\Post-Processing\Plaso" -ItemType SymbolicLink -Target "C:\DFIR\Plaso\Plaso.exe" -Force
