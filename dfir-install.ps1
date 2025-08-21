@@ -700,6 +700,10 @@ function Main {
         $toolFoundFiles = Get-ChildItem -Path $installerConfigDir -Filter "*.conf" | Where-Object {
             (Select-String -Path $_.FullName -Pattern "^$toolName\s*\|" -Quiet)
         }
+        
+        if ($installerConfig.Name -ne "Manual.conf") {
+            $counter++
+        }
 
         if ($toolFoundFiles.Count -eq 1) {
             # Führe die entsprechende Installationsfunktion aus
@@ -740,9 +744,6 @@ function Main {
             Write-Host "No post-install script found for $toolName."
         }
 
-        if ($installerConfig.Name -ne "Manual.conf") {
-            $counter++
-        }
         # Fortschrittsanzeige aktualisieren
         Write-Host ""
     }
