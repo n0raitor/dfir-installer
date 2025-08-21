@@ -86,7 +86,7 @@ function Install-Program-From-Msi {
 
     # Try to start the installer and wait for it to complete
     try {
-        Write-Host "$ProgramName : $MsiPath"
+        Write-Debug "$ProgramName : $MsiPath"
         
         # Start the installer with msiexec (without /quiet or /norestart)
         $process = Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart" -Wait -PassThru
@@ -95,7 +95,7 @@ function Install-Program-From-Msi {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host "[OK] Installer Spawned..."
+        Write-Debug "[OK] Installer Spawned..."
         #Start-Sleep -Seconds 30
         $process.WaitForExit()
 
@@ -118,7 +118,7 @@ function Install-Program-From-Exe {
 
     # Try to start the installer and wait for it to complete
     try {
-        Write-Host "$ProgramName : $ExePath"
+        Write-Debug "$ProgramName : $ExePath"
         
         # Start the installer in the background and capture the process
         $process = Start-Process -FilePath $ExePath -ArgumentList "/quiet", "/norestart" -Wait -PassThru
@@ -126,7 +126,7 @@ function Install-Program-From-Exe {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host " [Installer Spawned]" -NoNewline
+        Write-Debug " [Installer Spawned]" -NoNewline
         $process.WaitForExit()
         # Start-Sleep -Seconds 30
     }
