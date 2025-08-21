@@ -6,6 +6,9 @@ param (
 # STATIC GLOBAL VARS
 #
 # The configuration for installation directories.
+$CURRENTDATETIME = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+$LOGFILE2 = "C:\DFIR\DFIR-Install-LogFileInstallLogs_$CURRENTDATETIME.txt"
+
 $INSTALL_DIRECTORY = "C:\DFIR\"
 $TEMP_DIRECTORY = "C:\DFIR\_tmp"
 # The folder in which shortcuts are stored.The configuration for installation directories
@@ -449,7 +452,17 @@ function install-winget {
         [string]$command
     )
     Write-Host "Winget installieren mit Befehl: $command"
-    winget install --id $command --silent --accept-package-agreements
+
+    $wingetCommand = "winget install --id $command --silent --accept-package-agreements"
+
+    if ($PSDebugPreference -eq 'Continue') {
+        Write-Debug "Führe aus: $wingetCommand"
+        Invoke-Expression $wingetCommand
+    } else {
+        Invoke-Expression "$wingetCommand" *>> $LOGFILE2
+        Write-Host "DONE"
+    }
+    #winget install --id $command --silent --accept-package-agreements
     # --ignore-security-hash (If the hash is not correct)
     # Füge hier den Winget Installationsbefehl ein
 }
@@ -581,43 +594,39 @@ function Main {
 
     # Test condition for User Input and Presetup reminder to user
     if ($config -ne "test") {
+        Write-Host ""
         $choco_installed = Read-Host -Prompt "Press [Enter] if you followed every prepare step described in the README.md"
         $Usern = Read-Host "Enter your user name (For Symbolic Links on the Desktop):"
+        Write-Host ""
     } else {
         $Usern = "NormanSchmidt"
     }
 
     ### Ask if Choco is already installed
-    Write-Debug "Be sure that Chocolatey is installed"
+    Write-Debug "Make sure that Chocolatey is installed"
 
     ### Logging ###
-    # Get current date and time in a specific format
-    $currentDateTime = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
     # Define log file path with current date and time
-    $logFilePath = "C:\Users\$Usern\Desktop\DFIR-Install-LogFile_$currentDateTime.txt"
-
-    #DEPRECATED $logFilePath2 = "C:\Users\$Usern\Desktop\DFIR-Install-LogFileOpt_$currentDateTime.txt"
+    $logFilePath = "C:\Users\$Usern\Desktop\DFIR-Install-LogFile_$CURRENTDATETIME.txt"
+    #DEPRECATED 
 
     # Start logging
     Start-Transcript -Path $logFilePath
     ### Use this For Logging Output of CMDs
     #| Tee-Object -FilePath $logFilePath -Append
     # Message to be displayed on screen
-    Write-Host ""
+    Write-Debug ""
     Write-Debug "Detailed Logging in file $logFilePath."
-    Write-Host ""
+    Write-Debug ""
+    Write-Host "### Starting Installation Phase..."
     ###############################
     # INITIAL SETUP ###############
     ###############################
     # Check if the flag file exists (DFIR-Installer Has Run)
     if (Test-Path $flagPath) {
+        Write-Host "##################################################"
         Write-Host "Installer has already run. Skipping INIT Setup..."
-        # Hier die neuen und alten Blöcke ausführen, die du definierst.
-        # Beispiel: Call existing functions or scripts based on flag presence.
-        # 
-        # init-setup $Usern 
-        # post-processing $Usern 
-        # Weitere bestehende oder neue Prozessblöcke, die du ausführen möchtest
+        Write-Host "##################################################"
     } else {
         Write-Host "Initial Setup..."
         init-setup $Usern
