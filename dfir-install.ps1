@@ -126,7 +126,7 @@ function Install-Program-From-Exe {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host "[OK] Installer Spawned..."
+        Write-Host " [Installer Spawned]" -NoNewline
         $process.WaitForExit()
         # Start-Sleep -Seconds 30
     }
@@ -150,7 +150,7 @@ function Download-And-Extract {
     # Download the file
     $fileName = [System.IO.Path]::GetFileName($url)
     $filePath = Join-Path -Path $destination -ChildPath $fileName
-    Write-Host "Downloading file from $url to $filePath..."
+    Write-Debug "Downloading file from $url to $filePath..."
     $validNames = @("KAPE.zip", "NirSoft-Everything.zip", "ArtiFast.zip", "VMware-workstation-full-17.6.1-24319023.exe", "binaryninja_free_win64.exe", "metasploitframework-latest.msi")
 	if ($validNames -contains $fileName) {
 		Start-BitsTransfer -Source $url -Destination $filePath
@@ -160,55 +160,78 @@ function Download-And-Extract {
 
     # Extract the file if it's a ZIP or 7z file
     if ($fileName.EndsWith(".zip")) {
-        Write-Host "Extracting ZIP file..."
-        & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
-        #Delete Archive
-        Remove-Item $filePath -Force
-    } elseif ($fileName.EndsWith(".7z")) {
-        Write-Host "Extracting 7z file..."
-        # Assuming 7zip is installed and its path is available in the system's PATH environment variable
-        if ($filePath -match "merlin") {
-            & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -pmerlin -y
-        } else {
+        Write-Host " [Extract]" -NoNewline
+        if ($PSDebugPreference -eq 'Continue') {
+            Write-Debug "Extracting ZIP file..."
             & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
+            Remove-Item $filePath -Force
+        } else {
+            & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y *>> $LOGFILE2
+            Remove-Item $filePath -Force *>> $LOGFILE2
         }
-        #Delete Archive
+    } elseif ($fileName.EndsWith(".7z")) {
+        Write-Host " [Extract]" -NoNewline
+        if ($PSDebugPreference -eq 'Continue') {
+            Write-Debug "Extracting 7z file..."
+            # Assuming 7zip is installed and its path is available in the system's PATH environment variable
+            if ($filePath -match "merlin") {
+            & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -pmerlin -y
+            } else {
+                & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
+            }
         Remove-Item $filePath -Force
+            if ($filePath -match "merlin") {
+                & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -pmerlin -y *>> $LOGFILE2
+            } else {
+                & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y *>> $LOGFILE2
+            }
+            Remove-Item $filePath -Force *>> $LOGFILE2
+        }
+        #Delete Archive        
     } elseif ($fileName.EndsWith(".tgz") -or $fileName.EndsWith(".tar.gz")) {
-        Write-Host "Extracting TGZ or TAR.GZ file..."
-        # Assuming tar is available in the system
-        tar -xzf $filePath -C $destination
-        #Delete Archive
-        Remove-Item $filePath -Force
+        Write-Host " [Extract]" -NoNewline
+        if ($PSDebugPreference -eq 'Continue') {
+            Write-Debug "Extracting TGZ or TAR.GZ file..."
+            # Assuming tar is available in the system
+            tar -xzf $filePath -C $destination
+            #Delete Archive
+            Remove-Item $filePath -Force
+        } else {
+            # Assuming tar is available in the system
+            tar -xzf $filePath -C $destination *>> $LOGFILE2
+            #Delete Archive
+            Remove-Item $filePath -Force *>> $LOGFILE2
+        }    
     } else {
-        Write-Host "No extraction needed for file type: $fileName"
+        Write-Debug "No extraction needed for file type: $fileName"
     }
 
     Write-Debug "$runFile"
+    Write-Host " [RunFile]" -NoNewline
 
     # If a runFile was provided, try to run it
     if ($runFile) {
         $runFilePath = Join-Path -Path $destination -ChildPath $runFile
         if (Test-Path $runFilePath) {
-            Write-Host "Running $runFilePath..."
+            Write-Debug "Running $runFilePath..."
             #& $runFilePath
-            Write-Host "Manuelle Installation mit Befehl: $runFilePath"
+            Write-Debug "Manuelle Installation mit Befehl: $runFilePath"
             if ($runFilePath.EndsWith(".msi"))
             {   
-                Write-Host "Installing: $runFilePath"
+                Write-Debug "Installing: $runFilePath"
                 #Start-Process "$_" | Out-Null
                 #Start-Sleep $MAN_INSTALL_MSI_TIMER
                 Install-Program-From-Msi -ProgramName "Manual Install MSI" -MsiPath "$runFilePath"       #".\Binaries\wsl_update_x64.msi"
             }
             else {
-                Write-Host "Installing: $runFilePath"
+                Write-Debug "Installing: $runFilePath"
                 #& "$_" | Out-Null
                 #Write-Host "INSTALLED"
                 Install-Program-From-Exe -ProgramName "Manual Install" -ExePath "$runFilePath" 
             }      
         } else {
             #Write-Host "The file to run '$runFile' does not exist in the extracted folder."
-            Write-Host "Running $runFilePath..."
+            Write-Debug "Running $runFilePath..."
             & $runFilePath
         }
     }
