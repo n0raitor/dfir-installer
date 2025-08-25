@@ -331,7 +331,8 @@ function Install-FromConfigFile {
 }
 function init-setup {
     param (
-        [string]$Usern
+        [string]$Usern,
+        [string]$config
     )
     New-Item -Path "c:\" -Name "DFIR" -ItemType "directory"
     New-Item -Path "c:\DFIR" -Name "_Tools" -ItemType "directory"
@@ -343,7 +344,7 @@ function init-setup {
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
        
     # Create the flag file indicating setup has run
-    New-Item -Path $FLAG_PATH -ItemType File -Force
+    $config | Set-Content -Path $DFIRSetupFlagPath -Force
 
     Write-Host ""
 }
@@ -714,7 +715,7 @@ function Main {
         Write-Host "######## Initial Setup ########"
         Write-Host "###############################"
         Write-Host ""
-        init-setup $Usern
+        init-setup $Usern $configFile
     }
     
 
@@ -734,8 +735,16 @@ function Main {
 
     # Gesamtanzahl der Zeilen
     $totalLines = $configLines.Count
+    Write-Host ""
     Write-Host "##################################################"
     Write-Host "$totalLines Tools will get installed:"
+    Write-Host "##################################################"
+    Write-Host ""
+
+    ##################################
+    # Tool Installation Section ######
+    ##################################
+
     # Initialisiere den Zähler
     $counter = 0
 
@@ -820,9 +829,12 @@ function Main {
             $counter++
         }
     }
+    ##############################
+    ### Manual Install Section ###
+    ##############################
 
     Write-Host ""
-    Write-Host "Manual Install Tools:"
+    Write-Host "######## Manual Install Tools: ########"
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
         $percentComplete = ($counter / $totalLines) * 100
@@ -872,10 +884,21 @@ function Main {
     }
 
     Write-Progress -PercentComplete 100 -Status "[$totalLines/$totalLines]" -Activity "Done"
+    Write-Host ""
+    Write-Host "#############################################################################################"
+    Write-Host "#############################################################################################"
+    Write-Host "#############################################################################################"
+    Write-Host ""
     Read-Host -Prompt "Press [Enter] if every installer windows that were spawned were closed (Installed)"
 
+    Write-Host ""
+    Write-Host "######## Post Processing ########"
+    Write-Host ""
     post-processing $Usern
-
+    
+    Write-Host ""
+    Write-Host "######## Copy Documents and Templates ########"
+    Write-Host ""
     copy-documents $Usern
 
     # Beispiel für den Wert von $config
