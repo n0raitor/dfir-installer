@@ -663,7 +663,7 @@ function path-var-config-import {
             $NewPath = $_.Trim()
             
             if (!(Test-Path $NewPath)) {
-                Write-Host "Path not found: $NewPath" -ForegroundColor Yellow
+                Write-Debug "Path not found: $NewPath" -ForegroundColor Yellow
             }
             elseif ($CurrentPath -notmatch [regex]::Escape($NewPath)) {
                 $CurrentPath += ";$NewPath"

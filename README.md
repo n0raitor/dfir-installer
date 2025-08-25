@@ -159,5 +159,6 @@ This tool is for educational and testing purposes only. I am not the owner of th
 Use to your own risk and only on virual testing systems. I will not take any fault on system damages.
 
 ## Developer Infos:
-`_Create-Scripts.ps1` (In Post-Install-Scripts folder) will this relative Path for the categories and creation of new Post-Install-Scripts `..\..\dfir-installer-selector\dfir-installer-selector.xlsx"`.
-`.\calc-new-tool-list.ps1` will create and update the tool list by checking every installation config (`Installer-Configs`)
+* `.\Post-Install-Scripts\_Create-Scripts.ps1`: will this relative Path for the categories and creation of new Post-Install-Scripts `..\..\dfir-installer-selector\dfir-installer-selector.xlsx"`.
+* `.\calc-new-tool-list.ps1`: will create and update the tool list by checking every installation config (`Installer-Configs`)
+* `.\path-var.conf`: Contains every Path-Variable Entry to get inserted.
