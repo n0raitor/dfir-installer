@@ -6,7 +6,7 @@ param (
 # STATIC GLOBAL VARS
 #
 # The configuration for installation directories.
-
+$Desktop_Links_Source_folder = ".\Links\Desktop"
 $CURRENTDATETIME = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 $LOGFILE2 = "C:\DFIR\DFIR-Install-NonDebug-LogFileInstallLogs_$CURRENTDATETIME.txt"
 
@@ -367,18 +367,7 @@ function post-processing {
     Get-ChildItem -Path $Desktop_Pfad -Filter *.LNK | Move-Item -Destination $Ziel_Pfad
     Get-ChildItem -Path $Desktop_Pfad -Filter *.exe | Move-Item -Destination $Ziel_Pfad
     Get-ChildItem -Path $Desktop_Pfad -Filter *.EXE | Move-Item -Destination $Ziel_Pfad
-    Write-Host "--- Moved all Desktop Icons to Tools Folder on the Desktop ---"
-
-    # Copy update script to desktop
-    $currentDir = Get-Location
-    $sourceFile = "$currentDir\update-system.ps1"
-    Copy-Item -Path $sourceFile -Destination $Desktop_Pfad
-
-    # Enable detailed context menu
-    reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
-
-    # Verschiebe alle Desktop icons in den Ordner Tools
-    # Definiere den Desktop-Pfad und den Zielordner
+        # Definiere den Desktop-Pfad und den Zielordner
     $desktopPath = [System.Environment]::GetFolderPath('Desktop')
     $targetFolder = "C:\DFIR\_Tools"
 
@@ -397,6 +386,30 @@ function post-processing {
         Move-Item -Path $file.FullName -Destination $destinationPath -Force
         Write-Host "File Moved: $($file.Name)"
     }
+    Write-Host "--- Moved all Desktop Icons to Tools Folder on the Desktop ---"
+
+
+
+    # Copy update script to desktop
+    $currentDir = Get-Location
+    $sourceFile = "$currentDir\update-system.ps1"
+    Copy-Item -Path $sourceFile -Destination $Desktop_Pfad
+    Write-Host "--- Copied update script to desktop ---"
+
+    
+    # Copy every Link from the Links\Desktop folder to the current user's desktop
+    if (Test-Path $Desktop_Links_Source_folder) {
+        # Copy all files and directories (recursively) to the desktop
+        Copy-Item -Path "$Desktop_Links_Source_folder\*" -Destination $Desktop_Pfad -Recurse -Force
+        Write-Host "--- Copied Custom Links to the desktop ---"
+    } else {
+        Write-Host "Source path '$Desktop_Links_Source_folder' does not exist."
+    }
+
+    # Enable detailed context menu
+    reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+    Write-Host "--- Enable Detailed Context Menu ---"
+
 
     $targetPath = "C:\Users\$Usern\AppData\Local\Microsoft\WinGet\Links"
     $linkPath = "C:\DFIR\_Tools\_winget-packages"
@@ -411,6 +424,7 @@ function post-processing {
     } else {
         Write-Host "Target path does not exist: $targetPath"
     }
+    Write-Host "--- Created Winget Link in Tools Folder ---"
 
 
     # ### Create Powershell Admin Prompt LNK
@@ -440,7 +454,9 @@ function copy-documents {
     param (
         [string]$Usern
     )
-    Write-Host "Copy Documents and Templates..."
+    Write-Host ""
+    Write-Host "######## Copy Documents and Templates ########"
+    Write-Host ""
     $cpy_documents_location = ".\Documents\"
 
     # Definiere den Zielpfad mit der Benutzer-Variable
@@ -469,6 +485,9 @@ function copy-documents {
             }
         }
     }
+    Write-Host ""
+    Write-Host "######## Finished Copying Documents and Templates ########"
+    Write-Host ""
 }
 function post-install-fixes {
 
