@@ -102,7 +102,7 @@ if ($flagConfirm -match '^[YyJj]$') {
         $uniqueEntries | Set-Content $flagshipConfPath -Force
         Write-Host "`n📄 'Configs\flagship.conf' wurde erfolgreich aktualisiert mit den neuen Einträgen." -ForegroundColor Cyan
     } catch {
-        Write-Error "Fehler beim Schreiben in 'Configs\flagship.conf': $_"
+        Write-Error "Fehler beim Schreiben in 'Configs\flagship.conf': $_" -ForegroundColor Red
     }
 } else {
     Write-Host "'Configs\flagship.conf' wurde nicht verändert." -ForegroundColor Yellow

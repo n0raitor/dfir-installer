@@ -102,7 +102,7 @@ function Install-Program-From-Msi {
 
     }
     catch {
-        Write-Error "An error occurred while installing $ProgramName : $_"
+        Write-Error "An error occurred while installing $ProgramName : $_" 
     }
 }
 function Install-Program-From-Exe {
@@ -113,7 +113,7 @@ function Install-Program-From-Exe {
 
     # Check if the executable exists
     if (-Not (Test-Path -Path $ExePath)) {
-        Write-Error "The executable file does not exist at the specified path: $ExePath"
+        Write-Error "The executable file does not exist at the specified path: $ExePath" 
         return
     }
 
@@ -132,7 +132,7 @@ function Install-Program-From-Exe {
         # Start-Sleep -Seconds 30
     }
     catch {
-        Write-Error "An error occurred while installing $ProgramName : $_"
+        Write-Error "An error occurred while installing $ProgramName : $_" 
     }
 }
 function Download-And-Extract {
@@ -481,7 +481,7 @@ function copy-documents {
                 Copy-Item -Path $sourceFolderPath -Destination $destinationFolderPath -Recurse -Force
                 Write-Host "Sucessfully Moved Folder: $($folder.Name)"
             } catch {
-                Write-Host "Error during Folder Move: $($folder.Name) - $($_.Exception.Message)"
+                Write-Host "Error during Folder Move: $($folder.Name) - $($_.Exception.Message)" -ForegroundColor Red
             }
         }
     }
@@ -518,9 +518,9 @@ function install-winget {
     $installed = winget list --id $command | Select-String $command
 
     if ($installed) {
-        Write-Host " [OK]" -NoNewline
+        Write-Host " [OK]" -NoNewline -ForegroundColor Green
     } else {
-        Write-Host " [FAILED]" -NoNewline
+        Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
     }
     
     #winget install --id $command --silent --accept-package-agreements
@@ -545,9 +545,9 @@ function install-choco {
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
     if ($installed) {
-        Write-Host " [OK]" -NoNewline
+        Write-Host " [OK]" -NoNewline -ForegroundColor Green
     } else {
-        Write-Host " [FAILED]" -NoNewline
+        Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
     }
 
     # Füge hier den Choco Installationsbefehl ein
@@ -637,13 +637,13 @@ function install-github {
         if (Test-Path $destination -PathType Container) {
             $files = Get-ChildItem -Path $destination -ErrorAction SilentlyContinue
             if ($files.Count -gt 0) {
-                Write-Host " [OK]" -NoNewline
+                Write-Host " [OK]" -NoNewline -ForegroundColor Green
             } else {
-                Write-Host " [FAILED]" -NoNewline
+                Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
                 Write-Debug "Folder exists, but no files found"
             }
         } else {
-            Write-Host " [FAILED]" -NoNewline
+            Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
             Write-Debug "Folder does not exist"
         }
 
@@ -689,7 +689,7 @@ function Main {
 
     # Test if Configuration file exists
     if (-Not (Test-Path $configFile)) {
-        Write-Error "Configuration File: $configFile not found. Please check if your config file is in the Configs folder."
+        Write-Error "Configuration File: $configFile not found. Please check if your config file is in the Configs folder." 
         exit
     }
 
@@ -869,7 +869,7 @@ function Main {
         Write-Host "- Installing $filename" -NoNewline
         install-manual $commandLine $filename
         $counter++
-        Write-Host " [OK]"
+        Write-Host " [OK]" -ForegroundColor Green
     }
     Write-Host ""
     Write-Host "Manual Install Post Install Scripts:"
@@ -884,7 +884,7 @@ function Main {
                     try {
                         & $postInstallScriptPath $Usern
                     } catch {
-                        Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
+                        Write-Error "Failed to execute post-install script $postInstallScriptPath : $_" 
                     }
                 } else {
                     try {
