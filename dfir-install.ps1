@@ -455,7 +455,7 @@ function copy-documents {
         [string]$Usern
     )
     Write-Host ""
-    Write-Host "######## Copy Documents and Templates ########"
+    Write-Host "######## Copy Documents and Templates ########" -ForegroundColor Green
     Write-Host ""
     $cpy_documents_location = ".\Documents\"
 
@@ -486,7 +486,7 @@ function copy-documents {
         }
     }
     Write-Host ""
-    Write-Host "######## Finished Copying Documents and Templates ########"
+    Write-Host "######## Finished Copying Documents and Templates ########" -ForegroundColor Green
     Write-Host ""
 }
 function post-install-fixes {
@@ -719,7 +719,7 @@ function Main {
     Write-Debug "Detailed Logging in file $logFilePath"
     Write-Debug ""
     Write-Host "####################################"
-    Write-Host "### Starting Installation Phase ###"
+    Write-Host "### Starting Installation Phase ###" -ForegroundColor Green
     Write-Host "####################################"
     Write-Host ""
     ###############################
@@ -727,14 +727,14 @@ function Main {
     ###############################
     # Check if the flag file exists (DFIR-Installer Has Run)
     if (Test-Path $FLAG_PATH) {
-        Write-Host "##################################################"
-        Write-Host "Installer has already run. Skipping INIT Setup..."
-        Write-Host "##################################################"
+        Write-Host "##################################################" 
+        Write-Host "Installer has already run. Skipping INIT Setup..." -ForegroundColor Green
+        Write-Host "##################################################" 
         Write-Host ""
     } else {
-        Write-Host "###############################"
-        Write-Host "######## Initial Setup ########"
-        Write-Host "###############################"
+        Write-Host "###############################" 
+        Write-Host "######## Initial Setup ########" -ForegroundColor Green
+        Write-Host "###############################" 
         Write-Host ""
         init-setup $Usern $configFile
     }
@@ -758,7 +758,7 @@ function Main {
     $totalLines = $configLines.Count
     Write-Host ""
     Write-Host "##################################################"
-    Write-Host "$totalLines Tools will get installed:"
+    Write-Host "$totalLines Tools will get installed:" -ForegroundColor Green
     Write-Host "##################################################"
     Write-Host ""
 
@@ -855,7 +855,7 @@ function Main {
     ##############################
 
     Write-Host ""
-    Write-Host "######## Manual Install Tools: ########"
+    Write-Host "######## Manual Install Tools: ########" -ForegroundColor Green
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
         $percentComplete = ($counter / $totalLines) * 100
@@ -910,15 +910,15 @@ function Main {
     Write-Host "#############################################################################################"
     Write-Host "#############################################################################################"
     Write-Host ""
-    Read-Host -Prompt "Press [Enter] if every installer windows that were spawned were closed (Installed)"
+    Read-Host -Prompt "Press [Enter] if every installer windows that were spawned were closed (Installed)" -ForegroundColor Green
 
     Write-Host ""
-    Write-Host "######## Post Processing ########"
+    Write-Host "######## Post Processing ########" -ForegroundColor Green
     Write-Host ""
     post-processing $Usern
     
     Write-Host ""
-    Write-Host "######## Copy Documents and Templates ########"
+    Write-Host "######## Copy Documents and Templates ########" -ForegroundColor Green
     Write-Host ""
     copy-documents $Usern
 
@@ -965,7 +965,7 @@ ____________ ___________     _____          _        _ _
 | |/ /| |    _| |_| |\ \     _| || | | \__ \ || (_| | | |  __/ |   
 |___/ \_|    \___/\_| \_|    \___/_| |_|___/\__\__,_|_|_|\___|_|   
                                                                    
-"@
+"@  -ForegroundColor Green
 
 Main
 
