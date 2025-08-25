@@ -6,14 +6,33 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Inteligence")) {
 }
 
 # Check if the tool directory exists
-$sourceLnk = "C:\Program Files (x86)\Paterva\Maltego\v4.9.2\bin\maltego.exe"
-$destinationLnk = "C:\DFIR\_Tools\Inteligence\Maltego.exe"
+$maltegoRoot = "C:\Program Files (x86)\Paterva\Maltego"
+$exeName = "maltego.exe"
 
-if (Test-Path -Path $sourceLnk) {
-    # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+# Recursively search for maltego.exe within Maltego directory
+$sourceLnk = Get-ChildItem -Path $maltegoRoot -Recurse -Filter $exeName -File -ErrorAction SilentlyContinue | 
+    Sort-Object -Property LastWriteTime -Descending |
+    Select-Object -First 1
+
+if ($sourceLnk) {
+    Write-Host "Found Maltego executable at: $($sourceLnk.FullName)"
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "Maltego executable not found."
+}
+
+if ($sourceLnk) {
+    $destinationLnk = "C:\DFIR\_Tools\Inteligence\Maltego.exe"
+
+    if (Test-Path -Path $sourceLnk) {
+        # Copy the  file if it exists
+        New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    } else {
+        Write-Host "EXE not found: $sourceLnk"
+    }
+} else {
+    Write-Host "Maltego executable not found, using Directory: $maltegoRoot to create the symlink manually."
+    New-Item -Path "C:\DFIR\_Tools\Inteligence\Maltego" -ItemType SymbolicLink -Target "C:\Program Files (x86)\Paterva\Maltego" -Force
+
 }
 
 # Create symlink
