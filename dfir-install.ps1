@@ -353,7 +353,6 @@ function post-processing {
         [string]$Usern
     )
 
-    $packageName = "Cleanup"
     $dirs = "C:\DFIR\_Tools\"
     $currentUserPath = [Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
     $newPath = $currentUserPath + ";" + ($dirs -join ";")
@@ -366,6 +365,9 @@ function post-processing {
     Write-Output $(Get-ChildItem -Path $Desktop_Pfad -Filter *.lnk)
     Get-ChildItem -Path $Desktop_Pfad -Filter *.lnk | Move-Item -Destination $Ziel_Pfad
     Get-ChildItem -Path $Desktop_Pfad -Filter *.LNK | Move-Item -Destination $Ziel_Pfad
+    Get-ChildItem -Path $Desktop_Pfad -Filter *.exe | Move-Item -Destination $Ziel_Pfad
+    Get-ChildItem -Path $Desktop_Pfad -Filter *.EXE | Move-Item -Destination $Ziel_Pfad
+    Write-Host "--- Moved all Desktop Icons to Tools Folder on the Desktop ---"
 
     # Copy update script to desktop
     $currentDir = Get-Location
