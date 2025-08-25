@@ -758,7 +758,7 @@ function Main {
     $totalLines = $configLines.Count
     Write-Host ""
     Write-Host "##################################################"
-    Write-Host "$totalLines Tools will get installed:" -ForegroundColor Green
+    Write-Host "$totalLines Tools will get installed" -ForegroundColor Green
     Write-Host "##################################################"
     Write-Host ""
 
