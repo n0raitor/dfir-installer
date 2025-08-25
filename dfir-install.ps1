@@ -381,7 +381,7 @@ function post-processing {
     # Überprüfen, ob der Zielordner existiert, andernfalls erstellen
     if (-not (Test-Path $targetFolder)) {
         New-Item -Path $targetFolder -ItemType Directory
-        Write-Host "Zielordner wurde erstellt: $targetFolder"
+        Write-Host "Target folder created: $targetFolder"
     }
 
     # Hole alle Dateien auf dem Desktop (ohne Unterordner), außer .txt-Dateien
@@ -391,7 +391,7 @@ function post-processing {
     foreach ($file in $files) {
         $destinationPath = Join-Path -Path $targetFolder -ChildPath $file.Name
         Move-Item -Path $file.FullName -Destination $destinationPath -Force
-        Write-Host "Datei verschoben: $($file.Name)"
+        Write-Host "File Moved: $($file.Name)"
     }
 
     $targetPath = "C:\Users\$Usern\AppData\Local\Microsoft\WinGet\Links"
@@ -444,7 +444,7 @@ function copy-documents {
 
     # Stelle sicher, dass der Zielordner existiert
     if (-Not (Test-Path -Path $destinationPath)) {
-        Write-Host "Der Zielordner existiert nicht: $destinationPath"
+        Write-Host "Target folder does not exist: $destinationPath"
         Write-Host "Skipping..."
     } else {
         # Erhalte alle Ordner im Quellverzeichnis
@@ -459,9 +459,9 @@ function copy-documents {
             
             try {
                 Copy-Item -Path $sourceFolderPath -Destination $destinationFolderPath -Recurse -Force
-                Write-Host "Erfolgreich verschoben: $($folder.Name)"
+                Write-Host "Sucessfully Moved Folder: $($folder.Name)"
             } catch {
-                Write-Host "Fehler beim Verschieben von: $($folder.Name) - $($_.Exception.Message)"
+                Write-Host "Error during Folder Move: $($folder.Name) - $($_.Exception.Message)"
             }
         }
     }
@@ -529,12 +529,14 @@ function install-choco {
 
     # Füge hier den Choco Installationsbefehl ein
 }
+
+#DEPRECATED
 function install-copy {
     param (
         [string]$command,
         [string]$toolname
     )
-    Write-Host "Datei kopieren mit Befehl: $command"
+    Write-Host "Copy File with command: $command"
     
     $Inputstring = $command
     $CharArray = $InputString.Split(" ")
@@ -554,6 +556,8 @@ function install-copy {
     New-Item -ItemType SymbolicLink -Path $LNK_OUT -Target $LNK_IN
     Write-Host "INSTALLED"
 }
+
+
 function install-manual {
     param (
         [string]$command,
@@ -636,7 +640,7 @@ function path-var-config-import {
             $NewPath = $_.Trim()
             
             if (!(Test-Path $NewPath)) {
-                Write-Host "Pfad nicht gefunden: $NewPath" -ForegroundColor Yellow
+                Write-Host "Path not found: $NewPath" -ForegroundColor Yellow
             }
             elseif ($CurrentPath -notmatch [regex]::Escape($NewPath)) {
                 $CurrentPath += ";$NewPath"
@@ -646,9 +650,9 @@ function path-var-config-import {
         # PATH für die aktuelle Sitzung setzen
         [System.Environment]::SetEnvironmentVariable("PATH", $CurrentPath, "Process")
 
-        Write-Host "PATH-Variable aktualisiert!" -ForegroundColor Green
+        Write-Host "PATH-Variable updated!" -ForegroundColor Green
     } else {
-        Write-Host "Konfigurationsdatei nicht gefunden: $pathvarconfig" -ForegroundColor Red
+        Write-Host "Configuration file not found: $pathvarconfig" -ForegroundColor Red
     }
 
     if (!(Test-Path $PROFILE)) { New-Item -ItemType File -Path $PROFILE -Force }
@@ -875,10 +879,10 @@ function Main {
 
     # Weiterer Code, um das Update basierend auf $shouldUpdate durchzuführen
     if ($shouldUpdate) {
-        Write-Host "Das Update wird nun gestartet..."
+        Write-Host "The Update will be started now."
         post-install-fixes
     } else {
-        Write-Host "Kein Update erforderlich."
+        Write-Host "No Update Needed."
     }
 
     # Set Path Var
@@ -898,7 +902,7 @@ function Main {
     # Stop logging
     Stop-Transcript
 
-    Write-Host "Das Skript führt nun einige Aufgaben aus..."
+    Write-Host "The Script will start some tasks now to finish the setup."
 }
 
 # Aufruf der Main-Methode am Ende des Skripts
