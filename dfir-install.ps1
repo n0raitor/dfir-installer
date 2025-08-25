@@ -673,8 +673,8 @@ function Main {
     # Test condition for User Input and Presetup reminder to user
     if ($config -ne "test") {
         Write-Host ""
-        $choco_installed = Read-Host -Prompt "Press [Enter] if you followed every prepare step described in the README.md"
-        $Usern = Read-Host "Enter your user name (For Symbolic Links on the Desktop):"
+        $choco_installed = Read-Host -Prompt "Press [Enter] if you followed every prepare step described in the README.md. Link: https://github.com/n0raitor/dfir-installer/blob/main/README.md"
+        $Usern = Read-Host "Enter your username (For Symbolic Links on the Desktop). This should match the folder name in the C:\Users\<Username>\ Directory:"
         Write-Host ""
     } else {
         $Usern = "NormanSchmidt"
@@ -686,7 +686,6 @@ function Main {
     ### Logging ###
     # Define log file path with current date and time
     $logFilePath = "C:\Users\$Usern\Desktop\DFIR-Install-LogFile_$CURRENTDATETIME.txt"
-    #DEPRECATED 
 
     # Start logging
     Start-Transcript -Path $logFilePath
