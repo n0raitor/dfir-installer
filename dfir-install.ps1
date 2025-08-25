@@ -685,7 +685,7 @@ function Main {
 
     ### Logging ###
     # Define log file path with current date and time
-    $logFilePath = "C:\Users\$Usern\Desktop\DFIR-Install-LogFile_$CURRENTDATETIME.txt"
+    $logFilePath = ".\DFIR-Install-LogFile_$CURRENTDATETIME.txt"
 
     # Start logging
     Start-Transcript -Path $logFilePath
