@@ -6,8 +6,9 @@ param (
 # STATIC GLOBAL VARS
 #
 # The configuration for installation directories.
+
 $CURRENTDATETIME = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-$LOGFILE2 = "C:\DFIR\DFIR-Install-LogFileInstallLogs_$CURRENTDATETIME.txt"
+$LOGFILE2 = "C:\DFIR\DFIR-Install-NonDebug-LogFileInstallLogs_$CURRENTDATETIME.txt"
 
 $INSTALL_DIRECTORY = "C:\DFIR\"
 $TEMP_DIRECTORY = "C:\DFIR\_tmp"
@@ -18,7 +19,7 @@ $LNK_FOLDER = "C:\DFIR\_Tools\"
 $MAN_INSTALL_MSI_TIMER = 10
 
 # The path to the flag file indicating setup has run.
-$flagPath = "C:\DFIR\DFIR-Installer.flag"
+$FLAG_PATH = "C:\DFIR\DFIR-Installer.flag"
 
 # Pfade zu den Konfigurationsordnern
 $configDir = "Configs"
@@ -342,7 +343,7 @@ function init-setup {
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
        
     # Create the flag file indicating setup has run
-    New-Item -Path "C:\DFIR\DFIR-Installer.flag" -ItemType File -Force
+    New-Item -Path $FLAG_PATH -ItemType File -Force
 
     Write-Host ""
 }
@@ -693,19 +694,26 @@ function Main {
     #| Tee-Object -FilePath $logFilePath -Append
     # Message to be displayed on screen
     Write-Debug ""
-    Write-Debug "Detailed Logging in file $logFilePath."
+    Write-Debug "Detailed Logging in file $logFilePath"
     Write-Debug ""
-    Write-Host "### Starting Installation Phase..."
+    Write-Host "####################################"
+    Write-Host "### Starting Installation Phase ###"
+    Write-Host "####################################"
+    Write-Host ""
     ###############################
     # INITIAL SETUP ###############
     ###############################
     # Check if the flag file exists (DFIR-Installer Has Run)
-    if (Test-Path $flagPath) {
+    if (Test-Path $FLAG_PATH) {
         Write-Host "##################################################"
         Write-Host "Installer has already run. Skipping INIT Setup..."
         Write-Host "##################################################"
+        Write-Host ""
     } else {
-        Write-Host "Initial Setup..."
+        Write-Host "###############################"
+        Write-Host "######## Initial Setup ########"
+        Write-Host "###############################"
+        Write-Host ""
         init-setup $Usern
     }
     
