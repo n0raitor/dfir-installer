@@ -344,7 +344,7 @@ function init-setup {
     New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
        
     # Create the flag file indicating setup has run
-    $config | Set-Content -Path $DFIRSetupFlagPath -Force
+    $config | Set-Content -Path $FLAG_PATH -Force
 
     Write-Host ""
 }
