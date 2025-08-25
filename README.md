@@ -92,11 +92,12 @@ Pipeline Folder: Future planed configs
 
 **Run the Script with the config name (without .conf) as this:**
 
+This is a new way of observing the installer. Just The Tool name and if it was installed correctly or not.
 ```ps1
 & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config <CONFIG-NAME>
 ```
 
-For Debugging info use *-Debug*:
+For Debugging info and full live install feed and prints use *-Debug*:
 
 ```ps1
 & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config CONFIG-NAME -Debug
@@ -149,6 +150,7 @@ Requests examples:
 
 If you run into a bug or some issues, I am happy to support you or fix those issues.
 
+For Faild Packaged installes, please create an issue and submit the Log files in your cloned dfir-installer root directory.
 
 ## Supported Tools
 See file: *list-of-tools.txt*
