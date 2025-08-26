@@ -127,7 +127,7 @@ function Install-Program-From-Exe {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host "##### $ProgramName [Installer Spawned]"
+        Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
         $process.WaitForExit()
         # Start-Sleep -Seconds 30
     }
@@ -747,6 +747,7 @@ function Main {
 
     # Manual Installer Command will get executed at the end
     $manualInstallCommands = @()
+    $manualInstallToolName = @()
 
     # Gesamtanzahl der Zeilen
     $totalLines = $configLines.Count
@@ -856,6 +857,8 @@ function Main {
     Write-Host ""
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
+        Write-Host "" #Neue Zeile für bessere Lesbarkeit
+
         $percentComplete = ($counter / $totalLines) * 100
         Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing"
    
@@ -870,13 +873,14 @@ function Main {
         Write-Host "     [Installation OK: $filename]" -ForegroundColor DarkGreen
     }
     Write-Host ""
-    Write-Host "Manual Install Post Install Scripts:"
+    Write-Host "----- Manual Install Post Install Scripts -----" -ForegroundColor Green
     foreach ($toolName in $manualInstallToolName) {
-        Write-Host "- $toolName" -NoNewline
+        Write-Host "|-- $toolName" -ForegroundColor DarkGreen
+            # Überprüfen und Ausführen eines Skripts im Ordner "$pp_script_folder"
         $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
             #Write-Host "Post-Install-Script: $postInstallScriptPath"
             if (Test-Path $postInstallScriptPath) {
-                Write-Host " [Post-Install-Script:" -NoNewline
+                Write-Host "|--- Post-Install-Script Started" -ForegroundColor DarkGreen
                 if ($PSDebugPreference -eq 'Continue') {
                     Write-Debug "Running post-install script for $toolName..."
                     try {
@@ -887,9 +891,9 @@ function Main {
                 } else {
                     try {
                         & $postInstallScriptPath $Usern *>> $LOGFILE2
-                        Write-Host " OK]"
+                        Write-Host "|--- Post-Install-Script Finished Successfully" -ForegroundColor DarkGreen
                     } catch {
-                        Write-Host " FAILED]"
+                        Write-Host "|--- Post-Install-Script FAILED" -ForegroundColor Red
                     }
                 }
             } else {
