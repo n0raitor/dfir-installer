@@ -35,7 +35,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\TimelineExplorer.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
@@ -45,7 +45,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\ShellBagsExplorer.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
@@ -55,7 +55,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\SDBExplorer.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
@@ -65,7 +65,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\RegistryExplorer.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
@@ -75,7 +75,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\MFTExplorer.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
@@ -85,7 +85,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\JumpListExplorer.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
@@ -95,7 +95,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\iisGeolocate.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
@@ -105,7 +105,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\EZViewer.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }

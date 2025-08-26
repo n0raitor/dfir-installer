@@ -10,7 +10,7 @@ $sourceLnk = "C:\ProgramData\chocolatey\bin\ArsenalImageMounter.exe"
 $destinationLnk = "C:\DFIR\_Tools\Acquisition Tools\ArsenalImageMounter.exe"
 
 if (Test-Path -Path $sourceLnk) {
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }

@@ -11,7 +11,7 @@ $destinationLnk = "C:\DFIR\_Tools\Other\apktool.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }

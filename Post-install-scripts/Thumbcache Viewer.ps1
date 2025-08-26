@@ -14,7 +14,7 @@ $destinationLnk = "C:\DFIR\_Tools\Artifact Tools\Thumbcache Viewer.exe"
 if (Test-Path -Path "C:\Users\$Usern\AppData\Local\Microsoft\WinGet\Links") {
     if (Test-Path -Path $sourceLnk) {
         # Copy the  file if it exists
-        New-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+        New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
     } else {
         Write-Host "Shortcut not found: $sourceLnk"
     }

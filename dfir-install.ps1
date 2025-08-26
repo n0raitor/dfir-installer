@@ -339,11 +339,11 @@ function init-setup {
     New-Item -Path "c:\" -Name "DFIR" -ItemType "directory"
     New-Item -Path "c:\DFIR" -Name "_Tools" -ItemType "directory"
     #New-Item -Path "c:\DFIR" -Name "_GitHub" -ItemType "directory"
-    New-Item -ItemType SymbolicLink -Path "C:\Users\$Usern\Desktop\Tools" -Target "C:\DFIR\_Tools"
-    #New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_GitHub" -Target "C:\DFIR\_GitHub"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_DFIR" -Target "C:\DFIR"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-bin" -Target "C:\ProgramData\chocolatey\bin"
-    New-Item -ItemType SymbolicLink -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
+    New-Item -ItemType SymbolicLink -Force -Path "C:\Users\$Usern\Desktop\Tools" -Target "C:\DFIR\_Tools" 
+    #New-Item -ItemType SymbolicLink -Force -Path "C:\DFIR\_Tools\_GitHub" -Target "C:\DFIR\_GitHub"
+    New-Item -ItemType SymbolicLink -Force -Path "C:\DFIR\_Tools\_DFIR" -Target "C:\DFIR" 
+    New-Item -ItemType SymbolicLink -Force -Path "C:\DFIR\_Tools\_choco-bin" -Target "C:\ProgramData\chocolatey\bin"
+    New-Item -ItemType SymbolicLink -Force -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
        
     # Create the flag file indicating setup has run
     $config | Set-Content -Path $FLAG_PATH -Force
@@ -418,7 +418,7 @@ function post-processing {
 
     if (Test-Path -Path $targetPath) {
         if (-not (Test-Path -Path $linkPath)) {
-            New-Item -ItemType SymbolicLink -Path $linkPath -Target $targetPath
+            New-Item -ItemType SymbolicLink -Force -Path $linkPath -Target $targetPath
             Write-Host "Symbolic link created."
         } else {
             Write-Host "Link path already exists: $linkPath"
@@ -572,7 +572,7 @@ function install-copy {
     #& "$_" | Out-Null
     $LNK_IN = $INSTALL_DIRECTORY + $Name_of_LNK + "\" + $Path_To_EXE
     $LNK_OUT = $LNK_FOLDER + $Name_of_LNK      # + ""
-    New-Item -ItemType SymbolicLink -Path $LNK_OUT -Target $LNK_IN
+    New-Item -ItemType SymbolicLink -Force -Path $LNK_OUT -Target $LNK_IN
     Write-Host "INSTALLED"
 }
 

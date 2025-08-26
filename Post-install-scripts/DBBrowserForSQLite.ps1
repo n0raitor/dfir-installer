@@ -11,7 +11,7 @@ $destinationLnk = "C:\DFIR\_Tools\Browser Tools\DB Browser for SQLite.exe"
 
 if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
-    CNew-Item -ItemType SymbolicLink -Path $destinationLnk -Target $sourceLnk
+    CNew-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
     Write-Host "EXE not found: $sourceLnk"
 }
