@@ -215,7 +215,7 @@ function Download-And-Extract {
     }
 
     Write-Debug "$runFile"
-    Write-Host "##### $fileName [RunFile $runFile] #####"
+    Write-Host "     [Run File: $runFile]" --ForegroundColor DarkGreen
 
     # If a runFile was provided, try to run it
     if ($runFile) {
@@ -806,13 +806,14 @@ function Main {
         } else {
             Write-Error "Mehr als eine Übereinstimmung für Tool '$toolName' gefunden. Bitte überprüfen Sie die Konfigurationsdateien."
         }
-
+        
+        # Post Install Script Section
         if ($installerConfig.Name -ne "Manual.conf") {
             # Überprüfen und Ausführen eines Skripts im Ordner "$pp_script_folder"
             $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
             #Write-Host "Post-Install-Script: $postInstallScriptPath"
             if (Test-Path $postInstallScriptPath) {
-                Write-Host " [Post-Install-Script:" -NoNewline
+                Write-Host "     [Post-Install Script: Started]" --ForegroundColor DarkGreen
                 if ($PSDebugPreference -eq 'Continue') {
                     Write-Debug "Running post-install script for $toolName..."
                     try {
@@ -823,16 +824,16 @@ function Main {
                 } else {
                     try {
                         & $postInstallScriptPath $Usern *>> $LOGFILE2
-                        Write-Host " OK]"
+                        Write-Host "     [Post-Install Script: OK]" --ForegroundColor DarkGreen
                     } catch {
-                        Write-Host " FAILED]"
+                        Write-Host "     [Post-Install Script: Failed]" --ForegroundColor DarkRed
                     }
                 }
             } else {
                 if ($PSDebugPreference -eq 'Continue') {
                     Write-Debug "No post-install script found for $toolName."
                 } else {
-                    Write-Host " SKIPPED/N.A.]"
+                    Write-Host "     [Post-Install Script: Skipped/N.A.]" --ForegroundColor DarkGreen
                 }
                 Write-Host ""
             }
