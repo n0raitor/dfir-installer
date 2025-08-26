@@ -96,7 +96,7 @@ function Install-Program-From-Msi {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host "##### $ProgramName [Installer Spawned]"
+        Write-Host "     [Installer Spawned: $ProgramName]"
         #Start-Sleep -Seconds 30
         $process.WaitForExit()
 
@@ -514,9 +514,9 @@ function install-winget {
     $installed = winget list --id $command | Select-String $command
     
     if ($installed) {
-        Write-Host "[OK] Installation complete: $toolname" -ForegroundColor DarkGreen
+        Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
     } else {
-        Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
+        Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
     }
     
@@ -539,9 +539,9 @@ function install-choco {
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
     if ($installed) {
-        Write-Host "[OK] Installation complete: $toolname" -ForegroundColor DarkGreen
+        Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
     } else {
-        Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
+        Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
     }
 
     # Füge hier den Choco Installationsbefehl ein
@@ -631,13 +631,13 @@ function install-github {
         if (Test-Path $destination -PathType Container) {
             $files = Get-ChildItem -Path $destination -ErrorAction SilentlyContinue
             if ($files.Count -gt 0) {
-                Write-Host "[OK] Installation complete: $toolname" -ForegroundColor DarkGreen
+                Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
             } else {
-                Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
+                Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
                 Write-Debug "Folder exists, but no files found"
             }
         } else {
-            Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
+            Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
             Write-Debug "Folder does not exist"
         }
 
@@ -850,7 +850,10 @@ function Main {
     ##############################
 
     Write-Host ""
+    Write-Host "#######################################" -ForegroundColor Green
     Write-Host "######## Manual Install Tools: ########" -ForegroundColor Green
+    Write-Host "#######################################" -ForegroundColor Green
+    Write-Host ""
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
         $percentComplete = ($counter / $totalLines) * 100
@@ -861,10 +864,10 @@ function Main {
         Write-Debug "Commandlinevar: $commandLine"
         Write-Debug "Filenamevar: $filename"
         # Start a new job for each manual installation
-        Write-Host "- Installing $filename" -NoNewline
+        Write-Host "----- Installing $filename -----" -ForegroundColor Green
         install-manual $commandLine $filename
         $counter++
-        Write-Host " [OK]" -ForegroundColor Green
+        Write-Host "     [Installation OK: $filename]" -ForegroundColor DarkGreen
     }
     Write-Host ""
     Write-Host "Manual Install Post Install Scripts:"
@@ -905,7 +908,7 @@ function Main {
     Write-Host "#############################################################################################"
     Write-Host "#############################################################################################"
     Write-Host ""
-    Read-Host -Prompt "Press [Enter] if every installer windows that were spawned were closed (Installed)" -ForegroundColor Green
+    Read-Host -Prompt "Press [Enter] if every installer windows that were spawned were closed (Installed)"
 
     Write-Host ""
     Write-Host "######## Post Processing ########" -ForegroundColor Green
