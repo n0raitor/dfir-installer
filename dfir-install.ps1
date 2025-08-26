@@ -818,28 +818,18 @@ function Main {
             #Write-Host "Post-Install-Script: $postInstallScriptPath"
             if (Test-Path $postInstallScriptPath) {
                 Write-Host "     [Post-Install Script: Started]" -ForegroundColor DarkGreen
-                if ($PSDebugPreference -eq 'Continue') {
-                    Write-Debug "Running post-install script for $toolName..."
-                    try {
-                        & $postInstallScriptPath $Usern
-                    } catch {
-                        Write-Error "Failed to execute post-install script $postInstallScriptPath : $_"
-                    }
-                } else {
-                    try {
-                        & $postInstallScriptPath $Usern #*>> $LOGFILE2
-                        Write-Host "     [Post-Install Script: OK]" -ForegroundColor DarkGreen
-                    } catch {
-                        Write-Host "     [Post-Install Script: Failed]" -ForegroundColor DarkRed
-                    }
-                }
+            
+                Write-Debug "Running post-install script for $toolName..."
+                try {
+                    & $postInstallScriptPath $Usern
+                    Write-Host "     [Post-Install Script: OK]" -ForegroundColor DarkGreen
+                } catch {
+                    Write-Host "     [Post-Install Script: Failed]" -ForegroundColor DarkRed
+                    Write-Debug "Failed to execute post-install script $postInstallScriptPath : $_"
+                }              
             } else {
-                if ($PSDebugPreference -eq 'Continue') {
-                    Write-Debug "No post-install script found for $toolName."
-                } else {
-                    Write-Host "     [Post-Install Script: Skipped/N.A.]" -ForegroundColor DarkGreen
-                }
-                Write-Host ""
+                Write-Debug "No post-install script found for $toolName."
+                Write-Host "     [Post-Install Script: Skipped/N.A.]" -ForegroundColor DarkGreen
             }
         }
         # Fortschrittsanzeige aktualisieren
@@ -883,28 +873,17 @@ function Main {
             #Write-Host "Post-Install-Script: $postInstallScriptPath"
             if (Test-Path $postInstallScriptPath) {
                 Write-Host "|--- Post-Install-Script Started" -ForegroundColor DarkGreen
-                if ($PSDebugPreference -eq 'Continue') {
-                    Write-Debug "Running post-install script for $toolName..."
-                    try {
-                        & $postInstallScriptPath $Usern
-                    } catch {
-                        Write-Error "Failed to execute post-install script $postInstallScriptPath : $_" 
-                    }
-                } else {
-                    try {
-                        & $postInstallScriptPath $Usern #*>> $LOGFILE2
-                        Write-Host "|--- Post-Install-Script Finished Successfully" -ForegroundColor DarkGreen
-                    } catch {
-                        Write-Host "|--- Post-Install-Script FAILED" -ForegroundColor Red
-                    }
+                Write-Debug "Running post-install script for $toolName..."
+                try {
+                    & $postInstallScriptPath $Usern #*>> $LOGFILE2
+                    Write-Host "|--- Post-Install-Script Finished Successfully" -ForegroundColor DarkGreen
+                } catch {
+                    Write-Host "|--- Post-Install-Script FAILED" -ForegroundColor Red
+                    Write-Debug "Failed to execute post-install script $postInstallScriptPath : $_" 
                 }
             } else {
-                if ($PSDebugPreference -eq 'Continue') {
-                    Write-Debug "No post-install script found for $toolName."
-                } else {
-                    Write-Host " SKIPPED/N.A.]"
-                }
-                Write-Host ""
+                Write-Debug "No post-install script found for $toolName."
+                Write-Host " SKIPPED/N.A.]"
             }
     }
 
