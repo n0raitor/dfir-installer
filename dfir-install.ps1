@@ -168,7 +168,7 @@ function Download-And-Extract {
 
     # Extract the file if it's a ZIP or 7z file
     if ($fileName.EndsWith(".zip")) {
-        Write-Host "##### $fileName [Extract .zip] #####" -ForegroundColor Green
+        Write-Host "     [Extracting: $fileName]" -ForegroundColor DarkGreen
         if ($PSDebugPreference -eq 'Continue') {
             Write-Debug "Extracting ZIP file..."
             & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
@@ -178,7 +178,7 @@ function Download-And-Extract {
             Remove-Item $filePath -Force *>> $LOGFILE2
         }
     } elseif ($fileName.EndsWith(".7z")) {
-        Write-Host "##### $fileName [Extract .7z] #####" -ForegroundColor Green
+        Write-Host "     [Extracting: $fileName]" -ForegroundColor DarkGreen
         if ($PSDebugPreference -eq 'Continue') {
             Write-Debug "Extracting 7z file..."
             # Assuming 7zip is installed and its path is available in the system's PATH environment variable
@@ -197,7 +197,7 @@ function Download-And-Extract {
         }
         #Delete Archive        
     } elseif ($fileName.EndsWith(".tgz") -or $fileName.EndsWith(".tar.gz")) {
-        Write-Host "##### $fileName [Extract .tgz] #####" -ForegroundColor Green
+        Write-Host "     [Extracting: $fileName]" -ForegroundColor DarkGreen
         if ($PSDebugPreference -eq 'Continue') {
             Write-Debug "Extracting TGZ or TAR.GZ file..."
             # Assuming tar is available in the system
