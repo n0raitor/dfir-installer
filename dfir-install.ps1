@@ -690,7 +690,7 @@ function Main {
     }
 
     # Test condition for User Input and Presetup reminder to user
-    if ($config -ne "test") {
+    if ($config -ne "test" -and $config -ne "test_base") {
         Write-Host ""
         $choco_installed = Read-Host -Prompt "Press [Enter] if you followed every prepare step described in the README.md. Link: https://github.com/n0raitor/dfir-installer/blob/main/README.md"
         $Usern = Read-Host "Enter your username (For Symbolic Links on the Desktop). This should match the folder name in the C:\Users\<Username>\ Directory:"
