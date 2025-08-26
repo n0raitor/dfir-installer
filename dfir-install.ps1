@@ -713,7 +713,7 @@ function Main {
     Write-Debug "Detailed Logging in file $logFilePath"
     Write-Debug ""
     Write-Host "####################################"
-    Write-Host "### Starting Installation Phase ###" -ForegroundColor Green
+    Write-Host "Starting Installation Phase" -ForegroundColor Green
     Write-Host "####################################"
     Write-Host ""
     ###############################
@@ -851,9 +851,9 @@ function Main {
     ##############################
 
     Write-Host ""
-    Write-Host "#######################################" -ForegroundColor Green
-    Write-Host "######## Manual Install Tools: ########" -ForegroundColor Green
-    Write-Host "#######################################" -ForegroundColor Green
+    Write-Host "#####################"
+    Write-Host "Manual Install Tools" -ForegroundColor Green
+    Write-Host "#####################"
     Write-Host ""
     # Execute all collected manual install commands
     foreach ($commandLine in $manualInstallCommands) {
