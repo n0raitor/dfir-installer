@@ -215,10 +215,11 @@ function Download-And-Extract {
     }
 
     Write-Debug "$runFile"
-    Write-Host "     [Run File: $runFile]" -ForegroundColor DarkGreen
+    
 
     # If a runFile was provided, try to run it
     if ($runFile) {
+        Write-Host "     [Run File: $runFile]" -ForegroundColor DarkGreen
         $runFilePath = Join-Path -Path $destination -ChildPath $runFile
         if (Test-Path $runFilePath) {
             Write-Debug "Running $runFilePath..."
