@@ -215,7 +215,7 @@ function Download-And-Extract {
     }
 
     Write-Debug "$runFile"
-    Write-Host "     [Run File: $runFile]" --ForegroundColor DarkGreen
+    Write-Host "     [Run File: $runFile]" -ForegroundColor DarkGreen
 
     # If a runFile was provided, try to run it
     if ($runFile) {
@@ -508,7 +508,7 @@ function install-winget {
     Write-Host "----- Installing $toolname -----" -ForegroundColor Green
 
     winget install --id $command --silent --accept-package-agreements
-    Write-Host "Winget Output END" --ForegroundColor DarkGreen
+    Write-Host "Winget Output END" -ForegroundColor DarkGreen
     Write-Host ""
     $installed = winget list --id $command | Select-String $command
     
@@ -533,7 +533,7 @@ function install-choco {
     # Run choco install, logging output to $LOGFILE2 if not debugging
     Write-Debug "Führe aus: choco install $command -y --ignore-checksums"
     choco install $command -y --ignore-checksums
-    Write-Host "Chocolatey Output END" --ForegroundColor DarkGreen
+    Write-Host "Chocolatey Output END" -ForegroundColor DarkGreen
     Write-Host ""
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
@@ -813,7 +813,7 @@ function Main {
             $postInstallScriptPath = "$pp_script_folder\$toolName.ps1"
             #Write-Host "Post-Install-Script: $postInstallScriptPath"
             if (Test-Path $postInstallScriptPath) {
-                Write-Host "     [Post-Install Script: Started]" --ForegroundColor DarkGreen
+                Write-Host "     [Post-Install Script: Started]" -ForegroundColor DarkGreen
                 if ($PSDebugPreference -eq 'Continue') {
                     Write-Debug "Running post-install script for $toolName..."
                     try {
@@ -824,16 +824,16 @@ function Main {
                 } else {
                     try {
                         & $postInstallScriptPath $Usern *>> $LOGFILE2
-                        Write-Host "     [Post-Install Script: OK]" --ForegroundColor DarkGreen
+                        Write-Host "     [Post-Install Script: OK]" -ForegroundColor DarkGreen
                     } catch {
-                        Write-Host "     [Post-Install Script: Failed]" --ForegroundColor DarkRed
+                        Write-Host "     [Post-Install Script: Failed]" -ForegroundColor DarkRed
                     }
                 }
             } else {
                 if ($PSDebugPreference -eq 'Continue') {
                     Write-Debug "No post-install script found for $toolName."
                 } else {
-                    Write-Host "     [Post-Install Script: Skipped/N.A.]" --ForegroundColor DarkGreen
+                    Write-Host "     [Post-Install Script: Skipped/N.A.]" -ForegroundColor DarkGreen
                 }
                 Write-Host ""
             }
