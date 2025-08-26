@@ -507,9 +507,10 @@ function install-winget {
         [string]$toolname
     )
     Write-Host "----- Installing $toolname -----" -ForegroundColor Green
-
+    
+    Write-Host "Winget Output Started" -ForegroundColor DarkGreen
     winget install --id $command --silent --accept-package-agreements
-    Write-Host "Winget Output END" -ForegroundColor DarkGreen
+    Write-Host "Winget Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
     $installed = winget list --id $command | Select-String $command
     
@@ -533,8 +534,9 @@ function install-choco {
 
     # Run choco install, logging output to $LOGFILE2 if not debugging
     Write-Debug "Führe aus: choco install $command -y --ignore-checksums"
+    Write-Host "Chocolatey Output Started" -ForegroundColor DarkGreen
     choco install $command -y --ignore-checksums
-    Write-Host "Chocolatey Output END" -ForegroundColor DarkGreen
+    Write-Host "Chocolatey Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
