@@ -96,7 +96,7 @@ function Install-Program-From-Msi {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host " [Installer Spawned]" -NoNewline
+        Write-Host "##### $ProgramName [Installer Spawned]"
         #Start-Sleep -Seconds 30
         $process.WaitForExit()
 
@@ -127,7 +127,7 @@ function Install-Program-From-Exe {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host " [Installer Spawned]" -NoNewline
+        Write-Host "##### $ProgramName [Installer Spawned]"
         $process.WaitForExit()
         # Start-Sleep -Seconds 30
     }
@@ -165,9 +165,10 @@ function Download-And-Extract {
 		Invoke-WebRequest -Uri $url -OutFile $filePath -UseBasicParsing
 	}
 
+
     # Extract the file if it's a ZIP or 7z file
     if ($fileName.EndsWith(".zip")) {
-        Write-Host " [Extract]" -NoNewline
+        Write-Host "##### $fileName [Extract .zip] #####" -ForegroundColor Green
         if ($PSDebugPreference -eq 'Continue') {
             Write-Debug "Extracting ZIP file..."
             & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
@@ -177,7 +178,7 @@ function Download-And-Extract {
             Remove-Item $filePath -Force *>> $LOGFILE2
         }
     } elseif ($fileName.EndsWith(".7z")) {
-        Write-Host " [Extract]" -NoNewline
+        Write-Host "##### $fileName [Extract .7z] #####" -ForegroundColor Green
         if ($PSDebugPreference -eq 'Continue') {
             Write-Debug "Extracting 7z file..."
             # Assuming 7zip is installed and its path is available in the system's PATH environment variable
@@ -186,7 +187,7 @@ function Download-And-Extract {
             } else {
                 & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -y
             }
-        Remove-Item $filePath -Force
+            Remove-Item $filePath -Force
             if ($filePath -match "merlin") {
                 & 'C:\Program Files\7-Zip\7z.exe' x $filePath "-o$destination" -pmerlin -y *>> $LOGFILE2
             } else {
@@ -196,7 +197,7 @@ function Download-And-Extract {
         }
         #Delete Archive        
     } elseif ($fileName.EndsWith(".tgz") -or $fileName.EndsWith(".tar.gz")) {
-        Write-Host " [Extract]" -NoNewline
+        Write-Host "##### $fileName [Extract .tgz] #####" -ForegroundColor Green
         if ($PSDebugPreference -eq 'Continue') {
             Write-Debug "Extracting TGZ or TAR.GZ file..."
             # Assuming tar is available in the system
@@ -214,7 +215,7 @@ function Download-And-Extract {
     }
 
     Write-Debug "$runFile"
-    Write-Host " [RunFile]" -NoNewline
+    Write-Host "##### $fileName [RunFile $runFile] #####"
 
     # If a runFile was provided, try to run it
     if ($runFile) {
@@ -504,24 +505,21 @@ function install-winget {
         [string]$command,
         [string]$toolname
     )
-    Write-Host "Installing $toolname" -NoNewline
+    Write-Host ""
+    Write-Host "##### Installing $toolname #####" -ForegroundColor Green
 
-    $wingetCommand = "winget install --id $command --silent --accept-package-agreements"
-
-    if ($PSDebugPreference -eq 'Continue') {
-        Write-Debug "Führe aus: $wingetCommand"
-        Invoke-Expression $wingetCommand
-    } else {
-        Invoke-Expression "$wingetCommand" *>> $LOGFILE2
-    }
+    winget install --id $command --silent --accept-package-agreements
 
     $installed = winget list --id $command | Select-String $command
+    
 
     if ($installed) {
-        Write-Host " [OK]" -NoNewline -ForegroundColor Green
+        Write-Host "##### Installing $toolname [OK] #####" -ForegroundColor Green
     } else {
-        Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
+        Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
+        Write-Debug "CHeck result $installed"
     }
+    Write-Host ""
     
     #winget install --id $command --silent --accept-package-agreements
     # --ignore-security-hash (If the hash is not correct)
@@ -532,22 +530,18 @@ function install-choco {
         [string]$command,
         [string]$toolname
     )
-    Write-Host "Installing $toolname" -NoNewline
+    Write-Host "##### Installing $toolname #####" -ForegroundColor Green
 
     # Run choco install, logging output to $LOGFILE2 if not debugging
-    if ($PSDebugPreference -eq 'Continue') {
-        Write-Debug "Führe aus: choco install $command -y --ignore-checksums"
-        choco install $command -y --ignore-checksums
-    } else {
-        choco install $command -y --ignore-checksums *>> $LOGFILE2
-    }
+    Write-Debug "Führe aus: choco install $command -y --ignore-checksums"
+    choco install $command -y --ignore-checksums
 
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
     if ($installed) {
-        Write-Host " [OK]" -NoNewline -ForegroundColor Green
+        Write-Host "##### Installing $toolname [OK] #####" -ForegroundColor Green
     } else {
-        Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
+        Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
     }
 
     # Füge hier den Choco Installationsbefehl ein
@@ -613,7 +607,7 @@ function install-github {
         [string]$command,
         [string]$toolname
     )
-    Write-Host "Installing $toolname" -NoNewline
+    Write-Host "##### Installing $toolname #####" -ForegroundColor Green
 
     Write-Debug "Github Installation mit Befehl: $command"
     # Split the line by space to get URL, Destination, and optional runFile
@@ -637,13 +631,13 @@ function install-github {
         if (Test-Path $destination -PathType Container) {
             $files = Get-ChildItem -Path $destination -ErrorAction SilentlyContinue
             if ($files.Count -gt 0) {
-                Write-Host " [OK]" -NoNewline -ForegroundColor Green
+                Write-Host "##### Installing $toolname [OK] #####" -ForegroundColor Green
             } else {
-                Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
+                Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
                 Write-Debug "Folder exists, but no files found"
             }
         } else {
-            Write-Host " [FAILED]" -NoNewline -ForegroundColor Red
+            Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
             Write-Debug "Folder does not exist"
         }
 
