@@ -827,7 +827,7 @@ function Main {
                     }
                 } else {
                     try {
-                        & $postInstallScriptPath $Usern *>> $LOGFILE2
+                        & $postInstallScriptPath $Usern #*>> $LOGFILE2
                         Write-Host "     [Post-Install Script: OK]" -ForegroundColor DarkGreen
                     } catch {
                         Write-Host "     [Post-Install Script: Failed]" -ForegroundColor DarkRed
@@ -892,7 +892,7 @@ function Main {
                     }
                 } else {
                     try {
-                        & $postInstallScriptPath $Usern *>> $LOGFILE2
+                        & $postInstallScriptPath $Usern #*>> $LOGFILE2
                         Write-Host "|--- Post-Install-Script Finished Successfully" -ForegroundColor DarkGreen
                     } catch {
                         Write-Host "|--- Post-Install-Script FAILED" -ForegroundColor Red
