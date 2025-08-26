@@ -505,21 +505,19 @@ function install-winget {
         [string]$command,
         [string]$toolname
     )
-    Write-Host ""
-    Write-Host "##### Installing $toolname #####" -ForegroundColor Green
+    Write-Host "----- Installing $toolname -----" -ForegroundColor Green
 
     winget install --id $command --silent --accept-package-agreements
-
+    Write-Host "Winget Output END" --ForegroundColor DarkGreen
+    Write-Host ""
     $installed = winget list --id $command | Select-String $command
     
-
     if ($installed) {
-        Write-Host "##### Installing $toolname [OK] #####" -ForegroundColor Green
+        Write-Host "[OK] Installation complete: $toolname" -ForegroundColor DarkGreen
     } else {
-        Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
+        Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
     }
-    Write-Host ""
     
     #winget install --id $command --silent --accept-package-agreements
     # --ignore-security-hash (If the hash is not correct)
@@ -530,18 +528,19 @@ function install-choco {
         [string]$command,
         [string]$toolname
     )
-    Write-Host "##### Installing $toolname #####" -ForegroundColor Green
+    Write-Host "----- Installing $toolname -----" -ForegroundColor Green
 
     # Run choco install, logging output to $LOGFILE2 if not debugging
     Write-Debug "Führe aus: choco install $command -y --ignore-checksums"
     choco install $command -y --ignore-checksums
-
+    Write-Host "Chocolatey Output END" --ForegroundColor DarkGreen
+    Write-Host ""
     # Check if package installed by querying choco list
     $installed = choco list --exact $command | Select-String "$command"
     if ($installed) {
-        Write-Host "##### Installing $toolname [OK] #####" -ForegroundColor Green
+        Write-Host "[OK] Installation complete: $toolname" -ForegroundColor DarkGreen
     } else {
-        Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
+        Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
     }
 
     # Füge hier den Choco Installationsbefehl ein
@@ -607,7 +606,7 @@ function install-github {
         [string]$command,
         [string]$toolname
     )
-    Write-Host "##### Installing $toolname #####" -ForegroundColor Green
+    Write-Host "----- Installing $toolname -----" -ForegroundColor Green
 
     Write-Debug "Github Installation mit Befehl: $command"
     # Split the line by space to get URL, Destination, and optional runFile
@@ -631,13 +630,13 @@ function install-github {
         if (Test-Path $destination -PathType Container) {
             $files = Get-ChildItem -Path $destination -ErrorAction SilentlyContinue
             if ($files.Count -gt 0) {
-                Write-Host "##### Installing $toolname [OK] #####" -ForegroundColor Green
+                Write-Host "[OK] Installation complete: $toolname" -ForegroundColor DarkGreen
             } else {
-                Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
+                Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
                 Write-Debug "Folder exists, but no files found"
             }
         } else {
-            Write-Host "##### Installing $toolname [FAILED] #####" -ForegroundColor Red
+            Write-Host "[FAILED] Installation failed: $toolname" -ForegroundColor DarkRed
             Write-Debug "Folder does not exist"
         }
 
@@ -766,7 +765,7 @@ function Main {
     # Gehe jede Zeile durch, um den Tool-Namen zu finden
     foreach ($line in $configLines) {
         # Berechne den Fortschritt
-        
+        Write-Host "" #Neue Zeile für bessere Lesbarkeit
         
         $toolName = $line.Trim()
         if ([string]::IsNullOrEmpty($toolName)) {
