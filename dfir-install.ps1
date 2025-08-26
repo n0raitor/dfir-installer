@@ -795,7 +795,7 @@ function Main {
                 install-copy $commandLine $toolName
             } elseif ($installerConfig.Name -eq "Manual.conf") {
                 # Füge den Befehl zur manuellen Installation hinzu
-                WWrite-Host "----- Skipping Installation of $toolname for MANUAL INSTALL later -----" -ForegroundColor Green
+                Write-Host "----- Skipping Installation of $toolname for MANUAL INSTALL later -----" -ForegroundColor Green
                 $manualInstallCommands += $commandLine
                 $manualInstallToolName += $toolName
             } elseif ($installerConfig.Name -eq "Github.conf") {
