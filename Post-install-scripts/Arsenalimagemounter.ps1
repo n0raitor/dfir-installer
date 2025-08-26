@@ -12,7 +12,7 @@ $destinationLnk = "C:\DFIR\_Tools\Acquisition Tools\ArsenalImageMounter.exe"
 if (Test-Path -Path $sourceLnk) {
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 # Create symlink

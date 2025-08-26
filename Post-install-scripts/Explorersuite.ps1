@@ -13,7 +13,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\Program Files\NTCore\Explorer Suite\PE Detective.exe"
@@ -23,7 +23,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\Program Files\NTCore\Explorer Suite\Signature Explorer.exe"
@@ -33,7 +33,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 $sourceLnk = "C:\Program Files\NTCore\Explorer Suite\Task Explorer.exe"
 $destinationLnk = "C:\DFIR\_Tools\Suite\Task Explorer.exe"
@@ -42,7 +42,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\Suite\Explorersuite" -ItemType SymbolicLink -Target "C:\DFIR\Explorersuite\Explorersuite.exe" -Force

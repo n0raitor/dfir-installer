@@ -12,7 +12,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     Copy-Item -Path $sourceLnk -Destination $destinationLnk -Force
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 # Create symlink

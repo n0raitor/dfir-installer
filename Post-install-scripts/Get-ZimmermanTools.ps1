@@ -37,7 +37,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\ShellBagsExplorer\ShellBagsExplorer.exe"
@@ -47,7 +47,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\SDBExplorer\SDBExplorer.exe"
@@ -57,7 +57,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\RegistryExplorer\RegistryExplorer.exe"
@@ -67,7 +67,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\MFTExplorer\MFTExplorer.exe"
@@ -77,7 +77,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\JumpListExplorer\JumpListExplorer.exe"
@@ -87,7 +87,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\iisGeolocate\iisGeolocate.exe"
@@ -97,7 +97,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\EZViewer\EZViewer.exe"
@@ -107,7 +107,7 @@ if (Test-Path -Path $sourceLnk) {
     # Copy the  file if it exists
     New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
 } else {
-    Write-Host "EXE not found: $sourceLnk"
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
 }
 
 # Create symlink
