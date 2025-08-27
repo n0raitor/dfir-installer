@@ -263,14 +263,14 @@ function Download-And-Extract {
                 #Start-Process "$_" | Out-Null
                 #Start-Sleep $MAN_INSTALL_MSI_TIMER
                 #Install-Program-From-Msi -ProgramName " [Manual Install MSI]" -MsiPath "$runFilePath"  
-                Install-Program-From-Msi -ProgramName " [Manual Install MSI]" -MsiPath "$runFilePath" -installfolder $installfolder    #".\Binaries\wsl_update_x64.msi"
+                Install-Program-From-Msi -ProgramName "$runFile" -MsiPath "$runFilePath" -installfolder $installfolder    #".\Binaries\wsl_update_x64.msi"
             }
             else {
                 Write-Debug "Installing: $runFilePath"
                 #& "$_" | Out-Null
                 #Write-Host "INSTALLED"
                 #Install-Program-From-Exe -ProgramName " [Manual Install]" -ExePath "$runFilePath" 
-                Install-Program-From-Exe -ProgramName " [Manual Install]" -ExePath "$runFilePath" -installfolder $installfolder
+                Install-Program-From-Exe -ProgramName "$runFile" -ExePath "$runFilePath" -installfolder $installfolder
             }      
         } else {
             #Write-Host "The file to run '$runFile' does not exist in the extracted folder."
