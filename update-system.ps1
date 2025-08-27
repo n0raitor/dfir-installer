@@ -42,6 +42,8 @@ $exportFilechoco = Join-Path -Path $exportFolder -ChildPath "choco_export_$curre
 winget export -o $exportFile
 choco export $exportFilechoco
 
+Read-Host "Make sure to move unused Links that were dropped during the update to the Tools folder on your desktop. Press Enter to continue..."
+
 # Output the path where the file was saved
 Write-Host "Export completed. File saved to: $exportFile"
 
