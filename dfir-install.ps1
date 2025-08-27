@@ -124,7 +124,7 @@ function Install-Program-From-Msi {
             #$process.WaitForExit()
         }
         catch {
-            Write-Error "An error occurred while installing $ProgramName : $_" 
+            Write-Debug "An error occurred while installing $ProgramName : $_" 
         }
     } else {
         Write-Host "installfolder is not set."
@@ -143,7 +143,7 @@ function Install-Program-From-Msi {
 
         }
         catch {
-            Write-Error "An error occurred while installing $ProgramName : $_" 
+            Write-Debug "An error occurred while installing $ProgramName : $_" 
         }
     }
 
@@ -177,7 +177,7 @@ function Install-Program-From-Exe {
         # Start-Sleep -Seconds 30
     }
     catch {
-        Write-Error "An error occurred while installing $ProgramName : $_" 
+        Write-Debug "An error occurred while installing $ProgramName : $_" 
     }
 }
 function Download-And-Extract {
