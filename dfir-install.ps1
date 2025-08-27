@@ -96,7 +96,7 @@ function Install-Program-From-Msi {
         #$process.WaitForExit()
 
         # Print [OK] once the installation completes
-        Write-Host "     [Installer Spawned: $ProgramName]"
+        Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
         #Start-Sleep -Seconds 30
         $process.WaitForExit()
 
