@@ -512,13 +512,14 @@ function install-winget {
     winget install --id $command --silent --accept-package-agreements
     Write-Host "Winget Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
-    $installed = [bool](winget list | Select-String "$command")
+    $installed = winget list | Select-String $command
     
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
+        Write-Debug "winget list | Select-String $command"
     }
     
     #winget install --id $command --silent --accept-package-agreements
@@ -539,11 +540,13 @@ function install-choco {
     Write-Host "Chocolatey Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
     # Check if package installed by querying choco list
-    $installed = [bool](choco list | Select-String "$command")
+    $installed = choco list | Select-String $command
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
+        Write-Debug "CHeck result $installed"
+        Write-Debug "choco install $command -y --ignore-checksums"
     }
 
     # Füge hier den Choco Installationsbefehl ein
