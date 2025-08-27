@@ -104,6 +104,7 @@ function Install-Program-From-Msi {
         try {
             Write-Debug "Execute: msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /norestart "
             msiexec.exe /i $MsiPath /norestart 
+            $process = Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$MsiPath`" /norestart" -Wait -NoNewWindow
             
             #msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
             #Write-Debug "Execute: Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow"
@@ -111,7 +112,10 @@ function Install-Program-From-Msi {
 
             # Wait for the installer to finish (this will be the GUI-based installer now)
             #$process.WaitForExit()
-
+            
+            Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
+            #Start-Sleep -Seconds 30
+            $process.WaitForExit()
 
 
             # Print [OK] once the installation completes
