@@ -683,10 +683,10 @@ function install-manual {
             Write-Debug "Folder exists, but no files found"
         }
     } elseif ($noInstallCheckPackages_Manual -contains $command) {
-        Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+        Write-Host "     [Installation OK: $toolname ($INSTALL_DIRECTORY)]" -ForegroundColor DarkGreen
         Write-Debug "Special package $command, skipping installation check."
     } else {
-        Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
+        Write-Host "     [Installation FAILED: $toolname (Should be: $INSTALL_DIRECTORY). If you choosed another location, ignore this error!]" -ForegroundColor DarkRed
         Write-Debug "Folder does not exist"
     }
     # Check if installation was successful
@@ -954,7 +954,7 @@ function Main {
         Write-Host "----- Installing $toolName -----" -ForegroundColor Green
         install-manual $commandLine $toolName
         $counter++
-        Write-Host "     [Installation OK: $toolName]" -ForegroundColor DarkGreen
+        #Write-Host "     [Installation OK: $toolName]" -ForegroundColor DarkGreen
     }
 
     # Maybe later in the loop above
