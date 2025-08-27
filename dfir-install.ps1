@@ -19,6 +19,10 @@ $noInstallCheckPackages_Choco = @(
     ""
 )
 
+$noInstallCheckPackages_Manual = @(
+    "DeepSound"
+)
+
 $INSTALL_DIRECTORY = "C:\DFIR\"
 $TEMP_DIRECTORY = "C:\DFIR\_tmp"
 # The folder in which shortcuts are stored.The configuration for installation directories
@@ -98,8 +102,8 @@ function Install-Program-From-Msi {
     if ($null -ne $installfolder -and $installfolder -ne "") {
         Write-Host "installfolder is set: $installfolder"
         try {
-            Write-Debug "Execute: msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /qn /norestart "
-            msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /qn /norestart 
+            Write-Debug "Execute: msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /norestart "
+            msiexec.exe /i $MsiPath /norestart 
             
             #msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
             #Write-Debug "Execute: Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow"
@@ -161,7 +165,7 @@ function Install-Program-From-Exe {
         Write-Debug "$ProgramName : $ExePath"
         
         # Start the installer in the background and capture the process
-        $process = Start-Process -FilePath $ExePath -ArgumentList "/quiet", "/norestart" -Wait -PassThru
+        $process = Start-Process -FilePath $ExePath -Wait
         # Wait for the installer to finish
         #$process.WaitForExit()
 
@@ -678,6 +682,9 @@ function install-manual {
             Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
             Write-Debug "Folder exists, but no files found"
         }
+    } elseif ($noInstallCheckPackages_Manual -contains $command) {
+        Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+        Write-Debug "Special package $command, skipping installation check."
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "Folder does not exist"
