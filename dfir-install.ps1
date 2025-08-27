@@ -131,7 +131,6 @@ function Install-Program-From-Msi {
             $process = Start-Process -FilePath $MsiPath -Wait -PassThru
             
             # Wait for the installer to finish (this will be the GUI-based installer now)
-            #$process.WaitForExit()
 
             # Print [OK] once the installation completes
             Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
@@ -167,7 +166,6 @@ function Install-Program-From-Exe {
         # Start the installer in the background and capture the process
         $process = Start-Process -FilePath $ExePath -Wait -PassThru
         # Wait for the installer to finish
-        #$process.WaitForExit()
 
         # Print [OK] once the installation completes
         Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
