@@ -99,6 +99,8 @@ function Install-Program-From-Msi {
         Write-Host "installfolder is set: $installfolder"
         try {
             msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
+            Write-Debug "Execute: Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart", "INSTALLDIR=$installfolder" -Wait -PassThru"
+            $process = Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart", "INSTALLDIR=$installfolder" -Wait -PassThru
 
         }
         catch {
