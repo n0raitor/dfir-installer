@@ -98,7 +98,7 @@ function Install-Program-From-Msi {
     if ($null -ne $installfolder -and $installfolder -ne "") {
         Write-Host "installfolder is set: $installfolder"
         try {
-            Write-Debug "Execute: msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /qn /norestart " /qn /norestart""
+            Write-Debug "Execute: msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /qn /norestart "
             msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /qn /norestart 
             
             #msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
