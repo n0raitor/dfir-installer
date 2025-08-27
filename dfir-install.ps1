@@ -79,7 +79,8 @@ function AskForUpdate {
 function Install-Program-From-Msi {
     param (
         [string]$ProgramName,  # The name of the program to display in logs
-        [string]$MsiPath       # The full path to the MSI file
+        [string]$MsiPath,       # The full path to the MSI file
+        [string]$installfolder = $null # folder to install the program
     )
 
     # Check if the MSI file exists
@@ -94,30 +95,45 @@ function Install-Program-From-Msi {
     # Print out the full command in debug mode before executing it
     Write-Debug "Executing command: $msiexecCommand"
 
+    if ($null -ne $installfolder -and $installfolder -ne "") {
+        Write-Host "installfolder is set: $installfolder"
+        try {
+            msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
+
+        }
+        catch {
+            Write-Error "An error occurred while installing $ProgramName : $_" 
+        }
+    } else {
+        Write-Host "installfolder is not set."
+        try {
+            Write-Debug "$ProgramName : $MsiPath"
+            
+            # Start the installer with msiexec (without /quiet or /norestart)
+            $process = Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart" -Wait -PassThru
+            
+            # Wait for the installer to finish (this will be the GUI-based installer now)
+            #$process.WaitForExit()
+
+            # Print [OK] once the installation completes
+            Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
+            #Start-Sleep -Seconds 30
+            $process.WaitForExit()
+
+        }
+        catch {
+            Write-Error "An error occurred while installing $ProgramName : $_" 
+        }
+    }
+
     # Try to start the installer and wait for it to complete
-    try {
-        Write-Debug "$ProgramName : $MsiPath"
-        
-        # Start the installer with msiexec (without /quiet or /norestart)
-        $process = Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart" -Wait -PassThru
-        
-        # Wait for the installer to finish (this will be the GUI-based installer now)
-        #$process.WaitForExit()
-
-        # Print [OK] once the installation completes
-        Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
-        #Start-Sleep -Seconds 30
-        $process.WaitForExit()
-
-    }
-    catch {
-        Write-Error "An error occurred while installing $ProgramName : $_" 
-    }
+    
 }
 function Install-Program-From-Exe {
     param (
         [string]$ProgramName,  # The name of the program to display in logs
-        [string]$ExePath       # The full path to the executable file
+        [string]$ExePath,       # The full path to the executable file
+        [string]$installfolder = $null # folder to install the program
     )
 
     # Check if the executable exists
@@ -148,7 +164,8 @@ function Download-And-Extract {
     param (
         [string]$url,         # URL to download from
         [string]$destination, # Destination folder
-        [string]$runFile      # Optional file to run after extraction (relative path within extracted folder)
+        [string]$runFile,      # Optional file to run after extraction (relative path within extracted folder)
+        [string]$installfolder = $null # folder to install the program
     )
     
     # Create the destination folder if it doesn't exist
@@ -243,13 +260,15 @@ function Download-And-Extract {
                 Write-Debug "Installing: $runFilePath"
                 #Start-Process "$_" | Out-Null
                 #Start-Sleep $MAN_INSTALL_MSI_TIMER
-                Install-Program-From-Msi -ProgramName " [Manual Install MSI]" -MsiPath "$runFilePath"       #".\Binaries\wsl_update_x64.msi"
+                #Install-Program-From-Msi -ProgramName " [Manual Install MSI]" -MsiPath "$runFilePath"  
+                Install-Program-From-Msi -ProgramName " [Manual Install MSI]" -MsiPath "$runFilePath" -installfolder $installfolder    #".\Binaries\wsl_update_x64.msi"
             }
             else {
                 Write-Debug "Installing: $runFilePath"
                 #& "$_" | Out-Null
                 #Write-Host "INSTALLED"
-                Install-Program-From-Exe -ProgramName " [Manual Install]" -ExePath "$runFilePath" 
+                #Install-Program-From-Exe -ProgramName " [Manual Install]" -ExePath "$runFilePath" 
+                Install-Program-From-Exe -ProgramName " [Manual Install]" -ExePath "$runFilePath" -installfolder $installfolder
             }      
         } else {
             #Write-Host "The file to run '$runFile' does not exist in the extracted folder."
@@ -631,8 +650,26 @@ function install-manual {
     $url = $packageName
     $binary = $parts[1]
     Write-Debug "url: $url, destination: $TEMP_DIRECTORY, runFile: $binary"
+
+    $INSTALL_DIRECTORY = "C:\DFIR\$toolname"
+
     # Call Download-And-Extract with the parameters
-    Download-And-Extract -url $url -destination $TEMP_DIRECTORY -runFile $binary
+    Download-And-Extract -url $url -destination $TEMP_DIRECTORY -runFile $binary -installfolder $INSTALL_DIRECTORY
+
+    if (Test-Path $INSTALL_DIRECTORY -PathType Container) {
+        $files = Get-ChildItem -Path $INSTALL_DIRECTORY -ErrorAction SilentlyContinue
+        if ($files.Count -gt 0) {
+            Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+        } else {
+            Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
+            Write-Debug "Folder exists, but no files found"
+        }
+    } else {
+        Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
+        Write-Debug "Folder does not exist"
+    }
+    # Check if installation was successful
+
 }
 function install-github {
     param (
@@ -878,24 +915,29 @@ function Main {
     Write-Host "#####################"
     Write-Host ""
     # Execute all collected manual install commands
-    foreach ($commandLine in $manualInstallCommands) {
+    for ($i = 0; $i -lt $manualInstallCommands.Count; $i++) {
+        $commandLine = $manualInstallCommands[$i]
+        $toolName = $manualInstallToolName[$i]
         Write-Host "" #Neue Zeile für bessere Lesbarkeit
 
         $percentComplete = ($counter / $totalLines) * 100
         
         Write-Debug "Installing Manual $commandLine"
-        $filename = ($commandLine -split '\s+')[-1]
+        #$filename = ($commandLine -split '\s+')[-1]
 
-        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing $filename"
+        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing $toolName (Manual)"
 
         Write-Debug "Commandlinevar: $commandLine"
-        Write-Debug "Filenamevar: $filename"
+        Write-Debug "Toolname var: $toolName"
         # Start a new job for each manual installation
-        Write-Host "----- Installing $filename -----" -ForegroundColor Green
-        install-manual $commandLine $filename
+        Write-Host "----- Installing $toolName -----" -ForegroundColor Green
+        install-manual $commandLine $toolName
         $counter++
-        Write-Host "     [Installation OK: $filename]" -ForegroundColor DarkGreen
+        Write-Host "     [Installation OK: $toolName]" -ForegroundColor DarkGreen
     }
+
+    # Maybe later in the loop above
+    ##############
     Write-Host ""
     Write-Host "----- Manual Install Post Install Scripts -----" -ForegroundColor Green
     foreach ($toolName in $manualInstallToolName) {
