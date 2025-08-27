@@ -512,7 +512,7 @@ function install-winget {
     winget install --id $command --silent --accept-package-agreements
     Write-Host "Winget Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
-    $installed = winget list --id $command | Select-String $command
+    $installed = [bool](winget list | Select-String "$command")
     
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
@@ -539,7 +539,7 @@ function install-choco {
     Write-Host "Chocolatey Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
     # Check if package installed by querying choco list
-    $installed = choco list --exact $command | Select-String "$command"
+    $installed = [bool](choco list | Select-String "$command")
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
     } else {
