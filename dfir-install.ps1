@@ -98,14 +98,12 @@ function Install-Program-From-Msi {
     if ($null -ne $installfolder -and $installfolder -ne "") {
         Write-Host "installfolder is set: $installfolder"
         try {
-
-            $msiPath    = "$msiPath"
-            $installDir = "$installfolder"
-
+            Write-Debug "Execute: msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /qn /norestart " /qn /norestart""
+            msiexec.exe /i $MsiPath INSTALLDIR=$installfolder /qn /norestart 
             
             #msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
-            Write-Debug "Execute: Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow"
-            $process = Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow
+            #Write-Debug "Execute: Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow"
+            #$process = Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow
 
             # Wait for the installer to finish (this will be the GUI-based installer now)
             #$process.WaitForExit()
@@ -113,9 +111,9 @@ function Install-Program-From-Msi {
 
 
             # Print [OK] once the installation completes
-            Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
+            #Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
             #Start-Sleep -Seconds 30
-            $process.WaitForExit()
+            #$process.WaitForExit()
         }
         catch {
             Write-Error "An error occurred while installing $ProgramName : $_" 
