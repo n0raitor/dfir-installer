@@ -672,7 +672,7 @@ function install-manual {
     Write-Debug "url: $url, destination: $TEMP_DIRECTORY, runFile: $binary"
 
     $INSTALL_DIRECTORY = "C:\DFIR\$toolname"
-
+    Write-Host "Please install to: $INSTALL_DIRECTORY"
     # Call Download-And-Extract with the parameters
     Download-And-Extract -url $url -destination $TEMP_DIRECTORY -runFile $binary -installfolder $INSTALL_DIRECTORY
 
