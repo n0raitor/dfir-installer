@@ -783,7 +783,7 @@ function Main {
 
         # Fortschrittsanzeige aktualisieren
         $percentComplete = ($counter / $totalLines) * 100
-        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installed Tools"
+        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing $toolName"
 
         if ($toolFoundFiles.Count -eq 1) {
             # Führe die entsprechende Installationsfunktion aus
@@ -852,10 +852,12 @@ function Main {
         Write-Host "" #Neue Zeile für bessere Lesbarkeit
 
         $percentComplete = ($counter / $totalLines) * 100
-        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing"
-   
+        
         Write-Debug "Installing Manual $commandLine"
         $filename = ($commandLine -split '\s+')[-1]
+
+        Write-Progress -PercentComplete $percentComplete -Status "[$counter/$totalLines]" -Activity "Installing $filename"
+
         Write-Debug "Commandlinevar: $commandLine"
         Write-Debug "Filenamevar: $filename"
         # Start a new job for each manual installation
@@ -887,7 +889,7 @@ function Main {
             }
     }
 
-    Write-Progress -PercentComplete 100 -Status "[$totalLines/$totalLines]" -Activity "Done"
+    Write-Progress -PercentComplete 100 -Status "[$totalLines/$totalLines]" -Activity "All Tools Installed"
     Write-Host ""
     Write-Host "#############################################################################################"
     Write-Host "#############################################################################################"
