@@ -163,7 +163,11 @@ function Download-And-Extract {
 	if ($validNames -contains $fileName) {
 		Start-BitsTransfer -Source $url -Destination $filePath
 	} else {
-		Invoke-WebRequest -Uri $url -OutFile $filePath -UseBasicParsing
+		try {
+            Invoke-WebRequest -Uri $url -OutFile $filePath -UseBasicParsing
+        } catch {
+            Write-Error "Download failed for $url : $($_.Exception.Message)"
+        }
 	}
 
 
@@ -513,7 +517,7 @@ function install-winget {
     winget install --id $command --silent --accept-package-agreements
     Write-Host "Winget Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
-    $installed = winget list | Select-String $command
+    $installed = winget list | Select-String -SimpleMatch $command
     
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
@@ -524,7 +528,7 @@ function install-winget {
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
-        Write-Debug "winget list | Select-String $command"
+        Write-Debug "winget list | Select-String -SimpleMatch $command"
     }
     
     #winget install --id $command --silent --accept-package-agreements
@@ -545,13 +549,13 @@ function install-choco {
     Write-Host "Chocolatey Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
     # Check if package installed by querying choco list
-    $installed = choco list | Select-String $command
+    $installed = choco list | Select-String -SimpleMatch $command
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
-        Write-Debug "choco install $command -y --ignore-checksums"
+        Write-Debug "choco list | Select-String -SimpleMatch $command"
     }
 
     # Füge hier den Choco Installationsbefehl ein
