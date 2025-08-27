@@ -540,7 +540,6 @@ function install-winget {
     } elseif ($noInstallCheckPackages_Winget -contains $command) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
         Write-Debug "Special package $command, skipping installation check."
-    }
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
@@ -571,7 +570,6 @@ function install-choco {
     } elseif ($noInstallCheckPackages_Choco -contains $command) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
         Write-Debug "Special package $command, skipping installation check."
-    }
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
