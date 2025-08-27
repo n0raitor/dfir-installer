@@ -11,6 +11,14 @@ $Desktop_Links_Source_folder = ".\Links\Desktop"
 $CURRENTDATETIME = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
 $LOGFILE2 = "C:\DFIR\DFIR-Install-NonDebug-LogFileInstallLogs_$CURRENTDATETIME.txt"
 
+$noInstallCheckPackages_Winget = @(
+    "Microsoft.WSL"
+)
+
+$noInstallCheckPackages_Choco = @(
+    ""
+)
+
 $INSTALL_DIRECTORY = "C:\DFIR\"
 $TEMP_DIRECTORY = "C:\DFIR\_tmp"
 # The folder in which shortcuts are stored.The configuration for installation directories
@@ -529,6 +537,10 @@ function install-winget {
         # Special case for Cygwin, as winget lists it as "Cygwin.Cygwin" but it installs to C:\cygwin64
         Write-Debug "     [Cygwin64 detected at C:\cygwin64]" 
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+    } elseif ($noInstallCheckPackages_Winget -contains $command) {
+        Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+        Write-Debug "Special package $command, skipping installation check."
+    }
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
@@ -556,6 +568,10 @@ function install-choco {
     $installed = choco list | Select-String -SimpleMatch $command
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+    } elseif ($noInstallCheckPackages_Choco -contains $command) {
+        Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+        Write-Debug "Special package $command, skipping installation check."
+    }
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed
         Write-Debug "CHeck result $installed"
