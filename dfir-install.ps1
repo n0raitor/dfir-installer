@@ -98,10 +98,24 @@ function Install-Program-From-Msi {
     if ($null -ne $installfolder -and $installfolder -ne "") {
         Write-Host "installfolder is set: $installfolder"
         try {
-            msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
-            Write-Debug "Execute: Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart", "INSTALLDIR=$installfolder" -Wait -PassThru"
-            $process = Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart", "INSTALLDIR=$installfolder" -Wait -PassThru
 
+            $msiPath    = "$msiPath"
+            $installDir = "$installfolder"
+
+            
+            #msiexec /i "$MsiPath" INSTALLDIR="$installfolder" /qn /norestart /log install.log
+            Write-Debug "Execute: Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow"
+            $process = Start-Process -FilePath "msiexec.exe" -ArgumentList "/i `"$msiPath`" INSTALLDIR=`"$installDir`" /qn /norestart" -Wait -NoNewWindow
+
+            # Wait for the installer to finish (this will be the GUI-based installer now)
+            #$process.WaitForExit()
+
+
+
+            # Print [OK] once the installation completes
+            Write-Host "     [Installer Spawned: $ProgramName]" -ForegroundColor DarkGreen
+            #Start-Sleep -Seconds 30
+            $process.WaitForExit()
         }
         catch {
             Write-Error "An error occurred while installing $ProgramName : $_" 
