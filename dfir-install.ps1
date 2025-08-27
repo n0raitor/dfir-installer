@@ -128,7 +128,7 @@ function Install-Program-From-Msi {
             Write-Debug "$ProgramName : $MsiPath"
             
             # Start the installer with msiexec (without /quiet or /norestart)
-            $process = Start-Process -FilePath $MsiPath -ArgumentList "/quiet", "/norestart" -Wait -PassThru
+            $process = Start-Process -FilePath $MsiPath -Wait 
             
             # Wait for the installer to finish (this will be the GUI-based installer now)
             #$process.WaitForExit()
