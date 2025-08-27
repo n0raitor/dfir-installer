@@ -518,12 +518,17 @@ function install-winget {
     Write-Host "Winget Output Ended" -ForegroundColor DarkGreen
     Write-Host ""
     $installed = winget list | Select-String -SimpleMatch $command
+    $shortname = ($command -split '\.')[-1]
+    $installed_short = winget list | Select-String -SimpleMatch $shortname
     
     if ($installed) {
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+    } elseif ($installed_short) {
+        Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
+    }
     } elseif ((Test-Path "C:\cygwin64") -and ($command -eq "Cygwin.Cygwin")) {
         # Special case for Cygwin, as winget lists it as "Cygwin.Cygwin" but it installs to C:\cygwin64
-        Write-Debug "     [Cygwin64 detected at C:\cygwin64]" -ForegroundColor DarkYellow
+        Write-Debug "     [Cygwin64 detected at C:\cygwin64]" 
         Write-Host "     [Installation OK: $toolname]" -ForegroundColor DarkGreen
     } else {
         Write-Host "     [Installation FAILED: $toolname]" -ForegroundColor DarkRed

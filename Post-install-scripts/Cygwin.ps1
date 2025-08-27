@@ -6,7 +6,7 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Terminal")) {
 }
 
 # Check if the tool directory exists
-$sourceLnk = "C:\cygwin64\bin\C:\cygwin64\bin"
+$sourceLnk = "C:\cygwin64\bin\"
 $destinationLnk = "C:\DFIR\_Tools\Terminal\Cygwin64"
 
 if (Test-Path -Path $sourceLnk) {
