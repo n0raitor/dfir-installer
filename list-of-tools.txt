@@ -102,7 +102,6 @@ fqlite
 Free Kernel OST Viewer
 Free Kernel PST Viewer
 FullEventLogView
-GeForceExperience
 GeoIpUpdate
 Get-ZimmermanTools
 Ghidra
@@ -198,6 +197,7 @@ notatin_comp
 notatin_dump
 Notepadpp
 Npcap
+NvidiaApp
 Obsidian
 OBSStudio
 OfficeSpy
