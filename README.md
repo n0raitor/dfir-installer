@@ -114,6 +114,7 @@ For Debugging info and full live install feed and prints use *-Debug*:
   * C:\tools (if created)
 * Restrict execution rights via Powershell admin console: `Set-ExecutionPolicy Restricted -Scope CurrentUser`
 * Enable Defender again.
+* **Please keep in mind do review the Post-Install-Terminal-Outputs**, due to some packages e.g. PLASO need more steps to get installed that are technically not possible to implement in the script (if possible though, feel free to create an issue or pull request). If you already closed the terminal, feel free to check out the installation logs in the Root folder of the dfir-installer. 
 
 **Recommendations**
 
