@@ -1,4 +1,4 @@
-# dfir-installer
+# DFIR-Installer
 
 ## What is the Purpose of this Repository?
 
