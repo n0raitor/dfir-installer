@@ -1,6 +1,6 @@
 # DFIR-Installer
 
-[Report a Bug](https://github.com/n0raitor/dfir-installer/issues) · Request Feature
+[Report a Bug](https://github.com/n0raitor/dfir-installer/issues/new?labels=bug) · [Request Feature](https://github.com/n0raitor/dfir-installer/issues/new?labels=enhancement)
 
 ## What is the Purpose of this Repository?
 
