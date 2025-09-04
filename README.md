@@ -1,5 +1,7 @@
 # DFIR-Installer
 
+[Report a Bug](https://github.com/n0raitor/dfir-installer/issues) · Request Feature
+
 ## What is the Purpose of this Repository?
 
 Install every tool and every needed software for your DFIR workstation. This includes everything after installing Windows (and update) Post-Process steps recommended by me 
