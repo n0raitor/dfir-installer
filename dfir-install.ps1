@@ -810,6 +810,7 @@ function Main {
             Write-Host "Previous Config: $previous_config"
             $Usern = $previous_usern
             $config = $previous_config
+            $configFile = Join-Path $configDir "$config.conf"
         }
         catch {
             Write-Error "Not All Flag Parameter found in $FLAG_PATH. Please delete the file and re-run the script if you want to change the user or config."
