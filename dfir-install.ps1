@@ -806,10 +806,10 @@ function Main {
             $flagLines = Get-Content -Path $FLAG_PATH
             $previous_usern = $flagLines[0]
             $previous_config = $flagLines[1]
-            Write-Host "Previous Config: $($previous_config -replace '\.conf$','')"
+            Write-Host "Previous Config: $previous_config)"
             Write-Host "Previous User: $previous_usern"
             $Usern = $previous_usern
-            $configFile = previous_config
+            $configFile = $previous_config
             $config = $([System.IO.Path]::GetFileNameWithoutExtension($configFile))
         } catch {
             Write-Error "Not All Flag Parameter found in $FLAG_PATH. Please delete the file and re-run the script if you want to change the user or config."
