@@ -823,9 +823,12 @@ function Main {
             $previous_config = $flagLines[1]
             Write-Host "Previous User: $previous_usern"
             Write-Host "Previous Config: $previous_config"
+            $Usern = $previous_usern
+            $config = $previous_config
         }
         catch {
             Write-Error "Not All Flag Parameter found in $FLAG_PATH. Please delete the file and re-run the script if you want to change the user or config."
+            exit 1
         }
         
     } else {
@@ -833,6 +836,15 @@ function Main {
         Write-Host "######## Initial Setup ########" -ForegroundColor Green
         Write-Host "###############################" 
         Write-Host ""
+        # Test condition for User Input and Presetup reminder to user
+        if ($config -ne "test" -and $config -ne "test_base") {
+            Write-Host ""
+            $choco_installed = Read-Host -Prompt "Press [Enter] if you followed every prepare step described in the README.md. Link: https://github.com/n0raitor/dfir-installer/blob/main/README.md"
+            $Usern = Read-Host "Enter your username (For Symbolic Links on the Desktop). This should match the folder name in the C:\Users\<Username>\ Directory:"
+            Write-Host ""
+        } else {
+            $Usern = "NormanSchmidt"
+        }
         init-setup $Usern $configFile
     }
     
