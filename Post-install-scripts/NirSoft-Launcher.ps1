@@ -6,7 +6,7 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Collections")) {
 }
 
 # Check if the tool directory exists
-$sourceLnk = "C:\DFIR\NirSoft-Launcher\NirLauncher.exe"
+$sourceLnk = "C:\DFIR\NirSoft-Launcher\NirSoft-Launcher\NirLauncher.exe"
 $destinationLnk = "C:\DFIR\_Tools\Collections\NirSoft-Launcher.exe"
 
 if (Test-Path -Path $sourceLnk) {
