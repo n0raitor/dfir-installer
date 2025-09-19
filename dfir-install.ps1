@@ -773,21 +773,6 @@ function Main {
     Write-Host ""
     Write-Host "Welcome to the DFIR-Installer"
 
-    # Test if Configuration file exists
-    if (-Not (Test-Path $configFile)) {
-        Write-Error "Configuration File: $configFile not found. Please check if your config file is in the Configs folder." 
-        exit
-    }
-
-    # Test condition for User Input and Presetup reminder to user
-    if ($config -ne "test" -and $config -ne "test_base") {
-        Write-Host ""
-        $choco_installed = Read-Host -Prompt "Press [Enter] if you followed every prepare step described in the README.md. Link: https://github.com/n0raitor/dfir-installer/blob/main/README.md"
-        $Usern = Read-Host "Enter your username (For Symbolic Links on the Desktop). This should match the folder name in the C:\Users\<Username>\ Directory:"
-        Write-Host ""
-    } else {
-        $Usern = "NormanSchmidt"
-    }
 
     ### Ask if Choco is already installed
     Write-Debug "Make sure that Chocolatey is installed"
@@ -848,6 +833,12 @@ function Main {
         init-setup $Usern $configFile
     }
     
+    
+    # Test if Configuration file exists
+    if (-Not (Test-Path $configFile)) {
+        Write-Error "Configuration File: $configFile not found. Please check if your config file is in the Configs folder." 
+        exit
+    }
 
     ###############################
     # 7z installer  ###############
