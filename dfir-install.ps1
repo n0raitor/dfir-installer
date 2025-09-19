@@ -855,6 +855,7 @@ function Main {
     $currentLocation = (Get-Location).Path
     if ($currentLocation -ne "C:\DFIR\_dfir-installer" -and -not ($configLines -contains "dfir-installer")) {
         $configLines += "dfir-installer"
+        Write-Host "Added dfir-installer to the installation list"
     }
 
     # Manual Installer Command will get executed at the end
