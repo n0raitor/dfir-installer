@@ -15,19 +15,19 @@ Expand-Archive -Path $dfirInstallerZip -DestinationPath $dfirInstallerExtractPat
 
 # Move the extracted content up if needed (GitHub zip usually contains a subfolder)
 $extractedFolder = Join-Path $dfirInstallerExtractPath "dfir-installer-main"
-if (Test-Path $extractedFolder) {
-    Get-ChildItem -Path $extractedFolder | Move-Item -Destination $dfirInstallerExtractPath -Force
-    Remove-Item -Path $extractedFolder -Recurse -Force
-}
+#if (Test-Path $extractedFolder) {
+#    Get-ChildItem -Path $extractedFolder | Move-Item -Destination $dfirInstallerExtractPath -Force
+#    Remove-Item -Path $extractedFolder -Recurse -Force
+#}
 
 # Remove the zip file
 Remove-Item $dfirInstallerZip -Force
-
+cd C:\DFIR\_dfir-installer\dfir-installer-main\
 Write-Host "dfir-installer updated successfully. Running the installer..."
 # Run dfir-installer.ps1
-$installerScript = Join-Path $dfirInstallerExtractPath "dfir-install.ps1"
+$installerScript = ".\dfir-install.ps1"
 if (Test-Path $installerScript) {
-    Write-Host "Running updated dfir-installer..."
+    Write-Host "Running updated dfir-installer... on $installerScript"
     & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass $installerScript 
     return
 } else {
