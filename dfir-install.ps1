@@ -850,6 +850,10 @@ function Main {
     ###############################
     # Lese alle Zeilen der Konfigurationsdatei
     $configLines = Get-Content $configFile
+    
+    if (-not ($configLines -contains "dfir-installer")) {
+        $configLines += "dfir-installer"
+    }
 
     # Manual Installer Command will get executed at the end
     $manualInstallCommands = @()
