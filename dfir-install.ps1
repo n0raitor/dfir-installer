@@ -850,8 +850,9 @@ function Main {
     ###############################
     # Lese alle Zeilen der Konfigurationsdatei
     $configLines = Get-Content $configFile
-    
-    if (-not ($configLines -contains "dfir-installer")) {
+
+    $currentLocation = (Get-Location).Path
+    if ($currentLocation -ne "C:\DFIR\_dfir-installer" -and -not ($configLines -contains "dfir-installer")) {
         $configLines += "dfir-installer"
     }
 
@@ -1019,6 +1020,14 @@ function Main {
     Write-Host "######## Copy Documents and Templates ########" -ForegroundColor Green
     Write-Host ""
     copy-documents $Usern
+
+    $currentLocation = (Get-Location).Path
+    if ($currentLocation -ne "C:\DFIR\_dfir-installer") {
+        # Also copy the flag file to C:\DFIR\_dfir-installer
+        $flagCopyTarget = "C:\DFIR\_dfir-installer\DFIR-Installer.flag"
+        Copy-Item -Path $FLAG_PATH -Destination $flagCopyTarget -Force
+
+    }
 
     # Beispiel für den Wert von $config
     # Aufruf der Funktion und Ergebnis speichern

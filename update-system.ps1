@@ -1,3 +1,37 @@
+$dfirInstallerUrl = "https://github.com/n0raitor/dfir-installer/archive/refs/heads/main.zip"
+$dfirInstallerZip = "C:\DFIR\_dfir-installer\dfir-installer-latest.zip"
+$dfirInstallerExtractPath = "C:\DFIR\_dfir-installer"
+
+# Download the latest release zip
+Invoke-WebRequest -Uri $dfirInstallerUrl -OutFile $dfirInstallerZip -UseBasicParsing
+
+# Remove old files except the zip (optional, be careful if you have custom files)
+Get-ChildItem -Path $dfirInstallerExtractPath -Exclude "dfir-installer-latest.zip" | Remove-Item -Recurse -Force
+
+# Extract the new files
+Expand-Archive -Path $dfirInstallerZip -DestinationPath $dfirInstallerExtractPath -Force
+
+# Move the extracted content up if needed (GitHub zip usually contains a subfolder)
+$extractedFolder = Join-Path $dfirInstallerExtractPath "dfir-installer-main"
+if (Test-Path $extractedFolder) {
+    Get-ChildItem -Path $extractedFolder | Move-Item -Destination $dfirInstallerExtractPath -Force
+    Remove-Item -Path $extractedFolder -Recurse -Force
+}
+
+# Remove the zip file
+Remove-Item $dfirInstallerZip -Force
+
+# Run dfir-installer.ps1
+$installerScript = Join-Path $dfirInstallerExtractPath "dfir-install.ps1 "
+if (Test-Path $installerScript) {
+    Write-Host "Running updated dfir-installer..."
+    & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass $installerScript 
+    return
+} else {
+    Write-Host "dfir-install.ps1 not found after update!" -ForegroundColor Red
+    return
+}
+
 #winget update
 winget upgrade --all --include-unknown
 choco upgrade all -y
