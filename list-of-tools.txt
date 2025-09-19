@@ -190,7 +190,6 @@ NirSoft VideoCacheView
 NirSoft Volumouse
 NirSoft WhoisThisDomain
 NirSoft Wireless Network Watcher
-NirSoft-Everything
 Nmap
 Noriben
 notatin_comp
