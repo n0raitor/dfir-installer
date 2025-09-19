@@ -397,8 +397,8 @@ function init-setup {
     New-Item -ItemType SymbolicLink -Force -Path "C:\DFIR\_Tools\_choco-bin" -Target "C:\ProgramData\chocolatey\bin"
     New-Item -ItemType SymbolicLink -Force -Path "C:\DFIR\_Tools\_choco-lib" -Target "C:\ProgramData\chocolatey\lib"
        
-    # Create the flag file indicating setup has run
-    $config | Set-Content -Path $FLAG_PATH -Force
+    # Write $Usern and $config to the flag file, each on its own line
+    "$Usern`n$config" | Set-Content -Path $FLAG_PATH -Force
 
     Write-Host ""
 }
@@ -817,6 +817,17 @@ function Main {
         Write-Host "Installer has already run. Skipping INIT Setup..." -ForegroundColor Green
         Write-Host "##################################################" 
         Write-Host ""
+        try {
+            $flagLines = Get-Content -Path $FLAG_PATH
+            $previous_usern = $flagLines[0]
+            $previous_config = $flagLines[1]
+            Write-Host "Previous User: $previous_usern"
+            Write-Host "Previous Config: $previous_config"
+        }
+        catch {
+            Write-Error "Not All Flag Parameter found in $FLAG_PATH. Please delete the file and re-run the script if you want to change the user or config."
+        }
+        
     } else {
         Write-Host "###############################" 
         Write-Host "######## Initial Setup ########" -ForegroundColor Green
