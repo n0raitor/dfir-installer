@@ -809,7 +809,7 @@ function Main {
             Write-Host "Previous Config: $($previous_config -replace '\.conf$','')"
             Write-Host "Previous User: $previous_usern"
             $Usern = $previous_usern
-            $config = $$($previous_config -replace '\.conf$','')
+            $config = $($previous_config -replace '\.conf$','')
             $configFile = Join-Path $configDir "$config.conf"
         }
         catch {
