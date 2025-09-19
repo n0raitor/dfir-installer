@@ -806,10 +806,10 @@ function Main {
             $flagLines = Get-Content -Path $FLAG_PATH
             $previous_usern = $flagLines[0]
             $previous_config = $flagLines[1]
+            Write-Host "Previous Config: $($previous_config -replace '\.conf$','')"
             Write-Host "Previous User: $previous_usern"
-            Write-Host "Previous Config: $previous_config"
             $Usern = $previous_usern
-            $config = $previous_config
+            $config = $$($previous_config -replace '\.conf$','')
             $configFile = Join-Path $configDir "$config.conf"
         }
         catch {
