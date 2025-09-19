@@ -811,9 +811,9 @@ function Main {
             $Usern = $previous_usern
             $configFile = previous_config
             $config = $([System.IO.Path]::GetFileNameWithoutExtension($configFile))
-        }
-        catch {
+        } catch {
             Write-Error "Not All Flag Parameter found in $FLAG_PATH. Please delete the file and re-run the script if you want to change the user or config."
+            Write-Error "An error occurred: $($_.Exception.Message)"
             exit 1
         }
         
