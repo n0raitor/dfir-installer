@@ -25,7 +25,7 @@ Remove-Item $dfirInstallerZip -Force
 
 Write-Host "dfir-installer updated successfully. Running the installer..."
 # Run dfir-installer.ps1
-$installerScript = Join-Path $dfirInstallerExtractPath "dfir-install.ps1 "
+$installerScript = Join-Path $dfirInstallerExtractPath "dfir-install.ps1"
 if (Test-Path $installerScript) {
     Write-Host "Running updated dfir-installer..."
     & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass $installerScript 
