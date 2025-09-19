@@ -1,10 +1,11 @@
-$dfirInstallerUrl = "https://github.com/n0raitor/dfir-installer/archive/refs/heads/main.zip"
+#$dfirInstallerUrl = "https://github.com/n0raitor/dfir-installer/archive/refs/heads/main.zip"
+$dfirInstallerUrl = "https://f003.backblazeb2.com/file/dfir-installer/dfir-installer-main.zip"
 $dfirInstallerZip = "C:\DFIR\_dfir-installer\dfir-installer-latest.zip"
 $dfirInstallerExtractPath = "C:\DFIR\_dfir-installer"
 
 # Download the latest release zip
 Write-Host "Downloading the latest dfir-installer..."
-Invoke-WebRequest -Uri $dfirInstallerUrl -OutFile $dfirInstallerZip -UseBasicParsing
+Start-BitsTransfer -Source $dfirInstallerUrl -Destination $dfirInstallerZip
 
 # Remove old files except the zip (optional, be careful if you have custom files)
 Get-ChildItem -Path $dfirInstallerExtractPath -Exclude "dfir-installer-latest.zip" | Remove-Item -Recurse -Force
