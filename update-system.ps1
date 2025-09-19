@@ -3,6 +3,7 @@ $dfirInstallerZip = "C:\DFIR\_dfir-installer\dfir-installer-latest.zip"
 $dfirInstallerExtractPath = "C:\DFIR\_dfir-installer"
 
 # Download the latest release zip
+Write-Host "Downloading the latest dfir-installer..."
 Invoke-WebRequest -Uri $dfirInstallerUrl -OutFile $dfirInstallerZip -UseBasicParsing
 
 # Remove old files except the zip (optional, be careful if you have custom files)
@@ -21,6 +22,7 @@ if (Test-Path $extractedFolder) {
 # Remove the zip file
 Remove-Item $dfirInstallerZip -Force
 
+Write-Host "dfir-installer updated successfully. Running the installer..."
 # Run dfir-installer.ps1
 $installerScript = Join-Path $dfirInstallerExtractPath "dfir-install.ps1 "
 if (Test-Path $installerScript) {
