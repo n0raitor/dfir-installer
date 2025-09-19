@@ -1026,7 +1026,7 @@ function Main {
     copy-documents $Usern
 
     $currentLocation = (Get-Location).Path
-    if ($currentLocation -ne "C:\DFIR\_dfir-installer") {
+    if ($currentLocation -ne "C:\DFIR\_dfir-installer\dfir-installer-main") {
         # Also copy the flag file to C:\DFIR\_dfir-installer
         $flagCopyTarget = "C:\DFIR\_dfir-installer\DFIR-Installer.flag"
         Copy-Item -Path $FLAG_PATH -Destination $flagCopyTarget -Force
