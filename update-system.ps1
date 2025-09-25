@@ -43,26 +43,33 @@ choco upgrade all -y
 # Pfad zur Datei definieren
 
 $filePath = "C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1"
-$command = $filePath + " -Dest C:\DFIR\Zimmerman"
 
 # Überprüfen, ob die Datei existiert
 if (Test-Path $filePath) {
     # Datei existiert, daher ausführen
     Write-Host "$filePath existiert. Skript wird ausgeführt..."
-    . $command
+    C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1 -Dest C:\DFIR\Zimmerman
     #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
 }
-
-$filePath = "C:\DFIR\KAPE\kape.exe"
-$command = $filePath + " --sync" 
 
 # Überprüfen, ob die Datei existiert
 if (Test-Path $filePath) {
     # Datei existiert, daher ausführen
     Write-Host "$filePath existiert. Skript wird ausgeführt..."
-    . $command
+    C:\DFIR\KAPE\KAPE\kape.exe --sync
     #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
 }
+
+$filePath = "C:\DFIR\KAPE\KAPE\Get-KAPEUpdate.ps1"
+
+# Überprüfen, ob die Datei existiert
+if (Test-Path $filePath) {
+    # Datei existiert, daher ausführen
+    Write-Host "$filePath existiert. Skript wird ausgeführt..."
+    C:\DFIR\KAPE\KAPE\Get-KAPEUpdate.ps1
+    #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
+}
+
 
 ##& chocolateygui.exe
 ##& "C:\Program Files\UniGetUI\UniGetUI.exe"

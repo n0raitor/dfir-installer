@@ -13,6 +13,48 @@ if (Test-Path -Path "C:\DFIR\KAPE") {
     Write-Host "Tool directory does not exist: C:\DFIR\KAPE"
 }
 
+$filePath = "C:\DFIR\KAPE\KAPE\kape.exe"
+
+# Überprüfen, ob die Datei existiert
+if (Test-Path $filePath) {
+    # Datei existiert, daher ausführen
+    Write-Host "$filePath existiert. Skript wird ausgeführt..."
+    C:\DFIR\KAPE\KAPE\kape.exe --sync
+    #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
+}
+
+$filePath = "C:\DFIR\KAPE\KAPE\Get-KAPEUpdate.ps1"
+
+# Überprüfen, ob die Datei existiert
+if (Test-Path $filePath) {
+    # Datei existiert, daher ausführen
+    Write-Host "$filePath existiert. Skript wird ausgeführt..."
+    C:\DFIR\KAPE\KAPE\Get-KAPEUpdate.ps1
+    #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
+}
+
+# Check if the tool directory exists
+$sourceLnk = "C:\DFIR\KAPE\KAPE\gkape.exe"
+$destinationLnk = "C:\DFIR\_Tools\Acquisition Tools\gkape.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
+}
+
+# Check if the tool directory exists
+$sourceLnk = "C:\DFIR\KAPE\KAPE\kape.exe"
+$destinationLnk = "C:\DFIR\_Tools\Acquisition Tools\kape.exe"
+
+if (Test-Path -Path $sourceLnk) {
+    # Copy the  file if it exists
+    New-Item -ItemType SymbolicLink -Force -Path $destinationLnk -Target $sourceLnk
+} else {
+    Write-Host "EXE not found: $sourceLnk" -ForegroundColor Red
+}
+
 # Create symlink
 #New-Item -Path "C:\DFIR\_Tools\Acquisition Tools\KAPE" -ItemType SymbolicLink -Target "C:\DFIR\KAPE\KAPE.exe" -Force
 
