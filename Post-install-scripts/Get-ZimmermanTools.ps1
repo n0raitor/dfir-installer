@@ -20,13 +20,12 @@ if (Test-Path -Path "C:\DFIR\Zimmerman\") {
 $packageName =  "Get-Zimmerman Tools"
 # Simulated process
 $filePath = "C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1"
-$command = $filePath + " -Dest C:\DFIR\Zimmerman"
 
 # Überprüfen, ob die Datei existiert
 if (Test-Path $filePath) {
     # Datei existiert, daher ausführen
     Write-Host "$filePath existiert. Skript wird ausgeführt..."
-    . $command
+    C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1 -Dest C:\DFIR\Zimmerman
     #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
 }
 
