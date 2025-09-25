@@ -20,14 +20,15 @@ if (Test-Path -Path "C:\DFIR\_Tools\_DFIR\Zimmerman\net9") {
 $packageName =  "Get-Zimmerman Tools"
 # Simulated process
 $filePath = "C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1"
+$command = $filePath + " -Dest C:\DFIR\Zimmerman"
 
-    # Überprüfen, ob die Datei existiert
-    if (Test-Path $filePath) {
-        # Datei existiert, daher ausführen
-        Write-Host "$filePath existiert. Skript wird ausgeführt..."
-        . $filePath
-        Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
-    }
+# Überprüfen, ob die Datei existiert
+if (Test-Path $filePath) {
+    # Datei existiert, daher ausführen
+    Write-Host "$filePath existiert. Skript wird ausgeführt..."
+    . $command
+    #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
+}
 
 # Check if the tool directory exists
 $sourceLnk = "C:\DFIR\_Tools\_DFIR\Zimmerman\net9\TimelineExplorer\TimelineExplorer.exe"

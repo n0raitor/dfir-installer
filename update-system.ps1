@@ -41,13 +41,16 @@ choco upgrade all -y
 
 ### Update Zimmermann
 # Pfad zur Datei definieren
-$filePath = "C:\DFIR\Get-ZimmermanTools\Get-ZimmermanTools.ps1"
+
+$filePath = "C:\DFIR\Zimmerman\Get-ZimmermanTools.ps1"
+$command = $filePath + " -Dest C:\DFIR\Zimmerman"
 
 # Überprüfen, ob die Datei existiert
 if (Test-Path $filePath) {
     # Datei existiert, daher ausführen
-    Write-Host "Get-ZimmermanTools existiert. Skript wird ausgeführt..."
-    . $filePath
+    Write-Host "$filePath existiert. Skript wird ausgeführt..."
+    . $command
+    #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
 }
 
 
