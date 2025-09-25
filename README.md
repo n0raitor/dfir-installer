@@ -17,6 +17,7 @@ The files and folders in `Documents` will get copied in your User Documents fold
 Status Quo: Windows 10/11 installed and updated and restarted
 
 ### Preparation
+
 0. First, deactivate Defender (Defender -> Settings -> Deactivate Real-Time-Protection,...)
 
 1. Set ExecutionPolicy
@@ -60,6 +61,7 @@ Status Quo: Windows 10/11 installed and updated and restarted
    ```
 
 ### RUN DFIR-INSTALLER -- Install Tools and Setting up your Environment
+
 Download the latest Release of this Repository
 
 Run the *dfir-install.ps1* in **Admin Powershell Console** as shown below.
@@ -79,6 +81,7 @@ There are Post-Process Routines for each packages (Feel free to contribue on thi
 Feel free to use or create your own e.g. with the *dfir-install-selector* tool placed in the *Tools* folder. Use this GUI tool to select the packages to use and save the .conf file using the Export Button (Currently German: "Exportieren") in the *Configs* Folder of this Repository.
 
 Main Configs:
+
 * minimal (only Basic Programms including System Components and GenPurp Apps)
 * dfir (DFIR Tools, Includes some of Minimal)
 * malsre (Malware Analysis and Software Reverse Engineering Tools, Includes some of Minimal)
@@ -86,6 +89,7 @@ Main Configs:
 * flagship (Everything)
 
 others:
+
 * own (My own Forensic Laptop Preferences including other tools then in Flagship)
 * test (just for my personal tool testing, feel free to ignore this)
 * Forensic-Workstation-StudioED (My DFIR Workstation Setup including Drivers and Casual Apps)
@@ -95,6 +99,7 @@ Pipeline Folder: Future planed configs
 **Run the Script in ADMIN Powershell windows with the config name (without .conf) as this:**
 
 This is a new way of observing the installer. Just The Tool name and if it was installed correctly or not.
+
 ```ps1
 & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config <CONFIG-NAME>
 ```
@@ -105,8 +110,12 @@ For Debugging info and full live install feed and prints use *-Debug*:
 & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config CONFIG-NAME -Debug
 ```
 
-**NEW**:
+
+
+**!!!NEW!!!**:
 If you install using dfir-installer the first time, it will update and install the recent dfir-installer release in `C:\DFIR\_dfir-installer`. This should be used for future run of the tool and if you run (after the first run) the installer the second time, the *Flag-File* in the ``C:\DFIR`` Base Directory will contain your username and your choosen config. So you can run just the ``.\dfir-installer.ps1`` as shown above in Powershell 7 Kontext without any parameter to run the last preferences.
+
+
 
 **Post Installation Steps**
 
@@ -138,6 +147,7 @@ Other Update features will get added in the future :)
 * https://hex-rays.com/ida-free
 
 ## Other Tools in this Repo (Tools folder)
+
 **GUI Config Builder**
 dfir-installer-selector.exe (https://github.com/n0raitor/dfir-installer-selector)
 
@@ -145,11 +155,13 @@ dfir-installer-selector.exe (https://github.com/n0raitor/dfir-installer-selector
 In Your *Documents* folder */DFIR-Installer-Optional/InstallationSteps*: Some Scripts that could be used to install WSL supported Tools in Ubuntu LTS 22.04 or 20.04 (See Prefix, if no prefix -> distro does not matter). Feel free to use the .md files to see some additional tool installation tipps/instructions
 
 ## Contribute to this Project
+
 I am happy if you have recommendations or requests to this project.
 
 Please use an Issue for an Request.
 
 Requests examples:
+
 * Configs
 * Tools
 * Post-Install Steps / Routins of Tools or in general
@@ -159,14 +171,17 @@ If you run into a bug or some issues, I am happy to support you or fix those iss
 For Faild Packaged installes, please create an issue and submit the Log files in your cloned dfir-installer root directory.
 
 ## Supported Tools
+
 See file: *list-of-tools.txt*
 
 ## Disclaimer
+
 This tool is for educational and testing purposes only. I am not the owner of the tools and do not provide licenses to them.
 
 Use to your own risk and only on virual testing systems. I will not take any fault on system damages.
 
 ## Developer Infos:
+
 * `.\Post-Install-Scripts\_Create-Scripts.ps1`: will this relative Path for the categories and creation of new Post-Install-Scripts `..\..\dfir-installer-selector\dfir-installer-selector.xlsx"`.
 * `.\calc-new-tool-list.ps1`: will create and update the tool list by checking every installation config (`Installer-Configs`)
 * `.\path-var.conf`: Contains every Path-Variable Entry to get inserted.
