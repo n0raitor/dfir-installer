@@ -53,6 +53,16 @@ if (Test-Path $filePath) {
     #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
 }
 
+$filePath = "C:\DFIR\KAPE\kape.exe"
+$command = $filePath + " --sync" 
+
+# Überprüfen, ob die Datei existiert
+if (Test-Path $filePath) {
+    # Datei existiert, daher ausführen
+    Write-Host "$filePath existiert. Skript wird ausgeführt..."
+    . $command
+    #Move-Item -Path ".\net9" -Destination "C:\DFIR\Zimmerman\" -Force
+}
 
 ##& chocolateygui.exe
 ##& "C:\Program Files\UniGetUI\UniGetUI.exe"
