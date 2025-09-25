@@ -12,7 +12,7 @@ if (!(Test-Path -Path "C:\DFIR\_Tools\Artifact Tools")) {
 # Check if the tool directory exists
 if (Test-Path -Path "C:\DFIR\Zimmerman\") {
     # Create symlink if tool directory exists
-    New-Item -Path "C:\DFIR\Zimmerman\" -ItemType SymbolicLink -Target "C:\DFIR\_Tools\Collections\Zimmerman" -Force
+    New-Item -Path "C:\DFIR\_Tools\Collections\Zimmerman" -ItemType SymbolicLink -Target "C:\DFIR\Zimmerman\" -Force
 } else {
     Write-Host "Tool directory does not exist: C:\DFIR\Zimmerman\"
 }
