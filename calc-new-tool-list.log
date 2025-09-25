@@ -86,3 +86,110 @@ Anzahl neuer Einträge: 1
 PowerShell transcript end
 End time: 20250827155851
 **********************
+**********************
+PowerShell transcript start
+Start time: 20250925170214
+Username: F0LE202506\N0
+RunAs User: F0LE202506\N0
+Configuration Name: 
+Machine: F0LE202506 (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\PowerShell\7\pwsh.dll -NoProfile -ExecutionPolicy Bypass -Command Import-Module 'c:\Users\N0\.vscode\extensions\ms-vscode.powershell-2025.2.0\modules\PowerShellEditorServices\PowerShellEditorServices.psd1'; Start-EditorServices -HostName 'Visual Studio Code Host' -HostProfileId 'Microsoft.VSCode' -HostVersion '2025.2.0' -BundledModulesPath 'c:\Users\N0\.vscode\extensions\ms-vscode.powershell-2025.2.0\modules' -EnableConsoleRepl -StartupBanner "PowerShell Extension v2025.2.0
+Copyright (c) Microsoft Corporation.
+
+https://aka.ms/vscode-powershell
+Type 'help' to get help.
+" -LogLevel 'Warning' -LogPath 'c:\Users\N0\AppData\Roaming\Code\logs\20250925T140133\window1\exthost\ms-vscode.powershell' -SessionDetailsPath 'c:\Users\N0\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\sessions\PSES-VSCode-22148-821079.json' -FeatureFlags @() 
+Process ID: 20324
+PSVersion: 7.5.3
+PSEdition: Core
+GitCommitId: 7.5.3
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Gesamtanzahl aller Zeilen: 380
+Anzahl der Duplikate: 0
+
+✅ Keine doppelten Einträge gefunden.
+
+🆕 Neue Einträge:
+AirCrack-NG
+AngryIPScanner
+AshampooBUPro15
+BurnInTest
+ClamAVWin
+Comae-Toolkit
+dfir-installer
+DirectoryOpus
+EDD
+EditPadLite
+GSmartControl
+hasher
+KAPE-Big
+kernel-document-viewer
+kernel-emlx-viewer
+kernel-sql-backup-recovery
+kernel-sql-viewer
+kernel-sqlite-viewer
+kernel-vhd-vhdx-viewer
+kernel-vmdk-recovery-demo
+kernel-windows-data-recovery-free
+kernel-xps-viewer
+kernelbasedemo
+kernelbkf-viewer
+kernelbulkimageresizer
+kernelcalcdemo
+kerneldbx-viewer
+kerneldrawdemo
+kernelemlviewer
+kernelexchange-edb-viewer
+kernelexchangetogroup64
+Kernelforexchangetonotes
+kernelfreekernelolmviewer
+kernelfreekerneloutlookpstreporter
+kernelgrptonotes
+kernelimpressdemo
+kernelmathsdemo
+kernelmboxviewer
+kernelmdb-viewer
+kernelmdf-viewer
+kernelnotestogrp
+kernelnotestopdfdemo
+kernelnsf-viewer
+kernelnst-viewer
+kernelNucleus-IE-Password
+kernelNucleus-Kernel-DBX
+kernelNucleus-Kernel-Excel
+kernelNucleus-Kernel-IncrediMail-Demo
+kernelNucleus-Kernel-Paradox-Demo
+kernelNucleus-MSN-Password
+kernelNucleus-PST-Password-Demo
+kerneloetonotes
+KernelPasswordUnmask
+kernelprojectserver
+kernelpstadd
+kernelwriterdemo
+kernelyahooarchive
+LM-Studio
+NirSoft-Launcher
+Perl
+SamSpade
+SecureRM
+TotalCommander
+VisualStudioCommunityEdition
+Volatility-Workbench
+W10Privacy
+
+Anzahl neuer Einträge: 66
+
+'list-of-tools.txt' wurde aktualisiert und 'list-of-tools-new.txt' gelöscht.
+
+
+📄 'Configs\flagship.conf' wurde erfolgreich aktualisiert mit den neuen Einträgen.
+**********************
+PowerShell transcript end
+End time: 20250925170240
+**********************

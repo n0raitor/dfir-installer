@@ -182,6 +182,6 @@ Use to your own risk and only on virual testing systems. I will not take any fau
 
 ## Developer Infos:
 
-* `.\Post-Install-Scripts\_Create-Scripts.ps1`: will this relative Path for the categories and creation of new Post-Install-Scripts `..\..\dfir-installer-selector\dfir-installer-selector.xlsx"`.
+* `(.\Post-Install-Scripts, cd into it)\_Create-Scripts.ps1`: will this relative Path for the categories and creation of new Post-Install-Scripts `..\..\dfir-installer-selector\dfir-installer-selector.xlsx"`.
 * `.\calc-new-tool-list.ps1`: will create and update the tool list by checking every installation config (`Installer-Configs`)
 * `.\path-var.conf`: Contains every Path-Variable Entry to get inserted.
