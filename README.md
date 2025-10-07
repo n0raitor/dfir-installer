@@ -114,7 +114,7 @@ For Debugging info and full live install feed and prints use *-Debug*:
 
 **!!!NEW!!!**:
 If you install using dfir-installer the first time, it will update and install the recent dfir-installer release in `C:\DFIR\_dfir-installer`. This should be used for future run of the tool and if you run (after the first run) the installer the second time, the *Flag-File* in the ``C:\DFIR`` Base Directory will contain your username and your choosen config. So you can run just the ``.\dfir-installer.ps1`` as shown above in Powershell 7 Kontext without any parameter to run the last preferences.
-
+Disclaimer: Please consider, that this will remove every custom config that you dropped in the config filder. please do a backup of this config before and remove everything to the winget update command from the update.ps1 on the desktop after the update with the recent installer to remain you configs. If you are using the default configs, feel free to leave everything as it is. BTW. Feel free to submit configs via an Issue ticket and i will insert it ;-)
 
 
 **Post Installation Steps**
