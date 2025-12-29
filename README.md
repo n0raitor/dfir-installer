@@ -2,6 +2,11 @@
 
 [Report a Bug](https://github.com/n0raitor/dfir-installer/issues/new?labels=bug) · [Request Feature](https://github.com/n0raitor/dfir-installer/issues/new?labels=enhancement)
 
+## Important
+NEW RELEASE may be not compatible to the previous ones, please follow the instructions [here](https://github.com/n0raitor/dfir-installer-updater) and then proceed with the tutorial below.
+
+Note: Make sure to copy your own configs to the new tool location mentioned in the "here" location.
+
 ## URGENT NEWS
 
 The Update and Download of the latest DFIR-Installer is now handled threw one Powershell Script in this Repository: https://github.com/n0raitor/dfir-installer-updater
