@@ -214,7 +214,7 @@ For Faild Packaged installes, please create an issue and submit the Log files in
 
 ## Supported Tools
 
-See file: *list-of-tools.txt*
+See file: [list-of-tools.txt](https://github.com/n0raitor/dfir-installer-files/blob/main/list-of-tools.txt)
 
 ## Disclaimer
 
