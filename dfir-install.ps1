@@ -881,9 +881,9 @@ function Main {
         Sync-FromZip       
     }
 
-    if ($config -eq "") {
-        exit 0
-    }
+    #if ($config -eq "") {
+    #    exit 0
+    #}
 
     ### Ask if Choco is already installed
     Write-Debug "Make sure that Chocolatey is installed"
@@ -964,12 +964,12 @@ function Main {
     # Lese alle Zeilen der Konfigurationsdatei
     $configLines = Get-Content $configFile
 
-    $currentLocation = (Get-Location).Path
-    if ($currentLocation -ne "C:\DFIR\_dfir-installer" -and -not ($configLines -contains "dfir-installer")) {
-        $configLines += "dfir-installer"
-        Write-Host ""
-        Write-Host "Added dfir-installer to the installation list"
-        Write-Host ""
+    #$currentLocation = (Get-Location).Path
+    #if ($currentLocation -ne "C:\DFIR\_dfir-installer" -and -not ($configLines -contains "dfir-installer")) {
+    #    $configLines += "dfir-installer"
+    #    Write-Host ""
+    #    Write-Host "Added dfir-installer to the installation list"
+    #    Write-Host ""
     }
 
     # Manual Installer Command will get executed at the end
@@ -1138,12 +1138,11 @@ function Main {
     copy-documents $Usern
 
     $currentLocation = (Get-Location).Path
-    if ($currentLocation -ne "C:\DFIR\_dfir-installer\dfir-installer-main") {
-        # Also copy the flag file to C:\DFIR\_dfir-installer
-        $flagCopyTarget = "C:\DFIR\_dfir-installer\DFIR-Installer.flag"
-        Copy-Item -Path $FLAG_PATH -Destination $flagCopyTarget -Force
-
-    }
+    #if ($currentLocation -ne "C:\DFIR\_dfir-installer\dfir-installer-main") {
+    #    # Also copy the flag file to C:\DFIR\_dfir-installer
+    #    $flagCopyTarget = "C:\DFIR\_dfir-installer\DFIR-Installer.flag"
+    #    Copy-Item -Path $FLAG_PATH -Destination $flagCopyTarget -Force
+    #}
 
     # Beispiel für den Wert von $config
     # Aufruf der Funktion und Ergebnis speichern

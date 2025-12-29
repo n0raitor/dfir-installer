@@ -1,39 +1,36 @@
-#$dfirInstallerUrl = "https://github.com/n0raitor/dfir-installer/archive/refs/heads/main.zip"
-$dfirInstallerUrl = "https://f003.backblazeb2.com/file/dfir-installer/dfir-installer-main.zip"
-$dfirInstallerZip = "C:\DFIR\_dfir-installer\dfir-installer-latest.zip"
-$dfirInstallerExtractPath = "C:\DFIR\_dfir-installer"
+$folder = 'C:\DFIR\_dfir-installer'
 
-# Download the latest release zip
-Write-Host "Downloading the latest dfir-installer..."
-Start-BitsTransfer -Source $dfirInstallerUrl -Destination $dfirInstallerZip
-
-# Remove old files except the zip (optional, be careful if you have custom files)
-Get-ChildItem -Path $dfirInstallerExtractPath -Exclude "dfir-installer-latest.zip" | Remove-Item -Recurse -Force
-
-# Extract the new files
-Expand-Archive -Path $dfirInstallerZip -DestinationPath $dfirInstallerExtractPath -Force
-
-# Move the extracted content up if needed (GitHub zip usually contains a subfolder)
-$extractedFolder = Join-Path $dfirInstallerExtractPath "dfir-installer-main"
-#if (Test-Path $extractedFolder) {
-#    Get-ChildItem -Path $extractedFolder | Move-Item -Destination $dfirInstallerExtractPath -Force
-#    Remove-Item -Path $extractedFolder -Recurse -Force
-#}
-
-# Remove the zip file
-Remove-Item $dfirInstallerZip -Force
-cd C:\DFIR\_dfir-installer\dfir-installer-main\
-Write-Host "dfir-installer updated successfully. Running the installer..."
-# Run dfir-installer.ps1
-$installerScript = ".\dfir-install.ps1"
-if (Test-Path $installerScript) {
-    Write-Host "Running updated dfir-installer... on $installerScript"
-    & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass $installerScript 
-    return
-} else {
-    Write-Host "dfir-install.ps1 not found after update!" -ForegroundColor Red
-    return
+if (Test-Path -Path $folder -PathType Container) {
+    Write-Host "dfir-installer exists at: $folder" -ForegroundColor Green
+    $userInput = Read-Host "The folder 'C:\DFIR\_dfir-installer' already exists.  Do you want to update the installer? [y/N] "
+    if ($userInput.Trim().ToUpper().StartsWith('Y')) {
+        Write-Host "Updating dfir-installer..."
+        Set-Location 'C:\DFIR\_dfir-installer'
+        .\Get-dfir-installer-Update.ps1
+        $userInput = Read-Host "Do you want to run the installer? [y/N] "
+        if ($userInput.Trim().ToUpper().StartsWith('Y')) {
+            Write-Host "Running dfir-installer..."
+            Set-Location 'C:\DFIR\_dfir-installer\dfir-installer'
+            .\dfir-install.ps1 -sync
+            $installerScript = ".\dfir-install.ps1"
+            if (Test-Path $installerScript) {
+                Write-Host "Running updated dfir-installer... on $installerScript"
+                & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass $installerScript 
+                return
+            } else {
+                Write-Host "dfir-install.ps1 not found after update!" -ForegroundColor Red
+                return
+            }
+        } else {
+            Write-Host "Skipping running dfir-installer" -ForegroundColor Yellow
+        }
+    } else {
+        Write-Host "Skipping Update of dfir-installer" -ForegroundColor Yellow
 }
+else {
+    Write-Host "DFIR-Installer does not exist at: $folder. Skipping Update of dfir-installer" -ForegroundColor Red
+}
+
 
 #winget update
 winget upgrade --all --include-unknown
