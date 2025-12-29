@@ -2,6 +2,18 @@
 
 [Report a Bug](https://github.com/n0raitor/dfir-installer/issues/new?labels=bug) · [Request Feature](https://github.com/n0raitor/dfir-installer/issues/new?labels=enhancement)
 
+## NEW
+
+The Update and Download of the latest DFIR-Installer is now handled threw one Powershell Script in this Repository: https://github.com/n0raitor/dfir-installer-updater
+
+I recommend to only use [this](https://github.com/n0raitor/dfir-installer-updater/blob/main/Get-dfir-installer-Update.ps1) script to update and download the DFIR-Installer tool.
+
+Releases from this Repository are only for Version overview and can get used too, but this is not recommended and easier using the powershell script.
+
+Recommended Procedure: Download [this Script](https://github.com/n0raitor/dfir-installer-updater/blob/main/Get-dfir-installer-Update.ps1) and run in Powershell.
+
+After that proceed with the Tutorial below
+
 ## What is the Purpose of this Repository?
 
 Install every tool and every needed software for your DFIR workstation. This includes everything after installing Windows (and update) Post-Process steps recommended by me 
