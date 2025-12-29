@@ -26,8 +26,10 @@ Your own added files and configs will remain unchainged (at least, if you do not
 
 Command: 
 ```powershell
-& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 --sync
+& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -sync
 ```
+
+Note: You can use `-sync` combined with `-config` too.
 
 ## What is the Purpose of this Repository?
 
