@@ -934,6 +934,7 @@ function Main {
         Write-Host "###############################" 
         Write-Host ""
         # Test condition for User Input and Presetup reminder to user
+        Sync-FromZip
         if ($config -ne "test" -and $config -ne "test_base") {
             Write-Host ""
             $choco_installed = Read-Host -Prompt "Press [Enter] if you followed every prepare step described in the README.md. Link: https://github.com/n0raitor/dfir-installer/blob/main/README.md"

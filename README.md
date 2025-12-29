@@ -2,7 +2,7 @@
 
 [Report a Bug](https://github.com/n0raitor/dfir-installer/issues/new?labels=bug) · [Request Feature](https://github.com/n0raitor/dfir-installer/issues/new?labels=enhancement)
 
-## NEW
+## URGENT NEWS
 
 The Update and Download of the latest DFIR-Installer is now handled threw one Powershell Script in this Repository: https://github.com/n0raitor/dfir-installer-updater
 
@@ -14,7 +14,7 @@ Recommended Procedure: Download [this Script](https://github.com/n0raitor/dfir-i
 
 After that proceed with the Tutorial below
 
-## NEW 2
+## URGENT NEWS 2
 
 All configs and often updated and changed Files (e.g. Updated Release urls and Templates like dfir and flagship) will now get outsourced to this repository: https://github.com/n0raitor/dfir-installer-files
 
@@ -34,6 +34,8 @@ Note: You can use `-sync` combined with `-config` too.
 ## What is the Purpose of this Repository?
 
 Install every tool and every needed software for your DFIR workstation. This includes everything after installing Windows (and update) Post-Process steps recommended by me 
+
+Special Config Files and Documents that DFIR-Installer is using remain in this repository for better syncing (independent of the Releases of DFIR-Installer): https://github.com/n0raitor/dfir-installer-files
 
 **Follow the Readmy Tutorial below to get the best Experience**
 
@@ -123,11 +125,15 @@ others:
 * test (just for my personal tool testing, feel free to ignore this)
 * Forensic-Workstation-StudioED (My DFIR Workstation Setup including Drivers and Casual Apps)
 
+More Configs: https://github.com/n0raitor/dfir-installer-files/tree/main/Configs
+
 Pipeline Folder: Future planed configs
 
 **Run the Script in ADMIN Powershell windows with the config name (without .conf) as this:**
 
 This is a new way of observing the installer. Just The Tool name and if it was installed correctly or not.
+
+**Note**: If the installer run the first time, a `-sync` will automatically get added to the command, due to the configurations of the installer are needed to use the dfir-installer. After every other run of the tool, use the `-sync` parameter to get the latest configurations.
 
 ```ps1
 & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config <CONFIG-NAME>
@@ -139,7 +145,10 @@ For Debugging info and full live install feed and prints use *-Debug*:
 & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config CONFIG-NAME -Debug
 ```
 
+For DFIR-Installer-Files Sync :
 
+```ps1
+& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config CONFIG-NAME -sync
 
 **!!!NEW!!!**:
 If you install using dfir-installer the first time, it will update and install the recent dfir-installer release in `C:\DFIR\_dfir-installer`. This should be used for future run of the tool and if you run (after the first run) the installer the second time, the *Flag-File* in the ``C:\DFIR`` Base Directory will contain your username and your choosen config. So you can run just the ``.\dfir-installer.ps1`` as shown above in Powershell 7 Kontext without any parameter to run the last preferences.
@@ -180,8 +189,12 @@ Other Update features will get added in the future :)
 **GUI Config Builder**
 dfir-installer-selector.exe (https://github.com/n0raitor/dfir-installer-selector)
 
+**My Workstation Guide*
+https://github.com/n0raitor/dfir-workstation-guide
+
+
 **Additional non installer Scripts and Instructions/**
-In Your *Documents* folder */DFIR-Installer-Optional/InstallationSteps*: Some Scripts that could be used to install WSL supported Tools in Ubuntu LTS 22.04 or 20.04 (See Prefix, if no prefix -> distro does not matter). Feel free to use the .md files to see some additional tool installation tipps/instructions
+In Your *Documents* folder: Some Scripts that could be used to install WSL supported Tools in Ubuntu LTS 22.04 or 20.04 (See Prefix, if no prefix -> distro does not matter). Feel free to use the .md files to see some additional tool installation tipps/instructions
 
 ## Contribute to this Project
 
@@ -214,3 +227,4 @@ Use to your own risk and only on virual testing systems. I will not take any fau
 * `(.\Post-Install-Scripts, cd into it)\_Create-Scripts.ps1`: will this relative Path for the categories and creation of new Post-Install-Scripts `..\..\dfir-installer-selector\dfir-installer-selector.xlsx"`.
 * `.\calc-new-tool-list.ps1`: will create and update the tool list by checking every installation config (`Installer-Configs`)
 * `.\path-var.conf`: Contains every Path-Variable Entry to get inserted.
+
