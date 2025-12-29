@@ -14,6 +14,21 @@ Recommended Procedure: Download [this Script](https://github.com/n0raitor/dfir-i
 
 After that proceed with the Tutorial below
 
+## NEW 2
+
+All configs and often updated and changed Files (e.g. Updated Release urls and Templates like dfir and flagship) will now get outsourced to this repository: https://github.com/n0raitor/dfir-installer-files
+
+Why? Because I will only update and release mayor updates to the dfir-installer to this repository in the future (so you do not rely on always update the dfir-installer scripts to get the latest configs).
+
+To Sync the Configs and Files from the Repository, use the `--sync` command (only this command).
+
+Your own added files and configs will remain unchainged (at least, if you do not change any given configs).
+
+Command: 
+```powershell
+& 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 --sync
+```
+
 ## What is the Purpose of this Repository?
 
 Install every tool and every needed software for your DFIR workstation. This includes everything after installing Windows (and update) Post-Process steps recommended by me 

@@ -1,7 +1,23 @@
 [CmdletBinding()]
 param (
+    # Schalter, den du mit `--sync` aufrufst
+    [switch]$sync,
+
+    # Pfad zu einer Konfigurationsdatei, z. B. `--config C:\my.cfg`
     [string]$config
 )
+
+# ------------------------------------------------------------
+# Hilfsfunktion: kurze Usage‑Anzeige, falls nichts übergeben wurde
+function Show-Help {
+    Write-Host @"
+Call:  .\dfir-installer.ps1 [--sync] [--config <Configname>]
+
+Optionen:
+  --sync                  Syncs Files form DFIR-Installer-Files Repository
+  --config <Configname>   Which configuration to use   
+"@
+}
 
 #
 # STATIC GLOBAL VARS
@@ -46,12 +62,98 @@ $pathvarconfig = "path-var.conf"
 #Post Instrallation Scripot Folder
 $pp_script_folder = "Post-install-scripts"
 
-
+# Sync Repository for DFIR-Installer-Files
+$global:ZipUrl = 'https://github.com/n0raitor/dfir-installer-files/archive/refs/heads/main.zip'
 
 
 ###############################
 ### Functions #################
 ###############################
+
+# ------------------------------------------------------------
+# Core sync routine (no external parameters)
+function Sync-FromZip {
+    param()
+
+    # Download the ZIP file to a temporary location
+    $tempZip = Join-Path $env:TEMP ("repo_{0}.zip" -f ([guid]::NewGuid()))
+    Write-Host "Downloading archive from $global:ZipUrl ..." -ForegroundColor Cyan
+    try {
+        Invoke-WebRequest -Uri $global:ZipUrl -OutFile $tempZip -ErrorAction Stop | Out-Null
+    } catch {
+        Write-Error "Failed to download the archive – $_"
+        return
+    }
+
+    # Extract the ZIP to a temporary folder
+    $extractDir = Join-Path $env:TEMP ("repoExtract_{0}" -f ([guid]::NewGuid()))
+    New-Item -ItemType Directory -Path $extractDir | Out-Null
+    Write-Host "Extracting archive…" -ForegroundColor Cyan
+    try {
+        Expand-Archive -LiteralPath $tempZip -DestinationPath $extractDir -Force
+    } catch {
+        Write-Error "Failed to extract the archive – $_"
+        Remove-Item $tempZip -Force
+        return
+    }
+
+    # GitHub ZIPs wrap everything in a single top‑level folder
+    $topLevel = Get-ChildItem -Path $extractDir -Directory | Select-Object -First 1
+    if (-not $topLevel) {
+        Write-Error "Unexpected archive layout – could not locate top‑level folder."
+        Remove-Item $tempZip,$extractDir -Recurse -Force
+        return
+    }
+
+    # Dynamically discover all first‑level folders in the repo
+    $repoRootFolders = Get-ChildItem -Path $topLevel.FullName -Directory |
+        Select-Object -ExpandProperty Name
+
+    if (-not $repoRootFolders) {
+        Write-Warning "The archive does not contain any top‑level folders to sync."
+        Remove-Item $tempZip,$extractDir -Recurse -Force
+        return
+    }
+
+    Write-Host "Detected repository folders: $($repoRootFolders -join ', ')" -ForegroundColor Green
+
+    # Ensure each detected folder exists locally (create if missing)
+    foreach ($folder in $repoRootFolders) {
+        $localFolderPath = Join-Path (Get-Location).Path $folder
+        if (-not (Test-Path $localFolderPath)) {
+            Write-Verbose "Creating missing local folder: $localFolderPath"
+            New-Item -ItemType Directory -Path $localFolderPath -Force | Out-Null
+        }
+    }
+
+    # Copy every file from the extracted archive into the matching local folder,
+    # preserving the relative path.
+    foreach ($folder in $repoRootFolders) {
+        $sourceRoot = Join-Path $topLevel.FullName $folder
+
+        Get-ChildItem -Path $sourceRoot -Recurse -File | ForEach-Object {
+            # Relative path inside the current top‑level folder
+            $relative = $_.FullName.Substring($sourceRoot.Length).TrimStart('\','/')
+
+            # Destination path under the current working directory
+            $dest = Join-Path (Get-Location).Path (Join-Path $folder $relative)
+
+            # Make sure any intermediate sub‑folders exist
+            $destDir = Split-Path $dest -Parent
+            if (-not (Test-Path $destDir)) {
+                New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+            }
+
+            # Overwrite the local file with the version from the ZIP
+            Copy-Item -Path $_.FullName -Destination $dest -Force
+            Write-Verbose "Synced: $folder\$relative"
+        }
+    }
+
+    # Clean up temporary artefacts
+    Remove-Item $tempZip,$extractDir -Recurse -Force
+    Write-Host "`nSync complete – only files present in the DFIR-Installer-Files repository were overwritten." -ForegroundColor Yellow
+}
 
 # Funktion zur Abfrage der Benutzereingabe
 function AskForUpdate {
@@ -773,6 +875,15 @@ function Main {
     Write-Host ""
     Write-Host "Welcome to the DFIR-Installer"
 
+
+    # If --sync was set
+    if ($sync.IsPresent) {
+        Sync-FromZip       
+    }
+
+    if ($config -eq "") {
+        exit 0
+    }
 
     ### Ask if Choco is already installed
     Write-Debug "Make sure that Chocolatey is installed"
