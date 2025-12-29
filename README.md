@@ -154,6 +154,7 @@ For DFIR-Installer-Files Sync :
 
 ```ps1
 & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass .\dfir-install.ps1 -config CONFIG-NAME -sync
+```
 
 **!!!NEW!!!**:
 If you install using dfir-installer the first time, it will update and install the recent dfir-installer release in `C:\DFIR\_dfir-installer`. This should be used for future run of the tool and if you run (after the first run) the installer the second time, the *Flag-File* in the ``C:\DFIR`` Base Directory will contain your username and your choosen config. So you can run just the ``.\dfir-installer.ps1`` as shown above in Powershell 7 Kontext without any parameter to run the last preferences.
