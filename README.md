@@ -3,6 +3,9 @@
 [Report a Bug](https://github.com/n0raitor/dfir-installer/issues/new?labels=bug) · [Request Feature](https://github.com/n0raitor/dfir-installer/issues/new?labels=enhancement)
 
 ## Important
+
+**Important**: Set PowerShell 7 As your default PowerShell Version to run the scripts easier.
+
 NEW RELEASE may be not compatible to the previous ones, please follow the instructions [here](https://github.com/n0raitor/dfir-installer-updater) and then proceed with the tutorial below.
 
 Note: Make sure to copy your own configs to the new tool location mentioned in the "here" location.
