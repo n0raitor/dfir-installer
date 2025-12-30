@@ -26,8 +26,8 @@ if (Test-Path -Path $folder -PathType Container) {
         }
     } else {
         Write-Host "Skipping Update of dfir-installer" -ForegroundColor Yellow
-}
-else {
+    } 
+} else {
     Write-Host "DFIR-Installer does not exist at: $folder. Skipping Update of dfir-installer" -ForegroundColor Red
 }
 
