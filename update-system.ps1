@@ -1,36 +1,5 @@
 $folder = 'C:\DFIR\_dfir-installer'
 
-if (Test-Path -Path $folder -PathType Container) {
-    Write-Host "dfir-installer exists at: $folder" -ForegroundColor Green
-    $userInput = Read-Host "The folder 'C:\DFIR\_dfir-installer' already exists.  Do you want to update the installer? [y/N] "
-    if ($userInput.Trim().ToUpper().StartsWith('Y')) {
-        Write-Host "Updating dfir-installer..."
-        Set-Location 'C:\DFIR\_dfir-installer'
-        .\Get-dfir-installer-Update.ps1
-        $userInput = Read-Host "Do you want to run the installer? [y/N] "
-        if ($userInput.Trim().ToUpper().StartsWith('Y')) {
-            Write-Host "Running dfir-installer..."
-            Set-Location 'C:\DFIR\_dfir-installer\dfir-installer'
-            $installerScript = ".\dfir-install.ps1"
-            if (Test-Path $installerScript) {
-                Write-Host "Running updated dfir-installer... on $installerScript"
-                & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass $installerScript 
-                return
-            } else {
-                Write-Host "dfir-install.ps1 not found after update!" -ForegroundColor Red
-                return
-            }
-        } else {
-            Write-Host "Skipping running dfir-installer" -ForegroundColor Yellow
-        }
-    } else {
-        Write-Host "Skipping Update of dfir-installer" -ForegroundColor Yellow
-    } 
-} else {
-    Write-Host "DFIR-Installer does not exist at: $folder. Skipping Update of dfir-installer" -ForegroundColor Red
-}
-
-
 #winget update
 winget upgrade --all --include-unknown
 choco upgrade all -y
@@ -100,3 +69,32 @@ Read-Host "Make sure to move unused Links that were dropped during the update to
 # Output the path where the file was saved
 Write-Host "Export completed. File saved to: $exportFile"
 
+if (Test-Path -Path $folder -PathType Container) {
+    Write-Host "dfir-installer exists at: $folder" -ForegroundColor Green
+    $userInput = Read-Host "The folder 'C:\DFIR\_dfir-installer' already exists.  Do you want to update the installer? [y/N] "
+    if ($userInput.Trim().ToUpper().StartsWith('Y')) {
+        Write-Host "Updating dfir-installer..."
+        Set-Location 'C:\DFIR\_dfir-installer'
+        .\Get-dfir-installer-Update.ps1
+        $userInput = Read-Host "Do you want to run the installer? [y/N] "
+        if ($userInput.Trim().ToUpper().StartsWith('Y')) {
+            Write-Host "Running dfir-installer..."
+            Set-Location 'C:\DFIR\_dfir-installer\dfir-installer'
+            $installerScript = ".\dfir-install.ps1"
+            if (Test-Path $installerScript) {
+                Write-Host "Running updated dfir-installer... on $installerScript"
+                & 'C:\Program Files\PowerShell\7\pwsh.exe' -ExecutionPolicy Bypass $installerScript 
+                return
+            } else {
+                Write-Host "dfir-install.ps1 not found after update!" -ForegroundColor Red
+                return
+            }
+        } else {
+            Write-Host "Skipping running dfir-installer" -ForegroundColor Yellow
+        }
+    } else {
+        Write-Host "Skipping Update of dfir-installer" -ForegroundColor Yellow
+    } 
+} else {
+    Write-Host "DFIR-Installer does not exist at: $folder. Skipping Update of dfir-installer" -ForegroundColor Red
+}
