@@ -970,7 +970,7 @@ function Main {
     #    Write-Host ""
     #    Write-Host "Added dfir-installer to the installation list"
     #    Write-Host ""
-    }
+    
 
     # Manual Installer Command will get executed at the end
     $manualInstallCommands = @()
