@@ -11,7 +11,6 @@ if (Test-Path -Path $folder -PathType Container) {
         if ($userInput.Trim().ToUpper().StartsWith('Y')) {
             Write-Host "Running dfir-installer..."
             Set-Location 'C:\DFIR\_dfir-installer\dfir-installer'
-            .\dfir-install.ps1 -sync
             $installerScript = ".\dfir-install.ps1"
             if (Test-Path $installerScript) {
                 Write-Host "Running updated dfir-installer... on $installerScript"
