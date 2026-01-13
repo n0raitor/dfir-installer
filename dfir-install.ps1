@@ -306,7 +306,7 @@ function Download-And-Extract {
     $fileName = [System.IO.Path]::GetFileName($url)
     $filePath = Join-Path -Path $destination -ChildPath $fileName
     Write-Debug "Downloading file from $url to $filePath..."
-    $validNames = @("KAPE.zip","KAPE-Big.zip", "NirSoft-Everything.zip", "ArtiFast.zip", "VMware-workstation-full-17.6.1-24319023.exe", "binaryninja_free_win64.exe", "metasploitframework-latest.msi")
+    $validNames = @("KAPE.zip","Silver.zip","KAPE-Big.zip", "NirSoft-Everything.zip", "ArtiFast.zip", "VMware-workstation-full-17.6.1-24319023.exe", "binaryninja_free_win64.exe", "metasploitframework-latest.msi")
 	if ($validNames -contains $fileName) {
 		Start-BitsTransfer -Source $url -Destination $filePath
 	} else {
