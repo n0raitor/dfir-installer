@@ -508,42 +508,60 @@ function post-processing {
     param (
         [string]$Usern
     )
-
-    $dirs = "C:\DFIR\_Tools\"
-    $currentUserPath = [Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
-    $newPath = $currentUserPath + ";" + ($dirs -join ";")
-    [Environment]::SetEnvironmentVariable("PATH", $newPath, [System.EnvironmentVariableTarget]::User)
-
-    $Desktop_Pfad = [System.Environment]::GetFolderPath("Desktop")
-    $Ziel_Pfad = "C:\Users\$Usern\Desktop\Tools"
-    Write-Output $Desktop_Pfad
-    Write-Output $Ziel_Pfad
-    Write-Output $(Get-ChildItem -Path $Desktop_Pfad -Filter *.lnk)
-    Get-ChildItem -Path $Desktop_Pfad -Filter *.lnk | Move-Item -Destination $Ziel_Pfad
-    Get-ChildItem -Path $Desktop_Pfad -Filter *.LNK | Move-Item -Destination $Ziel_Pfad
-    Get-ChildItem -Path $Desktop_Pfad -Filter *.exe | Move-Item -Destination $Ziel_Pfad
-    Get-ChildItem -Path $Desktop_Pfad -Filter *.EXE | Move-Item -Destination $Ziel_Pfad
-        # Definiere den Desktop-Pfad und den Zielordner
-    $desktopPath = [System.Environment]::GetFolderPath('Desktop')
-    $targetFolder = "C:\DFIR\_Tools"
-
-    # Überprüfen, ob der Zielordner existiert, andernfalls erstellen
-    if (-not (Test-Path $targetFolder)) {
-        New-Item -Path $targetFolder -ItemType Directory
-        Write-Host "Target folder created: $targetFolder"
+    $response = Read-Host "Do you want all Desktop Icons get moved to the Tools folder? (y/N)"
+    
+    switch ($response.ToLower()) {
+        "y" {
+            Write-Host "Moving Links to Tools folder..."
+            $moveLinks = $true
+        }
+        "n" {
+            Write-Host "Skipping moving Links."
+            $moveLinks = $false
+        }
+        default {
+            Write-Host "Unknown input, choosing default 'N'."
+            $moveLinks = $false
+        }
     }
 
-    # Hole alle Dateien auf dem Desktop (ohne Unterordner), außer .txt-Dateien
-    $files = Get-ChildItem -Path $desktopPath -File | Where-Object { $_.Extension -ne '.txt' }
+    if ($moveLinks) {
+        $dirs = "C:\DFIR\_Tools\"
+        $currentUserPath = [Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
+        $newPath = $currentUserPath + ";" + ($dirs -join ";")
+        [Environment]::SetEnvironmentVariable("PATH", $newPath, [System.EnvironmentVariableTarget]::User)
 
-    # Verschiebe jede Datei in den Zielordner
-    foreach ($file in $files) {
-        $destinationPath = Join-Path -Path $targetFolder -ChildPath $file.Name
-        Move-Item -Path $file.FullName -Destination $destinationPath -Force
-        Write-Host "File Moved: $($file.Name)"
+        $Desktop_Pfad = [System.Environment]::GetFolderPath("Desktop")
+        $Ziel_Pfad = "C:\Users\$Usern\Desktop\Tools"
+        Write-Output $Desktop_Pfad
+        Write-Output $Ziel_Pfad
+        Write-Output $(Get-ChildItem -Path $Desktop_Pfad -Filter *.lnk)
+        Get-ChildItem -Path $Desktop_Pfad -Filter *.lnk | Move-Item -Destination $Ziel_Pfad
+        Get-ChildItem -Path $Desktop_Pfad -Filter *.LNK | Move-Item -Destination $Ziel_Pfad
+        Get-ChildItem -Path $Desktop_Pfad -Filter *.exe | Move-Item -Destination $Ziel_Pfad
+        Get-ChildItem -Path $Desktop_Pfad -Filter *.EXE | Move-Item -Destination $Ziel_Pfad
+            # Definiere den Desktop-Pfad und den Zielordner
+        $desktopPath = [System.Environment]::GetFolderPath('Desktop')
+        $targetFolder = "C:\DFIR\_Tools"
+
+        # Überprüfen, ob der Zielordner existiert, andernfalls erstellen
+        if (-not (Test-Path $targetFolder)) {
+            New-Item -Path $targetFolder -ItemType Directory
+            Write-Host "Target folder created: $targetFolder"
+        }
+
+        # Hole alle Dateien auf dem Desktop (ohne Unterordner), außer .txt-Dateien
+        $files = Get-ChildItem -Path $desktopPath -File | Where-Object { $_.Extension -ne '.txt' }
+
+        # Verschiebe jede Datei in den Zielordner
+        foreach ($file in $files) {
+            $destinationPath = Join-Path -Path $targetFolder -ChildPath $file.Name
+            Move-Item -Path $file.FullName -Destination $destinationPath -Force
+            Write-Host "File Moved: $($file.Name)"
+        }
+        Write-Host "--- Moved all Desktop Icons to Tools Folder on the Desktop ---"
     }
-    Write-Host "--- Moved all Desktop Icons to Tools Folder on the Desktop ---"
-
+    
 
 
     # Copy update script to desktop
